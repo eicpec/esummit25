@@ -1,11 +1,18 @@
 import React from 'react'
-
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Header from './layouts/Header'
+import Footer from './layouts/Footer'
 
 const App = () => {
   return (
-    <div className='bg-blue-500 text-white'>
-      hello world
-    </div>
+    <>
+    {/* <Login/> */}
+    <Header/>
+    <Register/>
+    <Footer/>
+    </>
+    
   )
 }
 
