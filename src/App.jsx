@@ -1,12 +1,13 @@
-import React from 'react'
+import './App.css';
+import React from 'react';
+import { ExpandableCardDemo } from './pages/events/competitions.jsx';
 
-
-const App = () => {
+function App() {
   return (
-    <div className='bg-blue-500 text-white'>
-      hello world
+    <div className= "App" >
+      <ExpandableCardDemo />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
