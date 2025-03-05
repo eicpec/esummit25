@@ -1,2 +1,6 @@
 @import "tailwindcss";
 
+:root {
+    --orange-500: #f97316; /* Tailwind's orange-500 */
+    --green-500: #22c55e; /* Tailwind's green-500 */
+  }
