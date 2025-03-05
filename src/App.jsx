@@ -5,6 +5,7 @@ import Team from './pages/team.jsx';
 import Header from './layouts/Header.jsx';
 import Footer from './layouts/Footer.jsx';
 import StickyScrollRevealDemo from './components/home/about.jsx';
+import VideoScroll from './components/home/VideoScroll.jsx';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <ExpandableCardDemo />
       <Team />
       <StickyScrollRevealDemo />
+      <VideoScroll />
       <Footer />
+      
       
     </div>
   );
