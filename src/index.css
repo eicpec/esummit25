@@ -1,2 +1,66 @@
 @import "tailwindcss";
 
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+/* Custom Scrollbar for Webkit Browsers (Chrome, Safari) */
+*::-webkit-scrollbar {
+    width: 6px; /* Width of the scrollbar */
+  }
+  
+  /* Scrollbar Track */
+  ::-webkit-scrollbar-track {
+    background: #000; /* Light background */
+    border-radius: 50px;
+  }
+  
+  /* Scrollbar Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #fff; /* Scrollbar color */
+    border-radius: 50px;
+  }
+  
+  /* Scrollbar Handle on Hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #fff; /* Darker shade on hover */
+  }
+  
+  /* Apply custom scrollbar to a specific container */
+  .custom-scrollbar {
+    overflow-y: auto;
+    max-height: 400px; /* Set the height as per requirement */
+  }
+  
+  /* Works in Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #fff #000;
+  }
+  
+
+@media (max-width: 1000px) {
+    .custom-items {
+        display: none;
+    }
+
+    .custom-menu-icon {
+        display: block;
+    }
+
+    .custom-header {
+        padding-left: 0;
+        justify-content: space-between;
+    }
+}
+

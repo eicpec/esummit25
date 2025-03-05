@@ -47,12 +47,12 @@ function Header() {
 }
 
 export const headerItems = [
-    { href: "/", name: "HOME" },
-    { href: "/", name: "EVENTS" },
+    { href: "/events", name: "EVENTS" },
     { href: "/", name: "PASSES" },
-    { href: "/", name: "SPONSORS" },
+    { href: "/timeline", name: "TIMELINE" },
     { href: "/", name: "SPEAKERS" },
-    { href: "/", name: "TIMELINE" },
+    { href: "/team", name: "TEAM" },
+    { href: "/", name: "SPONSORS" },
     { href: "/", name: "CONTACT" },
     { href: "/", name: "REGISTER" },
 ];

@@ -3,20 +3,21 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Background from "../assets/bgesummit.png";
 
-const Layout = ({ title, children }) => {
+const Layout = ({ title, children, background = true }) => {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Page Header */}
             <Header />
-            
+
             {/* Main Content */}
-            <main 
+            <main
                 className="flex-grow bg-contain bg-center mt-16"
-                style={{ backgroundImage: `url(${Background})` }}
+                style={background ? { backgroundImage: `url(${Background})` } : { backgroundColor: "black" }}
             >
                 {children}
             </main>
-            
+
+
             {/* Page Footer */}
             <Footer />
         </div>
