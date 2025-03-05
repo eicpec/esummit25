@@ -1,14 +1,14 @@
-// import React, { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import Logo from "../assets/esummit25logo.png"
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Logo from "../assets/esummit25logo.png"
 
 function Header() {
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState(false);
 
-//     const handleClick = () => {
-//         setIsActive((prev) => !prev);
-//     };
+    const handleClick = () => {
+        setIsActive((prev) => !prev);
+    };
 
     return (
         <div className={`fixed top-0 w-full bg-black text-white font-sans z-50 h-16 flex items-center  transition-all bg-opacity-60 duration-300 ${isActive ? "bg-opacity-60" : ""}`}>
@@ -58,14 +58,14 @@ function Header() {
                     </li>
                 </ul>
 
-//                 {/* Mobile Menu Button */}
-//                 <button className="hidden custom-menu-icon p-2 focus:outline-none" onClick={handleClick}>
-//                     ☰
-//                 </button>
-//             </nav>
-//         </div>
-//     );
-// }
+                {/* Mobile Menu Button */}
+                <button className="hidden custom-menu-icon p-2 focus:outline-none" onClick={handleClick}>
+                    ☰
+                </button>
+            </nav>
+        </div>
+    );
+}
 
 export const headerItems = [
     { href: "/", name: "HOME", ext: true },
