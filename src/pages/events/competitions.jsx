@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import EventCard from "../../components/events/EventCard.jsx";
 import { events } from "../../data/events.js";
 import "../../styles/events/competitions.css";
+import Layout from "../../layouts/Layout.jsx"
 
 export function ExpandableCardDemo() {
   const [active, setActive] = useState(null);
@@ -28,7 +29,8 @@ export function ExpandableCardDemo() {
   }, [active]);
 
   return (
-    <div className="page-background">
+    <Layout children={
+      <div className="page-background">
       {/* Overlay for expanded card */}
       <AnimatePresence>
         {active && typeof active === "object" && (
@@ -84,6 +86,7 @@ export function ExpandableCardDemo() {
         ))}
       </ul>
     </div>
+    }/>
   );
 }
 

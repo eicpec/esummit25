@@ -11,7 +11,7 @@ const Layout = ({ title, children }) => {
             
             {/* Main Content */}
             <main 
-                className="flex-grow bg-cover bg-center"
+                className="flex-grow bg-contain bg-center mt-16"
                 style={{ backgroundImage: `url(${Background})` }}
             >
                 {children}

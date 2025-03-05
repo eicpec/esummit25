@@ -8,10 +8,7 @@ import Footer from './layouts/Footer.jsx';
 function App() {
   return (
     <div className= "App" >
-      <Header />
       <ExpandableCardDemo />
-      <Team />
-      <Footer />
     </div>
   );
 }
