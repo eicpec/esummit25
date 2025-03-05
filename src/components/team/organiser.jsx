@@ -1,5 +1,5 @@
 import React from "react";
-import { coreTeam } from "../../data/team.js";
+// import { coreTeam } from "../../data/team.js";
 
 const Organiser = ({ organiser }) => {
     return (
