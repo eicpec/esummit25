@@ -7,12 +7,10 @@ import Footer from './layouts/Footer'
 const App = () => {
   return (
     <>
-    {/* <Login/> */}
     <Header/>
     <Register/>
     <Footer/>
     </>
-    
   )
 }
 

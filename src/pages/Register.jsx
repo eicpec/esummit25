@@ -2,7 +2,7 @@ import React from 'react';
 
 const Register = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
+    <div className="min-h-screen flex items-center justify-center bg-black bg-[url(./assets/backgroundEsummit.png)]">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg text-center">
         <h1 className="text-3xl font-bold text-white mb-6">Register</h1>
         <form className="space-y-4">
@@ -14,17 +14,17 @@ const Register = () => {
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
           />
           <input
             type="password"
             placeholder="Confirm Password"
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
