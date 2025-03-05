@@ -9,6 +9,10 @@ import Home from './pages/Home.jsx';
 import LandingPage from './components/ui/Landing.jsx';
 import Timeline from './components/ui/Timeline.jsx';
 import TimelineDemo from './pages/TimeLine.jsx';
+import StickyScrollRevealDemo from './components/home/about.jsx';
+import VideoScroll from './components/home/VideoScroll.jsx';
+import SignupFormDemo from './pages/Register.jsx';
+import Login from './pages/Login.jsx';
 
 function App() {
   return (
@@ -17,6 +21,7 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/events" element={<ExpandableCardDemo />} />
         <Route path="/timeline" element={<TimelineDemo />} />
+        <Route path="/register" element={<SignupFormDemo />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </div>
