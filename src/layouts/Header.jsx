@@ -54,7 +54,7 @@ export const headerItems = [
     { href: "/team", name: "TEAM" },
     { href: "/", name: "SPONSORS" },
     { href: "/", name: "CONTACT" },
-    { href: "/", name: "REGISTER" },
+    { href: "/register", name: "REGISTER" },
 ];
 
 export default Header;

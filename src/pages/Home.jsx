@@ -2,6 +2,10 @@ import React from "react";
 import { HeroParallax } from "../components/ui/HeroParallax";
 import Layout from "../layouts/Layout";
 import Timeline from "../components/ui/Timeline"; // Ensure you have a Timeline component or library
+import { ContainerScroll } from "../components/ui/container-scroll-animation";
+import VideoScroll from "../components/home/VideoScroll";
+import { StickyScroll } from "../components/ui/sticky";
+import StickyScrollRevealDemo from "../components/home/about";
 
 const products = [
     {
@@ -106,6 +110,8 @@ function Home() {
     return (
         <>
             <HeroParallaxDemo />
+            <StickyScrollRevealDemo />
+            <VideoScroll />
         </>
     );
 }
