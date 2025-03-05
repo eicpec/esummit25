@@ -6,7 +6,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
-import { Link } from "react-router-dom";
+import React from "react";
 
 function Footer() {
     return (
@@ -35,14 +35,14 @@ function Footer() {
             <div className="flex flex-col md:flex-row">
                 <div className="flex-1 p-12">
                     <img
-                        src="/assets/logos/pec.png"
+                        src="https://www.eicpec.in/assets/logos/pec.png"
                         className="mb-3 mr-5"
                         height="80"
                         width="80"
                         alt="E-summit 2024 | PEC"
                     />
                     <img
-                        src="/assets/logos/eic.png"
+                        src="https://www.eicpec.in/assets/logos/eic.png"
                         className="mb-5"
                         height="80"
                         width="80"
@@ -50,17 +50,17 @@ function Footer() {
                     />
                     <p>
                         Entrepreneurship and Incubation Cell at PEC operates under the Ministry of Education's Innovation Cell
-                        Programs since 2015. EIC Provides mentoring in entrepreneurship, achieving its goal of nurturing
+                        Programs since 2015. EIC provides mentoring in entrepreneurship, achieving its goal of nurturing
                         businesses.
                     </p>
                 </div>
                 <div className="flex-1 flex flex-col text-center md:flex-row md:text-left gap-4 p-12">
                     <div className="flex-1">
                         <h3 className="text-lg font-semibold">Quick Links</h3>
-                        <Link className="block mt-2 text-white no-underline" to="/">Home</Link>
-                        <Link className="block mt-2 text-white no-underline" to="/team">Team</Link>
-                        <Link className="block mt-2 text-white no-underline" to="/pass">Buy Pass</Link>
-                        <Link className="block mt-2 text-white no-underline" to="/contact">Contact</Link>
+                        <a className="block mt-2 text-white no-underline" href="/">Home</a>
+                        <a className="block mt-2 text-white no-underline" href="/team">Team</a>
+                        <a className="block mt-2 text-white no-underline" href="/pass">Buy Pass</a>
+                        <a className="block mt-2 text-white no-underline" href="/contact">Contact</a>
                     </div>
                     <div className="flex-1">
                         <h2 className="text-xl font-semibold">Contact</h2>
