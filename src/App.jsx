@@ -1,17 +1,19 @@
-import React from 'react'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Header from './layouts/Header'
-import Footer from './layouts/Footer'
+import './App.css';
+import React from 'react';
+import { ExpandableCardDemo } from './pages/events/competitions.jsx';
+import Team from './pages/team.jsx';
+import Header from './layouts/Header.jsx';
+import Footer from './layouts/Footer.jsx';
 
-const App = () => {
+function App() {
   return (
-    <>
-    <Header/>
-    <Register/>
-    <Footer/>
-    </>
-  )
+    <div className= "App" >
+      <Header />
+      <ExpandableCardDemo />
+      <Team />
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
