@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Logo from "../assets/esummit25logo.png";
+import Logo from "../assets/Logo_Text.png"; // text
+import MiniLogo from "../assets/Logo_Vector_Image.png"; // vector
+import FullLogo from "../assets/esummit25logo.png"; // full
 
 function Header() {
     const [isActive, setIsActive] = useState(false);
@@ -9,7 +11,7 @@ function Header() {
     };
 
     return (
-        <div className={`fixed top-0 w-full bg-black text-white font-sans z-50 h-16 flex items-center transition-all bg-opacity-60 duration-300 ${isActive ? "bg-opacity-60" : ""}`}>
+        <div className={`fixed top-0 w-full bg-gradient-to-b from-blue-900/70 to-blue-900/0 backdrop-blur-sm text-white shadow-md font-sans z-50 h-20 flex items-center transition-all duration-300 ${isActive ? "bg-opacity-100" : ""}`}>
             <nav className="pl-12 custom-header flex justify-center items-center w-full px-6">
                 {/* Left Side Navigation */}
                 <ul className="custom-items flex space-x-8">
@@ -22,7 +24,7 @@ function Header() {
 
                 {/* Logo */}
                 <img
-                    src={Logo}
+                    src={FullLogo}
                     alt="Logo"
                     className="w-48 mx-8 cursor-pointer transition-transform duration-300"
                     onClick={() => (window.location.href = "/")}

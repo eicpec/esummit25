@@ -13,6 +13,7 @@ import StickyScrollRevealDemo from './components/home/about.jsx';
 import VideoScroll from './components/home/VideoScroll.jsx';
 import SignupFormDemo from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
+import Passes from './pages/Passes.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/events" element={<ExpandableCardDemo />} />
         <Route path="/timeline" element={<TimelineDemo />} />
         <Route path="/register" element={<SignupFormDemo />} />
+        <Route path="/pass" element={<Passes />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </div>
