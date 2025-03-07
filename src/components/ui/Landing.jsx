@@ -16,7 +16,7 @@ const LandingPage = () => {
         timeline.fromTo(
             ".logo",
             { y: 10, opacity: 0, scale: 8 },
-            { y: 0, opacity: 1, scale: 4.5, duration: 2, ease: "power2.out" }
+            { y: 0, opacity: 1, scale: 7.5, duration: 2, ease: "power2.out" }
         );
 
         // Set `showHeader` to `true` after the animation completes

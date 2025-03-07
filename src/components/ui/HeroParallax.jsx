@@ -85,7 +85,7 @@ const ProductCard = React.memo(({ product, translate }) => {
 });
 
 const Header = React.memo(() => (
-  <div className="max-w-7xl relative mx-auto py-10 md:py-20 px-4 w-full left-0 top-0 flex justify-center">
+  <div className="max-w-4xl relative mx-auto py-10 md:py-20 px-4 w-full left-0 top-0 flex justify-center">
     <img src={Logo} alt="Event Logo" className="w-full max-w-[1100px] h-auto object-contain opacity-100" />
   </div>
 ));
