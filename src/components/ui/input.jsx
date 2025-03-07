@@ -19,7 +19,7 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
     <motion.div
       style={{
         background: useMotionTemplate`
-          radial-gradient(
+          linear-gradient(
             ${visible ? radius + "px" : "0px"} circle at ${mouseX}px ${mouseY}px,
             var(--orange-500),
             var(--green-500),
