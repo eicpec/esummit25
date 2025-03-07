@@ -7,6 +7,8 @@ import VideoScroll from "../components/home/VideoScroll";
 import { StickyScroll } from "../components/ui/sticky";
 import StickyScrollRevealDemo from "../components/home/about";
 import BG01 from "../assets/Landing Page/BG01.jpg"
+import Speaker from "./Speaker";
+import Sponsers from "./Sponsers"
 // import BG02 from "../assets/Landing Page/BG02.HEIC"
 
 const products = [
@@ -87,6 +89,8 @@ function Home() {
                     <HeroParallaxDemo />
                     <VideoScroll />
                     <StickyScrollRevealDemo />
+                    <Speaker/>
+                    <Sponsers/>
                 </>
             } />
         </>
