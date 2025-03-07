@@ -33,71 +33,96 @@ const ExpandableCardDemo = () => {
 
   return (
     <>
-      {/* Overlay */}
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-10"
-          />
-        )}
-      </AnimatePresence>
+      {/* Global Black Background */}
+      <div className="bg-black min-h-screen w-full">
+        
+        {/* Heading and Tagline */}
+        <div className="text-center text-white py-10 mt-20">
+          <h1 className="text-4xl font-bold">Event: E-Summit'25</h1>
+          <p className="text-lg text-gray-300 mt-2">Know about the most exciting events of all time</p>
+        </div>
 
-      {/* Expanded Card */}
-      <AnimatePresence>
-        {active && (
-          <div className="fixed inset-0 flex items-center justify-center z-20">
+        {/* Overlay */}
+        <AnimatePresence>
+          {active && (
             <motion.div
-              layoutId={`card-${active.EventName}-${id}`}
-              ref={ref}
-              className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full relative"
-            >
-              <button
-                className="absolute top-3 right-3 text-gray-600"
-                onClick={() => setActive(null)}
-              >
-                ✖
-              </button>
-              <img
-                src={active.EventPhoto}
-                alt={active.EventName}
-                className="w-full h-56 object-cover rounded-lg"
-              />
-              <h3 className="text-xl font-bold mt-4">{active.EventName}</h3>
-              <p className="text-gray-600">{active.About}</p>
-              <a
-                href={active.ctaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 block text-center bg-green-500 text-white py-2 rounded-lg"
-              >
-                Register
-              </a>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-10"
+            />
+          )}
+        </AnimatePresence>
 
-      {/* Card Row */}
-      <div className="flex flex-wrap gap-4 px-4 py-6 justify-center bg-black">
-  {events.map((card) => (
-    <motion.div
-      key={card.EventName}
-      layoutId={`card-${card.EventName}-${id}`}
-      className="cursor-pointer p-4 bg-gray-100 rounded-lg hover:bg-gray-200 w-[250px]"
-      onClick={() => setActive(card)}
-    >
-      <img
-        src={card.EventPhoto}
-        alt={card.EventName}
-        className="w-full h-40 object-cover rounded-lg"
-      />
-      <h3 className="text-lg font-semibold mt-2">{card.EventName}</h3>
-    </motion.div>
-  ))}
+        {/* Expanded Card */}
+        <AnimatePresence>
+          {active && (
+            <div className="fixed inset-0 flex items-center justify-center z-20">
+              <motion.div
+                layoutId={`card-${active.EventName}-${id}`}
+                ref={ref}
+                className="bg-black p-6 rounded-2xl shadow-2xl max-w-md w-full relative border-4 border-gradient text-white"
+              >
+                <button
+                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
+                  onClick={() => setActive(null)}
+                >
+                  ✖
+                </button>
+                <img
+                  src={active.EventPhoto}
+                  alt={active.EventName}
+                  className="w-full h-56 object-cover rounded-xl"
+                />
+                <h3 className="text-2xl font-semibold mt-4">{active.EventName}</h3>
+                <p className="text-gray-300">{active.About}</p>
+                <a
+                  href={active.ctaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 block text-center bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition-all"
+                >
+                  Register
+                </a>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+        {/* Card Row */}
+        <div className="flex flex-wrap gap-6 px-6 py-8 justify-center mt-1">
+          {events.map((card) => (
+            <motion.div
+              key={card.EventName}
+              layoutId={`card-${card.EventName}-${id}`}
+              className="cursor-pointer p-4 bg-black rounded-2xl border-2 border-gradient w-[260px] transition-all duration-300 hover:scale-105 shadow-lg"
+              onClick={() => setActive(card)}
+            >
+              <img
+                src={card.EventPhoto}
+                alt={card.EventName}
+                className="w-full h-64 object-cover rounded-xl"
+              />
+              <h3 className="text-xl font-semibold mt-3 text-white">{card.EventName}</h3>
+            </motion.div>
+          ))}
+        </div>
       </div>
+
+      {/* Styles */}
+      <style jsx>{`
+        html, body {
+          background-color: black;
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden;
+        }
+        .border-gradient {
+          border-image: linear-gradient(90deg, #ff9933, #ffffff, #138808) 1;
+          box-shadow: 0px 4px 10px rgba(255, 153, 51, 0.4), 
+                      0px -4px 10px rgba(19, 136, 8, 0.4);
+        }
+      `}</style>
     </>
   );
 };

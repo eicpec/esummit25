@@ -54,8 +54,8 @@ export const headerItems = [
     { href: "/timeline", name: "TIMELINE" },
     { href: "/", name: "SPEAKERS" },
     { href: "/team", name: "TEAM" },
-    { href: "/", name: "SPONSORS" },
-    { href: "/", name: "CONTACT" },
+    { href: "/gallery", name: "SPONSORS" },
+    { href: "/contact", name: "CONTACT" },
     { href: "/register", name: "REGISTER" },
 ];
 
