@@ -10,6 +10,7 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./layouts/Header.jsx"; // Assuming Navbar is in Header.jsx
 import { ImageGallery } from "./pages/ImageGallery.jsx";
 import { ContactUsPage } from "./pages/contactus.jsx";
+import { TricolorEffect } from "./components/tricoloreffect.jsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ function App() {
               <Route path='/gallery' element={<ImageGallery />} />
               <Route path='/contact' element={<ContactUsPage />} />
             </Routes>
+            <TricolorEffect />
           </div>
         )
       }</>
