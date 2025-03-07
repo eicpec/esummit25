@@ -7,20 +7,30 @@ import BgImage from "../../assets/bgesummit.png"; // Import the background image
 import Home from "../../pages/Home";
 
 const LandingPage = () => {
-    const [showHeader, setShowHeader] = useState(false);
-
     useEffect(() => {
         const timeline = gsap.timeline();
 
-        // Logo animation
+        // Initial Logo Animation: Appears large, then shrinks
         timeline.fromTo(
             ".logo",
             { y: 10, opacity: 0, scale: 8 },
-            { y: 0, opacity: 1, scale: 7.5, duration: 2, ease: "power2.out" }
+            { y: 0, opacity: 1, scale: 5, duration: 1.5, ease: "power2.out" }
         );
 
-        // Set `showHeader` to `true` after the animation completes
-        timeline.to({}, { duration: 1, onComplete: () => setShowHeader(true) });
+        // Shrink slightly
+        timeline.to(".logo", {
+            scale: 3,
+            duration: 1,
+            ease: "power2.inOut",
+        });
+
+        // Expand again
+        timeline.to(".logo", {
+            scale: 10,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power2.inOut"
+        });
 
     }, []);
 
@@ -29,19 +39,12 @@ const LandingPage = () => {
             className="relative w-screen h-screen overflow-y-scroll overflow-x-hidden"
             style={{ backgroundImage: `url(${BgImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
         >
-            {!showHeader ? (
-                <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ backgroundImage: `url(${BgImage})`, backgroundSize: "cover" }}
-                >
-                    <img src={FullLogo} alt="Logo" className="logo w-40 absolute" />
-                </div>
-            ) : (
-                <>
-                    <Header />
-                    <Home />
-                </>
-            )}
+            <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ backgroundImage: `url(${BgImage})`, backgroundSize: "cover" }}
+            >
+                <img src={FullLogo} alt="Logo" className="logo w-40 absolute" />
+            </div>
         </div>
     );
 };

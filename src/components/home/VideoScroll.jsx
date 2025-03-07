@@ -11,7 +11,7 @@ export default function VideoScroll() {
             <h1 className="text-4xl font-semibold text-black dark:text-white">
               Witness The Greatness of <br />
               <span class="text-4xl md:text-[6rem] font-bold mt-1 leading-none bg-gradient-to-r from-orange-500 via-white to-green-500 bg-clip-text text-transparent">
-                E-SUMMIT'25
+                E-Summit'25
               </span>
             </h1>
           </>
