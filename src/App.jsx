@@ -9,7 +9,7 @@ import LogoAnimationPage from "./pages/LogoAnimationPage.jsx";
 import Home from "./pages/Home.jsx";
 import Navbar from "./layouts/Header.jsx"; 
 import { ImageGallery } from "./pages/ImageGallery.jsx";
-import { ContactUsPage } from "./pages/contactus.jsx";
+import ContactUsPage  from "./pages/contactus.jsx";
 import { TricolorEffect } from "./components/tricoloreffect.jsx";
 
 function App() {
