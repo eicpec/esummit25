@@ -47,7 +47,7 @@ const Sponsers = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-black relative">
+    <div className="flex items-center justify-center h-screen relative">
       {/* SVG for Hearts */}
       <svg
         width="500"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Logo from "../assets/Logo_Text.png"; // text
-import MiniLogo from "../assets/Logo_Vector_Image.png"; // vector
-import FullLogo from "../assets/esummit25logo.png"; // full
+import Logo from "../assets/General/Logo_Text.png"; // text
+import MiniLogo from "../assets/General/Logo_Vector_Image.png"; // vector
+import FullLogo from "../assets/General/esummit25logo.png"; // full
 
 function Header() {
     const [isActive, setIsActive] = useState(false);
@@ -11,7 +11,7 @@ function Header() {
     };
 
     return (
-        <div className={`fixed top-0 w-full bg-gradient-to-b from-gray-900/70 to-gray-900/0 backdrop-blur-sm text-white shadow-md font-sans z-50 h-20 flex items-center transition-all duration-300 ${isActive ? "bg-opacity-100" : ""}`}>
+        <div className={`fixed top-0 w-full bg-gradient-to-b from-gray-900/70 to-gray-900/0 backdrop-blur-sm text-white font-sans z-50 h-20 flex items-center transition-all duration-300 ${isActive ? "bg-opacity-100" : ""}`}>
             <nav className="pl-12 custom-header flex justify-center items-center w-full px-6">
                 {/* Left Side Navigation */}
                 <ul className="custom-items flex space-x-8">
@@ -50,7 +50,7 @@ function Header() {
 
 export const headerItems = [
     { href: "/events", name: "EVENTS" },
-    { href: "/", name: "PASSES" },
+    { href: "/passes", name: "PASSES" },
     { href: "/timeline", name: "TIMELINE" },
     { href: "/", name: "SPEAKERS" },
     { href: "/team", name: "TEAM" },
