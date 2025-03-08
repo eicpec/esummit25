@@ -61,7 +61,12 @@ const ExpandableCardDemo = () => {
               <motion.div
                 layoutId={`card-${active.EventName}-${id}`}
                 ref={ref}
-                className="bg-black p-6 rounded-2xl shadow-2xl max-w-md w-full relative border-4 border-gradient text-white"
+                className="bg-black p-6 rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden text-white"
+                style={{
+                  border: "4px solid transparent",
+                  borderImage: "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
+                  clipPath: "inset(0 round 20px)", // Ensures rounded borders work properly
+                }}
               >
                 <button
                   className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
@@ -95,7 +100,11 @@ const ExpandableCardDemo = () => {
             <motion.div
               key={card.EventName}
               layoutId={`card-${card.EventName}-${id}`}
-              className="cursor-pointer p-4 bg-black rounded-2xl border-2 border-gradient w-[260px] transition-all duration-300 hover:scale-105 shadow-lg"
+              className="cursor-pointer p-4 bg-black rounded-3xl border-2 border-transparent w-[260px] transition-all duration-300 hover:scale-105 shadow-lg"
+              style={{
+                borderImage: "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
+                clipPath: "inset(0 round 15px)", // Smooth rounded edges
+              }}
               onClick={() => setActive(card)}
             >
               <img
@@ -116,11 +125,6 @@ const ExpandableCardDemo = () => {
           margin: 0;
           padding: 0;
           overflow-x: hidden;
-        }
-        .border-gradient {
-          border-image: linear-gradient(90deg, #ff9933, #ffffff, #138808) 1;
-          box-shadow: 0px 4px 10px rgba(255, 153, 51, 0.4), 
-                      0px -4px 10px rgba(19, 136, 8, 0.4);
         }
       `}</style>
     </>
