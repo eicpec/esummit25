@@ -17,7 +17,7 @@ function Header() {
                 <ul className="custom-items flex space-x-8">
                     {headerItems.slice(0, 4).map((item, i) => (
                         <li key={i}>
-                            <a href={item.href} className="hover:text-teal-400">{item.name}</a>
+                            <a href={item.href} className="hover:text-[#D7742F]">{item.name}</a>
                         </li>
                     ))}
                 </ul>
@@ -34,7 +34,7 @@ function Header() {
                 <ul className="custom-items flex space-x-8">
                     {headerItems.slice(4, 8).map((item, i) => (
                         <li key={i}>
-                            <a href={item.href} className="hover:text-teal-400">{item.name}</a>
+                            <a href={item.href} className="hover:text-[#D7742F]">{item.name}</a>
                         </li>
                     ))}
                 </ul>

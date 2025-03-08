@@ -23,37 +23,20 @@ function App() {
   return (
 
     <>
-      {
-        loading ? (
-          <div>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/events" element={<ExpandableCardDemo />} />
-              <Route path="/timeline" element={<TimelineDemo />} />
-              <Route path="/register" element={<SignupFormDemo />} />
-              <Route path='/gallery' element={<ImageGallery />} />
-              <Route path='/contact' element={<ContactUsPage />} />
-            </Routes>
-          </div>
-        ) : (
-          <div>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/events" element={<ExpandableCardDemo />} />
-              <Route path="/timeline" element={<TimelineDemo />} />
-              <Route path="/register" element={<SignupFormDemo />} />
-              <Route path='/gallery' element={<ImageGallery />} />
-              <Route path='/contact' element={<ContactUsPage />} />
-              <Route path='/passes' element={<Passes />} />
-            </Routes>
-            {/* <TricolorEffect /> */}
-          </div>
-        )
-      }</>
+      <div>
+        <Routes>
+          <Route path="/" element={loading ? <LogoAnimationPage /> : <Home />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/events" element={<ExpandableCardDemo />} />
+          <Route path="/timeline" element={<TimelineDemo />} />
+          <Route path="/register" element={<SignupFormDemo />} />
+          <Route path='/gallery' element={<ImageGallery />} />
+          <Route path='/contact' element={<ContactUsPage />} />
+          <Route path='/passes' element={<Passes />} />
+        </Routes>
+        {/* <TricolorEffect /> */}
+      </div>
+    </>
 
   );
 }
