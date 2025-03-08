@@ -10,13 +10,13 @@ export const TricolorEffect = ({ children }) => {
     return {
       x,
       y,
-      vx: (Math.random() - 0.5) * 3,
-      vy: (Math.random() - 0.5) * 3,
-      size: Math.random() * 6 + 3,
+      vx: (Math.random() - 0.5) * 1.5, // Slower movement
+      vy: (Math.random() - 0.5) * 1.5,
+      size: Math.random() * 4 + 2, // Smaller particles
       alpha: 1,
       color: colors[Math.floor(Math.random() * colors.length)],
-      life: Math.random() * 100 + 50, // Random life span
-      shape: Math.random() > 0.5 ? "circle" : "square", // Random shape
+      life: Math.random() * 80 + 40, // Shorter life span
+      shape: Math.random() > 0.5 ? "circle" : "square",
     };
   };
 
@@ -25,7 +25,7 @@ export const TricolorEffect = ({ children }) => {
     particles.forEach((p, index) => {
       p.x += p.vx;
       p.y += p.vy;
-      p.alpha -= 0.01;
+      p.alpha -= 0.015; // Faster fading
       p.life -= 1;
 
       if (p.life <= 0 || p.alpha <= 0) {
@@ -44,11 +44,10 @@ export const TricolorEffect = ({ children }) => {
         ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
       }
 
-      // Add a trail effect
-      ctx.globalAlpha = p.alpha * 0.5;
-      ctx.fillStyle = p.color;
+      // Very subtle trail effect
+      ctx.globalAlpha = p.alpha * 0.2;
       ctx.beginPath();
-      ctx.arc(p.x - p.vx * 2, p.y - p.vy * 2, p.size * 0.8, 0, Math.PI * 2);
+      ctx.arc(p.x - p.vx * 1.5, p.y - p.vy * 1.5, p.size * 0.5, 0, Math.PI * 2);
       ctx.fill();
     });
   };
@@ -67,8 +66,8 @@ export const TricolorEffect = ({ children }) => {
     animate();
 
     const handleMouseMove = (e) => {
-      for (let i = 0; i < 8; i++) {
-        particles.push(createParticle(e.clientX, e.clientY));
+      for (let i = 0; i < 3; i++) {
+        particles.push(createParticle(e.clientX, e.clientY)); // Fewer particles
       }
     };
 
