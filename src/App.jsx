@@ -17,11 +17,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3600); // Simulate loading time
+    setTimeout(() => setLoading(false), 3000); // Simulate loading time
   }, []);
 
   return (
-
     <>
       <div>
         <Routes>
