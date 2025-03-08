@@ -2,14 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { FaInstagram, FaLinkedin } from "react-icons/fa"; // Import icons from react-icons
 
-const speakers = Array.from({ length: 21 }, (_, i) => ({
-  id: i + 1,
-  name: `Speaker ${i + 1}`,
-  designation: `Designation ${i + 1}`,
-  image: `../assets/pastSpeakers/${i + 1}.jpg`, // Assuming images are named 1.jpg, 2.jpg, etc.
-}));
-
-const Speaker = () => {
+const Speaker = ({ title, data, direction }) => {
   const containerRef = useRef(null);
   const tl = useRef(null);
 
@@ -19,10 +12,10 @@ const Speaker = () => {
 
     // GSAP animation for infinite horizontal scroll
     tl.current = gsap.to(container, {
-      x: -totalWidth / 2,
+      x: direction ? -totalWidth / 2 : totalWidth / 2,
       duration: 30,
       ease: "none",
-      repeat: -1,
+      repeat: 1,
     });
 
     return () => {
@@ -91,12 +84,13 @@ const Speaker = () => {
 
   return (
     <div className="overflow-hidden py-10 bg-black">
+      <h1>{title}</h1>
       <div
         ref={containerRef}
         className="flex space-x-8"
         style={{ whiteSpace: "nowrap" }}
       >
-        {speakers.map((speaker) => (
+        {data.map((speaker) => (
           <div
             key={speaker.id}
             className="relative flex-shrink-0 w-64 p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-10 cursor-pointer"

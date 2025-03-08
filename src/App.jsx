@@ -10,7 +10,8 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./layouts/Header.jsx"; // Assuming Navbar is in Header.jsx
 import { ImageGallery } from "./pages/ImageGallery.jsx";
 import { ContactUsPage } from "./pages/contactus.jsx";
-import { TricolorEffect } from "./components/tricoloreffect.jsx";
+import { TricolorEffect } from "./components/general/tricoloreffect.jsx";
+import Passes from "./pages/Passes.jsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -24,8 +25,6 @@ function App() {
     <>
       {
         loading ? (
-          <LogoAnimationPage />
-        ) : (
           <div>
             <Navbar />
             <Routes>
@@ -37,7 +36,21 @@ function App() {
               <Route path='/gallery' element={<ImageGallery />} />
               <Route path='/contact' element={<ContactUsPage />} />
             </Routes>
-            <TricolorEffect />
+          </div>
+        ) : (
+          <div>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/events" element={<ExpandableCardDemo />} />
+              <Route path="/timeline" element={<TimelineDemo />} />
+              <Route path="/register" element={<SignupFormDemo />} />
+              <Route path='/gallery' element={<ImageGallery />} />
+              <Route path='/contact' element={<ContactUsPage />} />
+              <Route path='/passes' element={<Passes />} />
+            </Routes>
+            {/* <TricolorEffect /> */}
           </div>
         )
       }</>

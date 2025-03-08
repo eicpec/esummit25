@@ -114,5 +114,5 @@ export const passData = [
             "Intern Fair & Funding Conclave",
         ],
         exclusions: [],
-    },
+    }
 ];

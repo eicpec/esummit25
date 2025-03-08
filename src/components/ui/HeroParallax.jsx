@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import Logo from "../../assets/esummit25logofull.png";
+import Logo from "../../assets/General/esummit25logofull.png";
 
 const springConfig = {
   stiffness: 100,

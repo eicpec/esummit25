@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import Header from "./Header";
 import Footer from "./Footer";
-import Background from "../assets/bgesummit.png";
+import Background from "../assets/General/bgesummit.png";
 
 const Layout = ({ title = "E-Summit PEC - Catalyzing Viksit Bharat", children, background = true, header = true, footer = true }) => {
     return (

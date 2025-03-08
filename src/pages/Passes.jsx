@@ -1,124 +1,89 @@
-// import React from "react";
-// import { passData } from "../data/passData";
-// import { Link } from "react-router-dom";
-// import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-// import CancelIcon from "@mui/icons-material/Cancel";
-// import Layout from "../layouts/Layout";
+import React from "react";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { passData } from "../data/passData";
+import Layout from "../layouts/Layout";
 
-// const Passes = () => {
-//     const startupPasses = passData.slice(4, 7);
-//     const studentPasses = passData.slice(0, 4);
+const Passes = () => {
+    const startupPasses = passData.slice(4, 7);
+    const studentPasses = passData.slice(0, 4);
 
-//     return (
-//         <Layout children={
-//             <div className="text-white mt-8 text-center px-5 py-12">
-//                 <h1 className="text-4xl font-bold bg-gradient-to-r from-[#e16d13] via-white to-[#138808] bg-clip-text text-transparent">
-//                     Buy E-Summit Pass
-//                 </h1>
-//                 <p className="text-lg mt-2 opacity-80">
-//                     Grab your entry ticket to PEC's E-Summit happening on 22nd and 23rd March, 2025!
-//                 </p>
+    return (
+        <Layout children={
+            <div className="text-white text-center mt-10 py-12 px-5">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-white to-green-600 bg-clip-text text-transparent">
+                    BUY E-SUMMIT PASSES
+                </h1>
+                <p className="text-lg mt-2 opacity-80">
+                    Grab your entry ticket to PEC's E-Summit happening on 22nd and 23rd March, 2025!
+                </p>
 
-//                 {/* Startup Passes */}
-//                 <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-[#e16d13] via-white to-[#138808] bg-clip-text text-transparent mt-10">
-//                     Startup Passes
-//                 </h2>
-//                 <div className="flex flex-wrap justify-center gap-6 mt-6">
-//                     {startupPasses.map((pass, i) => (
-//                         <div
-//                             key={i}
-//                             className="relative bg-gradient-to-r from-black to-gray-700 border-t-4 border-[#FCA757] rounded-lg p-6 w-80 text-left shadow-lg hover:scale-105 hover:shadow-orange-600 transition-transform"
-//                         >
-//                             {pass.sold && (
-//                                 <div className="absolute top-[-15px] left-1/2 transform -translate-x-1/2 bg-[#FCA757] text-black font-bold text-sm px-3 py-1 rounded">
-//                                     Sold Out
-//                                 </div>
-//                             )}
-//                             <h2 className="text-xl font-bold text-[#FFFAE2] text-center my-4">{pass.type}</h2>
-//                             <ul className="space-y-2">
-//                                 {pass.inclusions.map((item, idx) => (
-//                                     <li key={idx} className="flex items-center gap-2 text-white">
-//                                         <CheckCircleIcon /> {item}
-//                                     </li>
-//                                 ))}
-//                                 {pass.exclusions.map((item, idx) => (
-//                                     <li key={idx} className="flex items-center gap-2 text-gray-500">
-//                                         <CancelIcon /> {item}
-//                                     </li>
-//                                 ))}
-//                             </ul>
-//                             <div className="flex justify-between items-center mt-4">
-//                                 <div>
-//                                     <p className="text-xs text-gray-400">Total Payable</p>
-//                                     <p className="text-lg font-semibold text-white">{pass.cost}</p>
-//                                 </div>
-//                                 <Link to={!pass.sold ? `/pass/${pass.link}` : "#"}>
-//                                     {!pass.sold ? (
-//                                         <button className="px-4 py-2 font-bold bg-white text-black rounded hover:bg-[#138808] hover:text-white transition">
-//                                             Buy Now
-//                                         </button>
-//                                     ) : (
-//                                         <button className="px-4 py-2 font-bold bg-gray-500 text-black rounded cursor-not-allowed">
-//                                             Unavailable
-//                                         </button>
-//                                     )}
-//                                 </Link>
-//                             </div>
-//                         </div>
-//                     ))}
-//                 </div>
+                <h2 className="text-2xl bg-gradient-to-r from-orange-600 via-white to-green-600 bg-clip-text text-transparent uppercase mt-10">
+                    Startup Passes
+                </h2>
+                <div className="flex justify-center gap-5 flex-wrap mt-5">
+                    {startupPasses.map((pass, i) => (
+                        <div key={i} className="relative bg-gray-900 border-t-4 border-orange-500 p-6 w-80 text-left shadow-md hover:shadow-orange-500 transition-transform transform hover:-translate-y-2 rounded-lg">
+                            {pass.sold && <div className="bg-orange-500 text-black text-sm font-bold py-1 px-2 absolute top-2 left-1/2 transform -translate-x-1/2 rounded">Sold Out</div>}
+                            <h3 className="text-yellow-100 text-center font-bold mt-3">{pass.type}</h3>
+                            <ul className="mt-3">
+                                {pass.inclusions.map((item, idx) => (
+                                    <li key={idx} className="flex items-center gap-2 text-white text-sm">
+                                        <FaCheckCircle className="text-green-400" /> {item}
+                                    </li>
+                                ))}
+                                {pass.exclusions.map((item, idx) => (
+                                    <li key={idx} className="flex items-center gap-2 text-gray-500 text-sm opacity-80">
+                                        <FaTimesCircle className="text-red-400" /> {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="flex justify-between items-center mt-5">
+                                <div>
+                                    <p className="text-gray-400 text-sm">Total Payable</p>
+                                    <p className="text-white text-lg font-bold">{pass.cost}</p>
+                                </div>
+                                <button className={`py-2 px-4 rounded font-bold ${pass.sold ? "bg-gray-600 text-gray-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 text-white"}`} disabled={pass.sold}>
+                                    {pass.sold ? "Unavailable" : "Buy Now"}
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
-//                 {/* Student Passes */}
-//                 <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-[#e16d13] via-white to-[#138808] bg-clip-text text-transparent mt-10">
-//                     Student Passes
-//                 </h2>
-//                 <div className="flex flex-wrap justify-center gap-6 mt-6">
-//                     {studentPasses.map((pass, i) => (
-//                         <div
-//                             key={i}
-//                             className="relative bg-gradient-to-r from-black to-gray-700 border-t-4 border-[#FCA757] rounded-lg p-6 w-80 text-left shadow-lg hover:scale-105 hover:shadow-orange-600 transition-transform"
-//                         >
-//                             {pass.sold && (
-//                                 <div className="absolute top-[-15px] left-1/2 transform -translate-x-1/2 bg-[#FCA757] text-black font-bold text-sm px-3 py-1 rounded">
-//                                     Sold Out
-//                                 </div>
-//                             )}
-//                             <h2 className="text-xl font-bold text-[#FFFAE2] text-center my-4">{pass.type}</h2>
-//                             <ul className="space-y-2">
-//                                 {pass.inclusions.map((item, idx) => (
-//                                     <li key={idx} className="flex items-center gap-2 text-white">
-//                                         <CheckCircleIcon /> {item}
-//                                     </li>
-//                                 ))}
-//                                 {pass.exclusions.map((item, idx) => (
-//                                     <li key={idx} className="flex items-center gap-2 text-gray-500">
-//                                         <CancelIcon /> {item}
-//                                     </li>
-//                                 ))}
-//                             </ul>
-//                             <div className="flex justify-between items-center mt-4">
-//                                 <div>
-//                                     <p className="text-xs text-gray-400">Total Payable</p>
-//                                     <p className="text-lg font-semibold text-white">{pass.cost}</p>
-//                                 </div>
-//                                 <Link to={!pass.sold ? `/pass/${pass.link}` : "#"}>
-//                                     {!pass.sold ? (
-//                                         <button className="px-4 py-2 font-bold bg-white text-black rounded hover:bg-[#138808] hover:text-white transition">
-//                                             Buy Now
-//                                         </button>
-//                                     ) : (
-//                                         <button className="px-4 py-2 font-bold bg-gray-500 text-black rounded cursor-not-allowed">
-//                                             Unavailable
-//                                         </button>
-//                                     )}
-//                                 </Link>
-//                             </div>
-//                         </div>
-//                     ))}
-//                 </div>
-//             </div>
-//         } />
-//     );
-// };
+                <h2 className="text-2xl bg-gradient-to-r from-orange-600 via-white to-green-600 bg-clip-text text-transparent uppercase mt-10">
+                    Student Passes
+                </h2>
+                <div className="flex justify-center gap-5 flex-wrap mt-5">
+                    {studentPasses.map((pass, i) => (
+                        <div key={i} className="relative bg-gray-900 border-t-4 border-orange-500 p-6 w-80 text-left shadow-md hover:shadow-orange-500 transition-transform transform hover:-translate-y-2 rounded-lg">
+                            {pass.sold && <div className="bg-orange-500 text-black text-sm font-bold py-1 px-2 absolute top-2 left-1/2 transform -translate-x-1/2 rounded">Sold Out</div>}
+                            <h3 className="text-yellow-100 text-center font-bold mt-3">{pass.type}</h3>
+                            <ul className="mt-3">
+                                {pass.inclusions.map((item, idx) => (
+                                    <li key={idx} className="flex items-center gap-2 text-white text-sm">
+                                        <FaCheckCircle className="text-green-400" /> {item}
+                                    </li>
+                                ))}
+                                {pass.exclusions.map((item, idx) => (
+                                    <li key={idx} className="flex items-center gap-2 text-gray-500 text-sm opacity-80">
+                                        <FaTimesCircle className="text-red-400" /> {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="flex justify-between items-center mt-5">
+                                <div>
+                                    <p className="text-gray-400 text-sm">Total Payable</p>
+                                    <p className="text-white text-lg font-bold">{pass.cost}</p>
+                                </div>
+                                <button className={`py-2 px-4 rounded font-bold ${pass.sold ? "bg-gray-600 text-gray-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 text-white"}`} disabled={pass.sold}>
+                                    {pass.sold ? "Unavailable" : "Buy Now"}
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>} />
+    );
+};
 
-// export default Passes;
+export default Passes;
