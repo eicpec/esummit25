@@ -6,26 +6,24 @@ export const TricolorEffect = ({ children }) => {
   const particles = [];
   const colors = ["#FF9933", "#FFFFFF", "#138808"]; // Saffron, White, Green
 
-  const createParticle = (x, y) => {
-    return {
-      x,
-      y,
-      vx: (Math.random() - 0.5) * 1.5, // Slower movement
-      vy: (Math.random() - 0.5) * 1.5,
-      size: Math.random() * 4 + 2, // Smaller particles
-      alpha: 1,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      life: Math.random() * 80 + 40, // Shorter life span
-      shape: Math.random() > 0.5 ? "circle" : "square",
-    };
-  };
+  const createParticle = (x, y) => ({
+    x,
+    y,
+    vx: (Math.random() - 0.5) * 1.5,
+    vy: (Math.random() - 0.5) * 1.5,
+    size: Math.random() * 4 + 2,
+    alpha: 1,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    life: Math.random() * 80 + 40,
+    shape: Math.random() > 0.5 ? "circle" : "square",
+  });
 
   const updateParticles = (ctx) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     particles.forEach((p, index) => {
       p.x += p.vx;
       p.y += p.vy;
-      p.alpha -= 0.015; // Faster fading
+      p.alpha -= 0.015;
       p.life -= 1;
 
       if (p.life <= 0 || p.alpha <= 0) {
@@ -44,7 +42,6 @@ export const TricolorEffect = ({ children }) => {
         ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
       }
 
-      // Very subtle trail effect
       ctx.globalAlpha = p.alpha * 0.2;
       ctx.beginPath();
       ctx.arc(p.x - p.vx * 1.5, p.y - p.vy * 1.5, p.size * 0.5, 0, Math.PI * 2);
@@ -56,8 +53,14 @@ export const TricolorEffect = ({ children }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
     const animate = () => {
       updateParticles(ctx);
@@ -67,20 +70,23 @@ export const TricolorEffect = ({ children }) => {
 
     const handleMouseMove = (e) => {
       for (let i = 0; i < 3; i++) {
-        particles.push(createParticle(e.clientX, e.clientY)); // Fewer particles
+        particles.push(createParticle(e.clientX, e.clientY));
       }
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, []);
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    <div className="relative w-screen h-0">
       <motion.canvas
         ref={canvasRef}
-        className="fixed top-0 left-0 w-full h-full pointer-events-none"
-      ></motion.canvas>
+        className="fixed inset-0 w-full h-full bg-transparent pointer-events-none"
+      />
       <div className="relative z-10">{children}</div>
     </div>
   );
