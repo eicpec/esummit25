@@ -1,11 +1,73 @@
-import React from "react";
+import React from 'react';
+import { motion } from 'framer-motion';
 
-const PageLoader = () => {
-    return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
-            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-        </div>
-    );
+const IndiaOutlineLoading = () => {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
+      {/* Animated SVG Outline of India */}
+      <motion.svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 432 545"
+        className="w-64 h-auto mb-8"
+      >
+        <motion.path
+          /*
+            This path is an approximate single-outline representation of India.
+            Replace the 'd' attribute below with your own, more accurate vector if desired.
+          */
+          d="
+            M185.4,51.7c3.1,5.6,8.1,15.5,5.9,18.5-2.2,3-11.9,2.8-16.7,4.5
+            c-4.7,1.7-14.5,12.5-14.5,12.5l0,9.3c0,0,3.1,9.3,6.2,12.4s12.4,7.8,12.4,7.8s4.7,12.4,2.3,16.1c-2.3,3.7-6.2,7.8-7.8,10.9
+            c-1.6,3.1,4.7,14,2.3,20.2c-2.3,6.2-10.9,10.1-10.9,10.1l-1.6,12.4l7,6.2c0,0,1.6,7,3.9,7.8s12.4,3.1,12.4,3.1s2.3,7,0,10.9
+            c-2.3,3.9-4.7,7-4.7,7s2.3,9.3,0,12.4c-2.3,3.1-6.2,3.1-7.8,7s-3.9,14-7,17.8c-3.1,3.9-7.8,6.2-11.7,7.8c-3.9,1.6-10.1,3.9-12.4,3.9
+            s-12.4,2.3-12.4,2.3s0,7-3.9,7s-9.3-1.6-12.4,2.3s-4.7,7-7,7s-7-3.1-7-3.1s-3.1,3.1-6.2,4.7s-10.1,2.3-10.1,2.3s-4.7,7.8-7,12.4
+            c-2.3,4.7-6.2,12.4-6.2,12.4s2.3,3.1,3.1,7s0,9.3,0,9.3l7.8,7.8c0,0,0.8,2.3,2.3,4.7c1.6,2.3,7.8,0,7.8,0l4.7-6.2
+            c0,0,4.7,0,7.8-3.1c3.1-3.1,3.1-9.3,3.1-9.3s2.3-1.6,6.2-4.7s9.3-4.7,12.4-4.7s9.3,0,9.3,0s4.7,7,7.8,9.3c3.1,2.3,10.1,7,12.4,7.8
+            c2.3,0.8,3.1,3.9,3.1,6.2c0,2.3,3.1,12.4,3.1,12.4s3.1,6.2,7.8,7.8c4.7,1.6,11.7,3.1,12.4,7.8c0.8,4.7,0.8,10.1,2.3,14
+            c1.6,3.9,2.3,12.4,2.3,12.4l7,0c0,0,6.2,3.9,10.9,7c4.7,3.1,4.7,9.3,4.7,9.3l2.3,9.3l9.3,2.3l4.7,10.1c0,0,3.1,3.1,7.8,3.1
+            c4.7,0,6.2-7,7.8-7s3.1,3.1,6.2,3.1c3.1,0,2.3-7,2.3-7s3.1-0.8,7.8-0.8s6.2-1.6,9.3-3.1c3.1-1.6,6.2-4.7,6.2-4.7l6.2-6.2
+            c0,0,1.6-6.2,2.3-10.1c0.8-3.9,2.3-11.7,4.7-16.4s7-6.2,7-6.2l6.2,0c0,0,3.1-0.8,4.7-4.7s4.7-9.3,7.8-10.1c3.1-0.8,7.8,0,7.8,0l0-7
+            l6.2-7c0,0,3.1-1.6,4.7-3.9c1.6-2.3,2.3-6.2,4.7-7.8c2.3-1.6,4.7-0.8,4.7-0.8s4.7-1.6,7-4.7c2.3-3.1,3.9-4.7,3.9-4.7l1.6-9.3
+            l9.3-2.3l4.7-10.1l3.1-12.4l2.3-7.8c0,0,6.2-7.8,6.2-12.4s0-9.3,0-9.3l4.7-2.3c0,0,3.1-3.1,4.7-7c1.6-3.9,3.1-10.1,3.1-10.1
+            l4.7-2.3c0,0,2.3-1.6,4.7-6.2c2.3-4.7,1.6-10.1,1.6-10.1l-2.3-9.3c0,0-6.2-6.2-10.1-6.2s-4.7-3.1-7-6.2c-2.3-3.1-3.1-10.9-3.1-10.9
+            l-1.6-7c0,0,0-4.7-4.7-6.2c-4.7-1.6-9.3-2.3-12.4-4.7c-3.1-2.3-7-3.9-7-3.9l-2.3-4.7l-4.7-1.6l-2.3-4.7l-3.1-4.7
+            c0,0-7.8-2.3-9.3-4.7c-1.6-2.3-2.3-9.3-2.3-9.3l0-4.7c0,0,0.8-2.3-2.3-6.2c-3.1-3.9-7-4.7-7-4.7l-4.7-2.3l-3.1-2.3
+            c0,0-3.1-2.3-4.7-2.3c-1.6,0-4.7,2.3-4.7,2.3s-3.9-0.8-7-3.1c-3.1-2.3-4.7-7-4.7-7l-4.7,0l-4.7-4.7c0,0-3.1-3.1-4.7-4.7
+            c-1.6-1.6-2.3-4.7-2.3-4.7l-2.3-4.7l-3.9-6.2C196.3,48.6,182.3,46.2,185.4,51.7z
+          "
+          fill="none"
+          stroke="#FF9933"    /* Saffron color from the Indian flag */
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        />
+      </motion.svg>
+
+      {/* Text Animation */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.2, duration: 0.8 }}
+        className="text-center"
+      >
+        <h1
+          className="text-4xl md:text-5xl font-bold"
+          style={{ color: "#FF9933" }}  // Saffron
+        >
+          E-Summit'25
+        </h1>
+        <p
+          className="text-xl md:text-2xl mt-2"
+          style={{ color: "#138808" }}   // Green
+        >
+          Catalysing Viksit Bharat
+        </p>
+      </motion.div>
+    </div>
+  );
 };
 
-export default PageLoader;
+export default IndiaOutlineLoading;

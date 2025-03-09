@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import SignupFormDemo from "./pages/Register.jsx";
@@ -24,23 +24,20 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div>
-        <Routes>
-          <Route path="/" element={loading ? <LogoAnimationPage /> : <Home />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
-          <Route path="/timeline" element={<TimelineDemo />} />
-          <Route path="/register" element={<SignupFormDemo />} />
-          <Route path='/gallery' element={<ImageGallery />} />
-          <Route path='/contact' element={<ContactUsPage />} />
-          <Route path='/passes' element={<Passes />} />
-          <Route path='/speakers' element={<Speakers />} />
-        </Routes>
-        <TricolorEffect />
-      </div>
-    </>
-
+    <div>
+      <Routes>
+        <Route path="/" element={loading ? <LogoAnimationPage /> : <Home />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
+        <Route path="/timeline" element={<TimelineDemo />} />
+        <Route path="/register" element={<SignupFormDemo />} />
+        <Route path='/gallery' element={<ImageGallery />} />
+        <Route path='/contact' element={<ContactUsPage />} />
+        <Route path='/passes' element={<Passes />} />
+        <Route path='/speakers' element={<Speakers />} />
+      </Routes>
+      <TricolorEffect />
+    </div>
   );
 }
 
