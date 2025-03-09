@@ -2,26 +2,80 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { FaInstagram, FaLinkedin } from "react-icons/fa"; // Import icons from react-icons
 
-const Speaker = ({ title, data, direction }) => {
+const PastSpeakers = ({ title, data, direction }) => {
   const containerRef = useRef(null);
   const tl = useRef(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    const totalWidth = container.scrollWidth;
-
-    // GSAP animation for infinite horizontal scroll
+    if (!container) return;
+  
+    // Clear existing clones (in case of re-render)
+    container.innerHTML = "";
+  
+    // Create a new set of elements including clones
+    const originalCards = data.map((speaker) => createCardElement(speaker));
+    const clonedCards = originalCards.map((card) => card.cloneNode(true));
+  
+    // Append original + cloned cards
+    originalCards.forEach((card) => container.appendChild(card));
+    clonedCards.forEach((card) => container.appendChild(card));
+  
+    const totalWidth = container.scrollWidth / 2;
+  
+    // Start position fix for L->R scrolling
+    gsap.set(container, { x: direction ? 0 : -totalWidth });
+  
     tl.current = gsap.to(container, {
-      x: direction ? -totalWidth / 2 : totalWidth / 2,
+      x: direction ? -totalWidth : 0, // Move in the desired direction
       duration: 30,
       ease: "none",
-      repeat: 1,
+      repeat: -1,
+      onUpdate: function () {
+        if (direction && Math.abs(this.progress()) === 1) {
+          gsap.set(container, { x: 0 });
+          this.restart();
+        }
+        if (!direction && this.progress() === 1) {
+          gsap.set(container, { x: -totalWidth });
+          this.restart();
+        }
+      },
     });
-
-    return () => {
-      tl.current.kill(); // Cleanup animation on unmount
-    };
-  }, []);
+  
+    return () => tl.current.kill();
+  }, [direction]);
+  
+  // Function to create card element
+  const createCardElement = (speaker) => {
+    const card = document.createElement("div");
+    card.className =
+      "relative flex-shrink-0 w-64 p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-10 cursor-pointer";
+    
+    // Set content
+    card.innerHTML = `
+      <img src="${speaker.image}" alt="${speaker.name}" class="w-full h-48 object-cover rounded-md mb-4" />
+      <h3 class="text-xl font-semibold text-white">${speaker.name}</h3>
+      <h4 class="text-lg text-gray-400">${speaker.designation}</h4>
+      <div class="gradient-overlay absolute bottom-0 left-0 w-full h-[calc(100%-12rem)] opacity-0 z-0 rounded-lg overflow-hidden"
+        style="background: linear-gradient(to bottom, rgba(255, 165, 0, 0.3), rgba(255, 255, 255, 0.3), rgba(0, 128, 0, 0.3)); clip-path: inset(12rem 0px 0px 0px);">
+      </div>
+      <div class="icons absolute bottom-4 right-4 flex space-x-4 opacity-0">
+        <i class="fa fa-instagram text-white text-2xl cursor-pointer hover:text-orange-500 transition-colors"></i>
+        <i class="fa fa-linkedin text-white text-2xl cursor-pointer hover:text-blue-500 transition-colors"></i>
+      </div>
+    `;
+  
+    // Add hover listeners
+    card.addEventListener("mouseenter", (e) => handleHover(e, true));
+    card.addEventListener("mouseleave", (e) => handleHover(e, false));
+  
+    return card;
+  };
+  
+  
+  
+  
 
   // Function to handle hover on a speaker card
   const handleHover = (event, isHovered) => {
@@ -78,7 +132,7 @@ const Speaker = ({ title, data, direction }) => {
       rotationX: 0,
       rotationY: 0,
       ease: "power2.out",
-      duration: 0.001,
+      duration: 0.01,
     });
   };
 
@@ -107,11 +161,13 @@ const Speaker = ({ title, data, direction }) => {
             <h4 className="text-lg text-gray-400">{speaker.designation}</h4>
 
             {/* Gradient Overlay (Horizontal and Below Image) */}
+            {/* Gradient Overlay (Covers Card, Not Image) */}
             <div
-              className="gradient-overlay absolute bottom-0 left-0 w-full h-full opacity-0 z-0"
+              className="gradient-overlay absolute bottom-0 left-0 w-full h-[calc(100%-12rem)] opacity-0 z-0 rounded-lg overflow-hidden"
               style={{
                 background:
                   "linear-gradient(to bottom, rgba(255, 165, 0, 0.3), rgba(255, 255, 255, 0.3), rgba(0, 128, 0, 0.3))",
+                clipPath: "inset(12rem 0px 0px 0px)", // This ensures the gradient starts below the image
               }}
             ></div>
 
@@ -127,4 +183,4 @@ const Speaker = ({ title, data, direction }) => {
   );
 };
 
-export default Speaker;
+export default PastSpeakers;
