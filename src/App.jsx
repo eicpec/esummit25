@@ -1,17 +1,18 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import SignupFormDemo from "./pages/Register.jsx";
 import TimelineDemo from "./pages/TimeLine.jsx";
 import LogoAnimationPage from "./pages/LogoAnimationPage.jsx";
 import Home from "./pages/Home.jsx";
-import Navbar from "./layouts/Header.jsx"; // Assuming Navbar is in Header.jsx
 import { ImageGallery } from "./pages/ImageGallery.jsx";
-import { ContactUsPage } from "./pages/contactus.jsx";
+import ContactUsPage from "./pages/contactus.jsx";
 import { TricolorEffect } from "./components/general/tricoloreffect.jsx";
 import Passes from "./pages/Passes.jsx";
+import Speakers from "./pages/Speakers.jsx";
+import Layout from "./layouts/Layout.jsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,14 +27,15 @@ function App() {
         <Routes>
           <Route path="/" element={loading ? <LogoAnimationPage /> : <Home />} />
           <Route path="/team" element={<Team />} />
-          <Route path="/events" element={<ExpandableCardDemo />} />
+          <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
           <Route path="/timeline" element={<TimelineDemo />} />
           <Route path="/register" element={<SignupFormDemo />} />
           <Route path='/gallery' element={<ImageGallery />} />
           <Route path='/contact' element={<ContactUsPage />} />
           <Route path='/passes' element={<Passes />} />
+          <Route path='/speakers' element={<Speakers />} />
         </Routes>
-        {/* <TricolorEffect /> */}
+        <TricolorEffect />
       </div>
     </>
 

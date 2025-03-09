@@ -41,7 +41,7 @@ const WallOfFame = () => {
     const y2 = useTransform(scrollYProgress, [0, 1], [1000, 0]);
 
     return (
-        <motion.div ref={container} className="bg-black flex justify-center items-center overflow-hidden w-full">
+        <motion.div ref={container} className="bg-transparent flex justify-center items-center overflow-hidden w-full">
             <div className="hidden lg:flex justify-center items-center overflow-hidden">
                 <Column images={["/assets/wallOfFame/1.jpg"]} y={y1} />
                 <Column images={["/assets/wallOfFame/2.jpg", "/assets/wallOfFame/3.jpg", "/assets/wallOfFame/4.jpg"]} y={y2} />

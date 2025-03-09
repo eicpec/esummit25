@@ -137,7 +137,7 @@ const PastSpeakers = ({ title, data, direction }) => {
   };
 
   return (
-    <div className="overflow-hidden py-10 bg-black">
+    <div className="overflow-hidden py-10 bg-transparent">
       <h1>{title}</h1>
       <div
         ref={containerRef}

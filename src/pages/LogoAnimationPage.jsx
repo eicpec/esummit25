@@ -35,7 +35,7 @@ const LogoAnimationPage = () => {
         timeline.to([".logo-vector", ".logo-text"], {
             opacity: 0,
             duration: 1,
-            delay: 1, // Hold for 1 second before disappearing
+            delay: 1.5, // Hold for 1 second before disappearing
             ease: "power2.out",
         });
 

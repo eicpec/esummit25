@@ -34,7 +34,7 @@ const ExpandableCardDemo = () => {
   return (
     <>
       {/* Global Black Background */}
-      <div className="bg-black min-h-screen w-full">
+      <div className="bg-transparent min-h-screen w-full">
         
         {/* Heading and Tagline */}
         <div className="text-center text-white py-10 mt-20">
