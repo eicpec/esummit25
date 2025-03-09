@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { Input } from "../components/ui/input.jsx";
@@ -8,6 +7,7 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import Layout from "../layouts/Layout.jsx";
 
 export default function Register() {
   const handleSubmit = (e) => {
@@ -16,7 +16,8 @@ export default function Register() {
   };
 
   return (
-    <motion.div
+    <Layout children={
+      <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -104,6 +105,7 @@ export default function Register() {
         </div>
       </form>
     </motion.div>
+    }/>
   );
 }
 

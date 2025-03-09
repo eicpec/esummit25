@@ -1,0 +1,118 @@
+export const passData = [
+    {
+        type: "Free",
+        cost: "₹0",
+        link: "free",
+        color: "silver",
+        inclusions: [
+            "Access to Networking Arena",
+            "Visit Startup Expo",
+            "Certain Panel Discussions",
+        ],
+        exclusions: [
+            "Participation in Competitions",
+            "Intern Fair",
+            "Speaker Sessions",
+            "Startup Expo Stall",
+        ],
+    },
+    {
+        type: "Student",
+        cost: "₹199",
+        link: "student",
+        color: "blue",
+        inclusions: [
+            "Access to Networking Arena",
+            "Visit Startup Expo",
+            "All Panel Discussions",
+            "Intern Fair",
+            "All Speaker Sessions",
+            "Participation in Competitions",
+        ],
+        exclusions: [
+            "Startup Expo Stall",
+            "Funding Conclave",
+        ],
+    },
+    {
+        type: "Premium",
+        cost: "₹999",
+        link: "premium",
+        color: "gold",
+        inclusions: [
+            "Access to Networking Arena",
+            "Visit Startup Expo",
+            "All Panel Discussions",
+            "Intern Fair",
+            "All Speaker Sessions",
+            "Participation in Competitions",
+            "Set up Stall in Startup Expo",
+        ],
+        exclusions: [
+            "Funding Conclave",
+        ],
+    },
+    {
+        type: "Business",
+        cost: "₹1999",
+        link: "business",
+        color: "platinum",
+        inclusions: [
+            "Access to Networking Arena",
+            "Visit Startup Expo",
+            "All Panel Discussions",
+            "Intern Fair",
+            "All Speaker Sessions",
+            "Participation in Competitions",
+            "Set up Stall in Startup Expo",
+            "Participation in Funding Conclave (If shortlisted)",
+        ],
+        exclusions: [],
+    },
+    {
+        type: "Silver Startup",
+        cost: "₹2999",
+        link: "silver-startup",
+        color: "silver",
+        inclusions: [
+            "Access to Speaker Sessions",
+            "Startup Expo",
+            "Intern Fair (If shortlisted)",
+            "Access to Funding Conclave",
+        ],
+        exclusions: [
+            "Accommodation",
+            "Premium Networking Lounge",
+        ],
+    },
+    {
+        type: "Gold Startup",
+        cost: "₹4999",
+        link: "gold-startup",
+        color: "gold",
+        inclusions: [
+            "Access to Speaker Sessions",
+            "Startup Expo",
+            "Intern Fair (If shortlisted)",
+            "Funding Conclave",
+            "Premium Networking Lounge",
+        ],
+        exclusions: [
+            "Accommodation",
+        ],
+    },
+    {
+        type: "Platinum Startup",
+        cost: "₹7999",
+        link: "platinum-startup",
+        color: "platinum",
+        inclusions: [
+            "All Access Pass",
+            "Accommodation for 3 Days",
+            "Premium Networking Lounge",
+            "Startup Expo Stall",
+            "Intern Fair & Funding Conclave",
+        ],
+        exclusions: [],
+    }
+];

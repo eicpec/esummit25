@@ -1,110 +1,130 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useEffect, useState, useRef, useId } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import EventCard from "../../components/events/EventCard.jsx";
 import { events } from "../../data/events.js";
-import "../../styles/events/competitions.css";
 
-export function ExpandableCardDemo() {
+const useOutsideClick = (ref, callback) => {
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [ref, callback]);
+};
+
+const ExpandableCardDemo = () => {
   const [active, setActive] = useState(null);
   const id = useId();
   const ref = useRef(null);
 
   useEffect(() => {
-    function onKeyDown(event) {
+    const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setActive(null);
       }
-    }
-    
-    //able page scroll when a card is expanded
-    if (active && typeof active === "object") {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="page-background">
-      {/* Overlay for expanded card */}
-      <AnimatePresence>
-        {active && typeof active === "object" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="overlay"
-          />
-        )}
-      </AnimatePresence>
+    <>
+      {/* Global Black Background */}
+      <div className="bg-black min-h-screen w-full">
+        
+        {/* Heading and Tagline */}
+        <div className="text-center text-white py-10 mt-20">
+          <h1 className="text-4xl font-bold">Event: E-Summit'25</h1>
+          <p className="text-lg text-gray-300 mt-2">Know about the most exciting events of all time</p>
+        </div>
 
-      {/* Expanded Card */}
-      <AnimatePresence>
-        {active && typeof active === "object" && (
-          <div className="expanded-card-container">
-            <motion.button
-              key={`button-${active.EventName}-${id}`}
-              layout
+        {/* Overlay */}
+        <AnimatePresence>
+          {active && (
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{
-                opacity: 0,
-                transition: { duration: 0.05 },
-              }}
-              className="close-button"
-              onClick={() => setActive(null)}
-            >
-              <CloseIcon />
-            </motion.button>
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-10"
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Expanded Card */}
+        <AnimatePresence>
+          {active && (
+            <div className="fixed inset-0 flex items-center justify-center z-20">
+              <motion.div
+                layoutId={`card-${active.EventName}-${id}`}
+                ref={ref}
+                className="bg-black p-6 rounded-2xl shadow-2xl max-w-md w-full relative border-4 border-gradient text-white"
+              >
+                <button
+                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
+                  onClick={() => setActive(null)}
+                >
+                  ✖
+                </button>
+                <img
+                  src={active.EventPhoto}
+                  alt={active.EventName}
+                  className="w-full h-56 object-cover rounded-xl"
+                />
+                <h3 className="text-2xl font-semibold mt-4">{active.EventName}</h3>
+                <p className="text-gray-300">{active.About}</p>
+                <a
+                  href={active.ctaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 block text-center bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition-all"
+                >
+                  Register
+                </a>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+        {/* Card Row */}
+        <div className="flex flex-wrap gap-6 px-6 py-8 justify-center mt-1">
+          {events.map((card) => (
             <motion.div
-              layoutId={`card-${active.EventName}-${id}`}
-              ref={ref}
-              className="expanded-card"
+              key={card.EventName}
+              layoutId={`card-${card.EventName}-${id}`}
+              className="cursor-pointer p-4 bg-black rounded-2xl border-2 border-gradient w-[260px] transition-all duration-300 hover:scale-105 shadow-lg"
+              onClick={() => setActive(card)}
             >
-              <EventCard event={active} isExpanded={true} />
+              <img
+                src={card.EventPhoto}
+                alt={card.EventName}
+                className="w-full h-64 object-cover rounded-xl"
+              />
+              <h3 className="text-xl font-semibold mt-3 text-white">{card.EventName}</h3>
             </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </div>
 
-      {/* List of Event Cards */}
-      <ul className="event-cards-container">
-        {events.map((event) => (
-          <motion.div
-            layoutId={`card-${event.EventName}-${id}`}
-            key={event.EventName}
-            onClick={() => setActive(event)}
-            className="event-card-wrapper"
-          >
-            <EventCard event={event} isExpanded={false} />
-          </motion.div>
-        ))}
-      </ul>
-    </div>
+      {/* Styles */}
+      <style jsx>{`
+        html, body {
+          background-color: black;
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden;
+        }
+        .border-gradient {
+          border-image: linear-gradient(90deg, #ff9933, #ffffff, #138808) 1;
+          box-shadow: 0px 4px 10px rgba(255, 153, 51, 0.4), 
+                      0px -4px 10px rgba(19, 136, 8, 0.4);
+        }
+      `}</style>
+    </>
   );
-}
+};
 
-const CloseIcon = () => (
-  <motion.svg
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="close-icon"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M18 6l-12 12" />
-    <path d="M6 6l12 12" />
-  </motion.svg>
-);
+export default ExpandableCardDemo;

@@ -1,89 +1,73 @@
-import Box from "@mui/material/Box";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import XIcon from "@mui/icons-material/X";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import FolderSharedIcon from "@mui/icons-material/FolderShared";
-import PermPhoneMsgIcon from "@mui/icons-material/PermPhoneMsg";
 import React from "react";
+import { Box } from "@mui/material";
+import { Instagram, YouTube, X, Facebook, LinkedIn, Mail, Phone } from "@mui/icons-material";
 
-function Footer() {
+const Footer = () => {
     return (
-        <Box className="bg-black text-white w-full h-full p-8 bottom-0">
-            <div className="flex justify-between">
-                <p>Get connected with us on social networks:</p>
-                <div className="flex w-1/3 justify-between">
-                    <a href="https://www.instagram.com/eicpec?utm_medium=copy_link">
-                        <InstagramIcon />
+        <Box className="w-full mx-auto bg-gray-900 text-white p-10 shadow-xl shadow-gray-800">
+            {/* Social Media Section */}
+            <div className="flex justify-between items-center pb-6 border-b border-gray-700">
+                <p className="text-lg font-semibold">Stay Connected:</p>
+                <div className="flex space-x-4">
+                    <a href="https://www.instagram.com/eicpec" className="hover:text-pink-500 transition">
+                        <Instagram size={24} />
                     </a>
-                    <a href="https://www.youtube.com/channel/UCg5HEJqrg5GC_MGWlgCBrVw">
-                        <YouTubeIcon className="ml-4" />
+                    <a href="https://www.youtube.com/channel/UCg5HEJqrg5GC_MGWlgCBrVw" className="hover:text-red-500 transition">
+                        <YouTube size={24} />
                     </a>
-                    <a href="https://twitter.com/eic_pec?s=09">
-                        <XIcon className="ml-4" />
+                    <a href="https://twitter.com/eic_pec?s=09" className="hover:text-blue-400 transition">
+                        <X size={24} />
                     </a>
-                    <a href="https://www.facebook.com/eicpec/?paipv=0&eav=AfZKOMe1ryOscKQ7579NZoVXg7HzRmq3Nk-_iedc5T01oeB0u7IwPwOdpu4gDpEujhM&_rdr">
-                        <FacebookIcon className="ml-4" />
+                    <a href="https://www.facebook.com/eicpec" className="hover:text-blue-600 transition">
+                        <Facebook size={24} />
                     </a>
-                    <a href="https://www.linkedin.com/company/eicpec">
-                        <LinkedInIcon className="ml-4" />
+                    <a href="https://www.linkedin.com/company/eicpec" className="hover:text-blue-500 transition">
+                        <LinkedIn size={24} />
                     </a>
                 </div>
             </div>
-            <hr className="my-6" />
-            <div className="flex flex-col md:flex-row">
-                <div className="flex-1 p-12">
-                    <img
-                        src="/assets/logos/pec.png"
-                        className="mb-3 mr-5"
-                        height="80"
-                        width="80"
-                        alt="E-summit 2024 | PEC"
-                    />
-                    <img
-                        src="/assets/logos/eic.png"
-                        className="mb-5"
-                        height="80"
-                        width="80"
-                        alt="E-summit 2024 | PEC"
-                    />
-                    <p>
-                        Entrepreneurship and Incubation Cell at PEC operates under the Ministry of Education's Innovation Cell
-                        Programs since 2015. EIC provides mentoring in entrepreneurship, achieving its goal of nurturing
-                        businesses.
-                    </p>
+            
+            {/* Footer Content */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-6">
+                {/* Logo Section */}
+                <div className="flex flex-col items-center">
+                    <img src="https://www.eicpec.in/assets/logos/pec.png" height="80" width="80" alt="PEC" className="mb-4" />
+                    <img src="https://www.eicpec.in/assets/logos/eic.png" height="80" width="80" alt="EIC" />
                 </div>
-                <div className="flex-1 flex flex-col text-center md:flex-row md:text-left gap-4 p-12">
-                    <div className="flex-1">
-                        <h3 className="text-lg font-semibold">Quick Links</h3>
-                        <a className="block mt-2 text-white no-underline" href="/">Home</a>
-                        <a className="block mt-2 text-white no-underline" href="/team">Team</a>
-                        <a className="block mt-2 text-white no-underline" href="/pass">Buy Pass</a>
-                        <a className="block mt-2 text-white no-underline" href="/contact">Contact</a>
+                
+                {/* Quick Links */}
+                <div>
+                    <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul className="space-y-2">
+                        <li><a className="hover:text-gray-300 transition" href="/">Home</a></li>
+                        <li><a className="hover:text-gray-300 transition" href="/team">Team</a></li>
+                        <li><a className="hover:text-gray-300 transition" href="/pass">Buy Pass</a></li>
+                        <li><a className="hover:text-gray-300 transition" href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                {/* Contact Information */}
+                <div>
+                    <h2 className="text-lg font-semibold mb-4">Contact</h2>
+                    <p>Entrepreneurship and Incubation Cell, Punjab Engineering College, Chandigarh 160012</p>
+                    <div className="mt-4 flex items-center">
+                        <Mail size={20} />
+                        <p className="ml-2 text-green-400 underline">eicpec@pec.edu.in</p>
                     </div>
-                    <div className="flex-1">
-                        <h2 className="text-xl font-semibold">Contact</h2>
-                        <p>
-                            Entrepreneurship and Incubation Cell, Punjab Engineering College, Chandigarh 160012
-                        </p>
-                        <br />
-                        <div className="flex items-center">
-                            <FolderSharedIcon fontSize="medium" />
-                            <p className="ml-2">For Queries And Collaboration</p>
-                        </div>
-                        <p className="text-green-500 underline">eicpec@pec.edu.in</p>
-                        <br />
-                        <div className="flex items-center">
-                            <PermPhoneMsgIcon fontSize="medium" />
-                            <p className="ml-2">For Queries Contact</p>
-                        </div>
-                        <p className="text-green-500 underline">eicpec@pec.edu.in</p>
+                    <div className="mt-4 flex items-center">
+                        <Phone size={20} />
+                        <p className="ml-2 text-green-400 underline">+91 XXXXX XXXXX</p>
                     </div>
                 </div>
+            </div>
+            
+            {/* Footer Bottom */}
+            <div className="text-center mt-8 text-gray-400">
+                <p>Made with ❤️ by Tech Team</p>
+                <p>© 2025 E-Summit PEC Chandigarh. All rights reserved.</p>
             </div>
         </Box>
     );
-}
+};
 
 export default Footer;

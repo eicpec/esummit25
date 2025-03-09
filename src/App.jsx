@@ -1,30 +1,43 @@
-import './App.css';
-import React from 'react';
-import { ExpandableCardDemo } from './pages/events/competitions.jsx';
-import Team from './pages/team.jsx';
-import Header from './layouts/Header.jsx';
-import Footer from './layouts/Footer.jsx';
-import StickyScrollRevealDemo from './components/home/about.jsx';
-import VideoScroll from './components/home/VideoScroll.jsx';
-import SignupFormDemo from './pages/Register.jsx';
-import Login from './pages/Login.jsx';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ExpandableCardDemo from "./pages/events/competitions.jsx";
+import Team from "./pages/team.jsx";
+import SignupFormDemo from "./pages/Register.jsx";
+import TimelineDemo from "./pages/TimeLine.jsx";
+import LogoAnimationPage from "./pages/LogoAnimationPage.jsx";
+import Home from "./pages/Home.jsx";
+import Navbar from "./layouts/Header.jsx"; // Assuming Navbar is in Header.jsx
+import { ImageGallery } from "./pages/ImageGallery.jsx";
+import { ContactUsPage } from "./pages/contactus.jsx";
+import { TricolorEffect } from "./components/general/tricoloreffect.jsx";
+import Passes from "./pages/Passes.jsx";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3600); // Simulate loading time
+  }, []);
+
   return (
-    <div className= "App" >
-      <Header />
-      <ExpandableCardDemo />
-      <Team />
-      <StickyScrollRevealDemo />
-      <VideoScroll />
-      {/* <ExpandableCardDemo /> */}
-      {/* <Team /> */}
-      <SignupFormDemo/>
-      {/* <Login/> */}
-      <Footer />
-      
-      
-    </div>
+
+    <>
+      <div>
+        <Routes>
+          <Route path="/" element={loading ? <LogoAnimationPage /> : <Home />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/events" element={<ExpandableCardDemo />} />
+          <Route path="/timeline" element={<TimelineDemo />} />
+          <Route path="/register" element={<SignupFormDemo />} />
+          <Route path='/gallery' element={<ImageGallery />} />
+          <Route path='/contact' element={<ContactUsPage />} />
+          <Route path='/passes' element={<Passes />} />
+        </Routes>
+        {/* <TricolorEffect /> */}
+      </div>
+    </>
+
   );
 }
 

@@ -12,9 +12,9 @@ export const ContainerScroll = ({ titleComponent, children }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const scale = useTransform(scrollYProgress, [0, 1], isMobile ? [0.7, 0.9] : [1.05, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const scale = useTransform(scrollYProgress, [0, 1], isMobile ? [0.7, 0.9] : [1.05, 1.1]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [8, 0]);
+  const translate = useTransform(scrollYProgress, [0, 0.4], [-30, -100]);
 
   return (
     <div className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20 bg-black" ref={containerRef}>
