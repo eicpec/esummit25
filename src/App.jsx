@@ -17,7 +17,9 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000); // Simulate loading time
+    if (typeof window !== 'undefined') {
+      setTimeout(() => setLoading(false), 3000); // Simulate loading time
+    }
   }, []);
 
   return (
