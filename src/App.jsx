@@ -18,26 +18,44 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000); // Simulate loading time
+    if (typeof window !== 'undefined') {
+      setTimeout(() => setLoading(false), 3000); // Simulate loading time
+    }
   }, []);
 
   return (
     <>
-      <div>
-        <Routes>
-          <Route path="/" element={loading ? <LogoAnimationPage /> : <Home />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
-          <Route path="/timeline" element={<TimelineDemo />} />
-          <Route path="/register" element={<SignupFormDemo />} />
-          <Route path='/gallery' element={<ImageGallery />} />
-          <Route path='/contact' element={<ContactUsPage />} />
-          <Route path='/passes' element={<Passes />} />
-          <Route path='/speakers' element={<Speakers />} />
-        </Routes>
-        <TricolorEffect />
-      </div>
-    </>
+      {
+        loading ? (
+          <div>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/events" element={<ExpandableCardDemo />} />
+              <Route path="/timeline" element={<TimelineDemo />} />
+              <Route path="/register" element={<SignupFormDemo />} />
+              <Route path='/gallery' element={<ImageGallery />} />
+              <Route path='/contact' element={<ContactUsPage />} />
+            </Routes>
+          </div>
+        ) : (
+          <div>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/events" element={<ExpandableCardDemo />} />
+              <Route path="/timeline" element={<TimelineDemo />} />
+              <Route path="/register" element={<SignupFormDemo />} />
+              <Route path='/gallery' element={<ImageGallery />} />
+              <Route path='/contact' element={<ContactUsPage />} />
+              <Route path='/passes' element={<Passes />} />
+            </Routes>
+            <TricolorEffect />
+          </div>
+        )
+      }</>
 
   );
 }
