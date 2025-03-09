@@ -24,8 +24,10 @@ function Home() {
                 <>
                     <HeroParallaxDemo />
                     <VideoScroll />
-                    <WallofFame/>
-                    <PastSpeakers title={"Previous Speakers"} data={speakers} direction={1} />
+                    <WallofFame />
+                    <h1 className="mx-4 md:text-7xl text-5xl text-center text-white font-semibold">Previous Speakers</h1>
+                    <PastSpeakers data={speakers} direction={1} />
+                    <h1 className="mx-4 md:text-7xl text-5xl text-center text-white font-semibold">Previous Investors</h1>
                     <PastSpeakers data={sponsors} direction={0} />
                     {/* <Sponsers/> */}
                 </>

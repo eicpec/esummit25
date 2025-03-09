@@ -9,26 +9,26 @@ const PastSpeakers = ({ title, data, direction }) => {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-  
+
     // Clear existing clones (in case of re-render)
     container.innerHTML = "";
-  
+
     // Create a new set of elements including clones
     const originalCards = data.map((speaker) => createCardElement(speaker));
     const clonedCards = originalCards.map((card) => card.cloneNode(true));
-  
+
     // Append original + cloned cards
     originalCards.forEach((card) => container.appendChild(card));
     clonedCards.forEach((card) => container.appendChild(card));
-  
+
     const totalWidth = container.scrollWidth / 2;
-  
+
     // Start position fix for L->R scrolling
     gsap.set(container, { x: direction ? 0 : -totalWidth });
-  
+
     tl.current = gsap.to(container, {
       x: direction ? -totalWidth : 0, // Move in the desired direction
-      duration: 30,
+      duration: 40,
       ease: "none",
       repeat: -1,
       onUpdate: function () {
@@ -42,16 +42,16 @@ const PastSpeakers = ({ title, data, direction }) => {
         }
       },
     });
-  
+
     return () => tl.current.kill();
   }, [direction]);
-  
+
   // Function to create card element
   const createCardElement = (speaker) => {
     const card = document.createElement("div");
     card.className =
-      "relative flex-shrink-0 w-64 p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-10 cursor-pointer";
-    
+      "relative flex-shrink-0 w-64 p-6 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 rounded-lg shadow-md transition-transform duration-300 cursor-pointer"
+
     // Set content
     card.innerHTML = `
       <img src="${speaker.image}" alt="${speaker.name}" class="w-full h-48 object-cover rounded-md mb-4" />
@@ -65,17 +65,17 @@ const PastSpeakers = ({ title, data, direction }) => {
         <i class="fa fa-linkedin text-white text-2xl cursor-pointer hover:text-blue-500 transition-colors"></i>
       </div>
     `;
-  
+
     // Add hover listeners
     card.addEventListener("mouseenter", (e) => handleHover(e, true));
     card.addEventListener("mouseleave", (e) => handleHover(e, false));
-  
+
     return card;
   };
-  
-  
-  
-  
+
+
+
+
 
   // Function to handle hover on a speaker card
   const handleHover = (event, isHovered) => {

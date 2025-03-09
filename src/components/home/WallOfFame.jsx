@@ -34,7 +34,7 @@ const WallOfFame = () => {
             ref={containerRef}
             className="wall flex justify-center items-center overflow-hidden w-full bg-transparent py-20 min-h-screen"
         >
-            <div className="wall-container flex space-x-10">
+            <div className="wall-container mx-6 flex space-x-10">
                 <Column images={["/assets/wallOfFame/1.jpg", "/assets/wallOfFame/2.jpg"]} y={y1} />
                 <Column images={["/assets/wallOfFame/3.jpg", "/assets/wallOfFame/4.jpg"]} y={y2} />
                 <Column images={["/assets/wallOfFame/5.jpg", "/assets/wallOfFame/6.jpg"]} y={y1} />
