@@ -11,13 +11,13 @@ function Header() {
     };
 
     return (
-        <div className={`fixed top-0 w-full bg-gradient-to-b from-gray-900/70 to-gray-900/0 backdrop-blur-sm text-white font-sans z-50 h-20 flex items-center transition-all duration-300 ${isActive ? "bg-opacity-100" : ""}`}>
+        <div className={`fixed top-0 w-full bg-gradient-to-b from-teal-900/70 to-teal-900/0 backdrop-blur-sm text-white font-sans z-50 h-20 flex items-center transition-all duration-300 ${isActive ? "bg-opacity-100" : ""}`}>
             <nav className="pl-12 custom-header flex justify-center items-center w-full px-6">
                 {/* Left Side Navigation */}
                 <ul className="custom-items flex space-x-8">
                     {headerItems.slice(0, 4).map((item, i) => (
                         <li key={i}>
-                            <a href={item.href} className="hover:text-teal-400">{item.name}</a>
+                            <a href={item.href} className="hover:text-[#D7742F]">{item.name}</a>
                         </li>
                     ))}
                 </ul>
@@ -34,7 +34,7 @@ function Header() {
                 <ul className="custom-items flex space-x-8">
                     {headerItems.slice(4, 8).map((item, i) => (
                         <li key={i}>
-                            <a href={item.href} className="hover:text-teal-400">{item.name}</a>
+                            <a href={item.href} className="hover:text-[#D7742F]">{item.name}</a>
                         </li>
                     ))}
                 </ul>
@@ -52,7 +52,7 @@ export const headerItems = [
     { href: "/events", name: "EVENTS" },
     { href: "/passes", name: "PASSES" },
     { href: "/timeline", name: "TIMELINE" },
-    { href: "/", name: "SPEAKERS" },
+    { href: "/speakers", name: "SPEAKERS" },
     { href: "/team", name: "TEAM" },
     { href: "/gallery", name: "SPONSORS" },
     { href: "/contact", name: "CONTACT" },

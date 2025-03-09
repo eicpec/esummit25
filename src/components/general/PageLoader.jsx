@@ -8,4 +8,4 @@ const PageLoader = () => {
     );
 };
 
-export default PageLoader;
+export default PageLoader;

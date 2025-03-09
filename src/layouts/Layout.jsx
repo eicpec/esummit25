@@ -9,7 +9,7 @@ const Layout = ({ title = "E-Summit PEC - Catalyzing Viksit Bharat", children, b
         <div className="flex flex-col min-h-screen">
             {/* Set Page Title */}
             <Helmet>
-                <title>{"" + title}</title>
+                <title>{title}</title>
             </Helmet>
 
             {/* Page Header */}
@@ -17,7 +17,7 @@ const Layout = ({ title = "E-Summit PEC - Catalyzing Viksit Bharat", children, b
 
             {/* Main Content */}
             <main
-                className="flex-grow bg-contain bg-center"
+                className="flex-grow min-h-screen bg-fixed bg-cover bg-center"
                 style={background ? { backgroundImage: `url(${Background})` } : { backgroundColor: "black" }}
             >
                 {children}

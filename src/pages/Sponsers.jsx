@@ -1,126 +1,89 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
-// Import images
-import image1 from "../assets/sponsers/1.jpg";
-import image2 from "../assets/sponsers/2.png";
-import image3 from "../assets/sponsers/3.jpg";
-import image4 from "../assets/sponsers/4.png";   
-
-// Register GSAP plugins
-gsap.registerPlugin(MotionPathPlugin);
-
-const Sponsers = () => {
-  const outerHeartRef = useRef(null);
-  const middleHeartRef = useRef(null);
-  const innerHeartRef = useRef(null);
-
-  // Array of imported images
-  const images = [image1, image2, image3, image4];
+const NeuronAnimation = () => {
+  const svgRef = useRef(null);
+  const blueLineRefs = useRef([]);
+  const circleRefs = useRef([]);
 
   useEffect(() => {
-    // Function to animate images along a path
-    const animateImages = (pathRef, direction) => {
-      const images = gsap.utils.toArray(`.image-${pathRef.current.id}`);
-      images.forEach((image, index) => {
-        gsap.to(image, {
-          motionPath: {
-            path: pathRef.current,
-            align: pathRef.current,
-            alignOrigin: [0.5, 0.5],
-            start: direction === "clockwise" ? 0 : 1, // Start from beginning or end
-            end: direction === "clockwise" ? 1 : 0, // End at beginning or end
-          },
-          duration: 5 + index * 0.5, // Stagger duration for each image
-          repeat: -1,
-          ease: "none",
-          delay: index * 0.5, // Stagger the start time
-        });
-      });
-    };
+    // Get all paths in the SVG
+    const paths = svgRef.current.querySelectorAll("path");
 
-    // Animate images for each heart
-    animateImages(outerHeartRef, "clockwise");
-    animateImages(middleHeartRef, "anti-clockwise");
-    animateImages(innerHeartRef, "clockwise");
+    // Animate blue portions along each path
+    paths.forEach((path, index) => {
+      const blueLine = blueLineRefs.current[index];
+      const circle = circleRefs.current[index];
+
+      // Animate the blue portion along the path
+      gsap.to(blueLine, {
+        motionPath: {
+          path: path,
+          align: path,
+          alignOrigin: [0.5, 0.5],
+        },
+        duration: 3,
+        ease: "power1.inOut",
+        onComplete: () => {
+          // Animate the circle popping up at the end
+          gsap.fromTo(
+            circle,
+            { scale: 0, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.5,
+              ease: "back.out(1.7)",
+            }
+          );
+        },
+      });
+    });
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen relative">
-      {/* SVG for Hearts */}
+    <div className="flex items-center justify-center h-screen bg-black">
+      {/* SVG */}
       <svg
-        width="500"
-        height="500"
-        viewBox="0 0 500 500"
+        ref={svgRef}
+        width="300"
+        height="224"
+        viewBox="0 0 300 224"
         xmlns="http://www.w3.org/2000/svg"
         className="absolute"
       >
-        {/* Outer Heart (Orange) */}
+        {/* Main SVG Path */}
         <path
-          id="outer-heart"
-          ref={outerHeartRef}
-          d="M250,100 C150,50 50,100 50,200 C50,300 250,450 250,450 C250,450 450,300 450,200 C450,100 350,50 250,100 Z"
-          stroke="orange"
-          strokeWidth="4"
-          fill="transparent"
-        />
-        {/* Middle Heart (White) */}
-        <path
-          id="middle-heart"
-          ref={middleHeartRef}
-          d="M250,150 C175,100 100,150 100,225 C100,300 250,400 250,400 C250,400 400,300 400,225 C400,150 325,100 250,150 Z"
+          d="M1440 1883 c0 -5 0 -178 0 -387 l0 -378 -32 27 c-18 15 -196 170 -396 344 -200 174 -368 316 -373 316 -5 0 -8 -4 -7 -10 2 -8 524 -467 745 -655 l41 -35 -514 3 c-460 3 -514 2 -514 -12 0 -14 56 -16 510 -18 l509 -3 -394 -338 c-217 -186 -395 -343 -395 -348 0 -5 4 -9 8 -9 5 0 189 155 411 345 l402 346 -3 -386 c-2 -303 0 -385 10 -385 9 0 12 84 12 387 l0 387 48 -45 c26 -25 135 -122 242 -215 107 -94 266 -231 352 -307 94 -82 160 -132 164 -126 3 6 0 17 -7 24 -12 11 -661 573 -747 647 l-33 28 541 0 c429 0 541 3 537 13 -3 9 -120 12 -541 12 l-537 0 24 20 c13 11 192 164 398 339 206 176 376 321 378 323 3 2 0 8 -5 13 -6 6 -153 -114 -409 -333 l-400 -343 -3 383 c-1 244 -6 383 -12 383 -6 0 -10 -3 -10 -7z"
+          fill="none"
           stroke="white"
-          strokeWidth="4"
-          fill="transparent"
-        />
-        {/* Inner Heart (Green) */}
-        <path
-          id="inner-heart"
-          ref={innerHeartRef}
-          d="M250,200 C200,150 150,200 150,250 C150,300 250,350 250,350 C250,350 350,300 350,250 C350,200 300,150 250,200 Z"
-          stroke="green"
-          strokeWidth="4"
-          fill="transparent"
+          strokeWidth="2"
         />
       </svg>
 
-      {/* Text in the Middle */}
-      <div className="absolute text-white text-4xl font-bold font-mono text-center">
-        Our Sponsors
-      </div>
-
-      {/* Images for Outer Heart */}
-      {images.map((image, i) => (
-        <img
-          key={`outer-${i}`}
-          src={image}
-          alt={`Sponsor ${i + 1}`}
-          className={`image-outer-heart w-12 h-12 absolute rounded-full`}
+      {/* Blue Portions */}
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={`blue-line-${i}`}
+          ref={(el) => (blueLineRefs.current[i] = el)}
+          className="w-1 h-1 bg-blue-500 rounded-full absolute transform -translate-x-1/2 -translate-y-1/2"
         />
       ))}
 
-      {/* Images for Middle Heart */}
-      {images.map((image, i) => (
-        <img
-          key={`middle-${i}`}
-          src={image}
-          alt={`Sponsor ${i + 1}`}
-          className={`image-middle-heart w-10 h-10 absolute rounded-full`}
-        />
-      ))}
-
-      {/* Images for Inner Heart */}
-      {images.map((image, i) => (
-        <img
-          key={`inner-${i}`}
-          src={image}
-          alt={`Sponsor ${i + 1}`}
-          className={`image-inner-heart w-8 h-8 absolute rounded-full`}
+      {/* Circles at the Ends */}
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={`circle-${i}`}
+          ref={(el) => (circleRefs.current[i] = el)}
+          className="w-8 h-8 bg-white rounded-full absolute opacity-0 transform -translate-x-1/2 -translate-y-1/2"
+          style={{
+            top: `${50 + Math.sin((i * Math.PI) / 2) * 50}%`,
+            left: `${50 + Math.cos((i * Math.PI) / 2) * 50}%`,
+          }}
         />
       ))}
     </div>
   );
 };
 
-export default Sponsers;
+export default NeuronAnimation;
