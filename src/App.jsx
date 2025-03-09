@@ -1,12 +1,12 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import SignupFormDemo from "./pages/Register.jsx";
 import TimelineDemo from "./pages/TimeLine.jsx";
-import LogoAnimationPage from "./pages/LogoAnimationPage.jsx";
-import Home from "./pages/Home.jsx";
+import LogoAnimationPage from "./pages/home/LogoAnimationPage.jsx";
+import Home from "./pages/home/Home.jsx";
 import { ImageGallery } from "./pages/ImageGallery.jsx";
 import ContactUsPage from "./pages/contactus.jsx";
 import { TricolorEffect } from "./components/general/tricoloreffect.jsx";
@@ -15,48 +15,39 @@ import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [animationloading, setAnimationLoading] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setTimeout(() => setLoading(false), 3000); // Simulate loading time
-    }
+  React.useEffect(() => {
+    setAnimationLoading(true);
+    const timer = setTimeout(() => {
+      setAnimationLoading(false);
+    }, 4000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
       {
         loading ? (
-          <div>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/events" element={<ExpandableCardDemo />} />
-              <Route path="/timeline" element={<TimelineDemo />} />
-              <Route path="/register" element={<SignupFormDemo />} />
-              <Route path='/gallery' element={<ImageGallery />} />
-              <Route path='/contact' element={<ContactUsPage />} />
-            </Routes>
-          </div>
+          <div>Loading...</div>
         ) : (
           <div>
-            <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
               <Route path="/team" element={<Team />} />
-              <Route path="/events" element={<ExpandableCardDemo />} />
+              <Route path="/speakers" element={<Speakers />} />
+              <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
               <Route path="/timeline" element={<TimelineDemo />} />
               <Route path="/register" element={<SignupFormDemo />} />
               <Route path='/gallery' element={<ImageGallery />} />
               <Route path='/contact' element={<ContactUsPage />} />
               <Route path='/passes' element={<Passes />} />
             </Routes>
-            <TricolorEffect />
           </div>
         )
-      }</>
-
+      }
+    </>
   );
 }
 

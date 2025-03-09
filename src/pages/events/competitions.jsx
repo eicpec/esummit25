@@ -35,11 +35,13 @@ const ExpandableCardDemo = () => {
     <>
       {/* Global Black Background */}
       <div className="bg-transparent min-h-screen w-full">
-        
+
         {/* Heading and Tagline */}
         <div className="text-center text-white py-10 mt-20">
-          <h1 className="text-4xl font-bold">Event: E-Summit'25</h1>
-          <p className="text-lg text-gray-300 mt-2">Know about the most exciting events of all time</p>
+          <h1 className="text-4xl rammetto-one-regular font-bold">EVENTS</h1>
+          <p className="text-lg text-gray-300 mt-2">
+            Explore thrilling events, secure your spot, and make every moment count.
+          </p>
         </div>
 
         {/* Overlay */}
