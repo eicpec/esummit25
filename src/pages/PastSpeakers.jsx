@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { FaInstagram, FaLinkedin } from "react-icons/fa"; // Import icons from react-icons
 
-const Speaker = ({ title, data, direction }) => {
+const PastSpeakers = ({ title, data, direction }) => {
   const containerRef = useRef(null);
   const tl = useRef(null);
 
@@ -107,11 +107,13 @@ const Speaker = ({ title, data, direction }) => {
             <h4 className="text-lg text-gray-400">{speaker.designation}</h4>
 
             {/* Gradient Overlay (Horizontal and Below Image) */}
+            {/* Gradient Overlay (Covers Card, Not Image) */}
             <div
-              className="gradient-overlay absolute bottom-0 left-0 w-full h-full opacity-0 z-0"
+              className="gradient-overlay absolute bottom-0 left-0 w-full h-[calc(100%-12rem)] opacity-0 z-0 rounded-lg overflow-hidden"
               style={{
                 background:
                   "linear-gradient(to bottom, rgba(255, 165, 0, 0.3), rgba(255, 255, 255, 0.3), rgba(0, 128, 0, 0.3))",
+                clipPath: "inset(12rem 0px 0px 0px)", // This ensures the gradient starts below the image
               }}
             ></div>
 
@@ -127,4 +129,4 @@ const Speaker = ({ title, data, direction }) => {
   );
 };
 
-export default Speaker;
+export default PastSpeakers;
