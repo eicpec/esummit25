@@ -4,7 +4,7 @@ const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
     extend: {},
@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     require('tailwind-scrollbar-hide'),
     plugin(({ addBase, theme }) => {
-      const flattenColorPalette = require("tailwindcss/plugin")(({ theme }) => theme("colors"));
+      const flattenColorPalette = require("tailwindcss/lib/util/flattenColorPalette");
       let allColors = flattenColorPalette(theme("colors"));
       let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
 
