@@ -65,11 +65,12 @@ const ExpandableCardDemo = () => {
                 ref={ref}
                 className="bg-black p-6 rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden text-white"
                 style={{
-                  border: "4px solid transparent",
-                  borderImage: "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
-                  clipPath: "inset(0 round 20px)", // Ensures rounded borders work properly
+                  outline: "4px solid transparent",
+                  outlineOffset: "-4px",
+                  boxShadow: "0 0 0 4px rgba(255, 153, 51, 1), 0 0 0 8px rgba(255, 255, 255, 1), 0 0 0 12px rgba(19, 136, 8, 1)",
                 }}
               >
+
                 <button
                   className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
                   onClick={() => setActive(null)}

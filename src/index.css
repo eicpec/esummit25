@@ -7,95 +7,127 @@
   font-style: normal;
 }
 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 60px;
+  opacity: 0.6;
+  aspect-ratio: 2.5;
+  --_g: no-repeat radial-gradient(circle closest-side,#fff 90%,#0000);
+  background: 
+    var(--_g) 0%   50%,
+    var(--_g) 50%  50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100%/3) 50%;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+    20%{background-position:0%   0%, 50%  50%,100%  50%}
+    40%{background-position:0% 100%, 50%   0%,100%  50%}
+    60%{background-position:0%  50%, 50% 100%,100%   0%}
+    80%{background-position:0%  50%, 50%  50%,100% 100%}
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 .custom-scrollbar {
-  -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
-  scrollbar-width: none;      /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;
+  /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none;
+  /* Hide scrollbar for Firefox */
 }
 
 body {
-    margin: 0;
-    user-select: none;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  user-select: none;
+  overflow-x:hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 /* Custom Scrollbar for Webkit Browsers (Chrome, Safari) */
 *::-webkit-scrollbar {
-    width: 6px; /* Width of the scrollbar */
-  }
-  
-  /* Scrollbar Track */
-  ::-webkit-scrollbar-track {
-    background: #000; /* Light background */
-    border-radius: 50px;
-  }
-  
-  /* Scrollbar Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #fff; /* Scrollbar color */
-    border-radius: 50px;
-  }
-  
-  /* Scrollbar Handle on Hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #fff; /* Darker shade on hover */
-  }
-  
-  /* Apply custom scrollbar to a specific container */
-  .custom-scrollbar {
-    overflow-y: auto;
-    max-height: 400px; /* Set the height as per requirement */
-  }
-  
-  /* Works in Firefox */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #fff #000;
-  }
-  
+  width: 6px;
+  /* Width of the scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #000;
+  /* Light background */
+  border-radius: 50px;
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  /* Scrollbar color */
+  border-radius: 50px;
+}
+
+/* Scrollbar Handle on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+  /* Darker shade on hover */
+}
+
+/* Apply custom scrollbar to a specific container */
+.custom-scrollbar {
+  overflow-y: auto;
+  max-height: 400px;
+  /* Set the height as per requirement */
+}
+
+/* Works in Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #fff #000;
+}
+
 
 @media (max-width: 1000px) {
-    .custom-items {
-        display: none;
-    }
+  .custom-items {
+    display: none;
+  }
 
-    .custom-menu-icon {
-        display: block;
-    }
+  .custom-menu-icon {
+    display: block;
+  }
 
-    .custom-header {
-        padding-left: 0;
-        justify-content: space-between;
-    }
+  .custom-header {
+    padding-left: 0;
+    justify-content: space-between;
+  }
 }
 
 @keyframes gradientMove {
   0% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
+
   25% {
-      background-position: 50% 100%;
+    background-position: 50% 100%;
   }
+
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
+
   75% {
-      background-position: 50% 0%;
+    background-position: 50% 0%;
   }
+
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 }
 

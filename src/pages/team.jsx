@@ -6,9 +6,9 @@ import Layout from "../layouts/Layout.jsx";
 const Team = () => {
     return (
         <Layout children={
-            <div className="bg-black opacity-50 min-h-[91vh] bg-center bg-no-repeat bg-cover bg-fixed overflow-x-hidden pt-20">
+            <div className="bg-transparent min-h-[91vh] bg-center bg-no-repeat bg-cover bg-fixed overflow-x-hidden">
                 <div className="max-w-6xl mx-auto py-10">
-                    <h1 className="text-4xl font-bold tracking-widest text-white text-center shadow-lg py-16">Core Team | ESummit'25</h1>
+                    <h1 className="text-4xl font-bold tracking-widest text-white text-center shadow-lg py-16">Core Team - ESummit'25</h1>
                     <div className="mb-10">
                         <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Conveners</h2>
                         <div className="flex flex-wrap justify-center items-center gap-6">
@@ -22,6 +22,15 @@ const Team = () => {
                         <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Heads</h2>
                         <div className="flex flex-wrap justify-center items-center gap-6">
                             {coreTeam.head.map((item, i) => (
+                                <Organiser key={i} organiser={item} />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Joint Heads</h2>
+                        <div className="flex flex-wrap justify-center items-center gap-6">
+                            {coreTeam.jointhead.map((item, i) => (
                                 <Organiser key={i} organiser={item} />
                             ))}
                         </div>

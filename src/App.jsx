@@ -36,7 +36,7 @@ function App() {
             <Routes>
               <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
               <Route path="/team" element={<Team />} />
-              <Route path="/speakers" element={<Speakers />} />
+              <Route path="/dignitaries" element={<Speakers />} />
               <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
               <Route path="/timeline" element={<TimelineDemo />} />
               <Route path="/register" element={<SignupFormDemo />} />
