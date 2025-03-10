@@ -43,7 +43,7 @@ function App() {
               <Route path='/gallery' element={<ImageGallery />} />
               <Route path='/contact' element={<ContactUsPage />} />
               <Route path='/passes' element={<Passes />} />
-              <Route path="*" element={<Navigate to="/" />} /> {/* Catch-all route */}
+              {/* <Route path="*" element={<Navigate to="/" />} /> Catch-all route */}
             </Routes>
           </div>
         )
