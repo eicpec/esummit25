@@ -1,10 +1,11 @@
 import React from "react";
 import Organiser from "../components/team/organiser.jsx";
 import { coreTeam } from "../data/team.js";
-
+import Layout from "../layouts/Layout.jsx";
 const Team = () => {
     return (
-        <div className="bg-black min-h-[91vh] bg-center bg-no-repeat bg-cover bg-fixed overflow-x-hidden pt-20">
+        <Layout children={
+            <div className="bg-transparent min-h-[91vh] bg-center bg-no-repeat bg-cover bg-fixed overflow-x-hidden pt-20">
             <div className="max-w-6xl mx-auto py-10">
                 <h1 className="text-4xl font-bold tracking-widest text-white text-center shadow-lg py-16">Core Team | ESummit'25</h1>
                 <div className="mb-10">
@@ -26,6 +27,7 @@ const Team = () => {
                 </div>
             </div>
         </div>
+        }/>
     );
 };
 
