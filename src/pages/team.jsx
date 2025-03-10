@@ -15,14 +15,14 @@ const Team = () => {
                             <Organiser key={i} organiser={item} />
                         ))}
                     </div>
-                </div>
 
-                <div>
-                    <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Heads</h2>
-                    <div className="flex flex-wrap justify-center items-center gap-6">
-                        {coreTeam.head.map((item, i) => (
-                            <Organiser key={i} organiser={item} />
-                        ))}
+                    <div>
+                        <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Heads</h2>
+                        <div className="flex flex-wrap justify-center items-center gap-6">
+                            {coreTeam.head.map((item, i) => (
+                                <Organiser key={i} organiser={item} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

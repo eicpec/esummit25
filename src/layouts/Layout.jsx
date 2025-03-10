@@ -2,9 +2,12 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import Header from "./Header";
 import Footer from "./Footer";
-import Background from "../assets/General/bgesummit.png";
+import { TricolorEffect } from "../components/general/tricoloreffect";
+// import Background from "../assets/General/bgesummit.png";
 
-const Layout = ({ title = "E-Summit PEC - Catalyzing Viksit Bharat", children, background = true, header = true, footer = true }) => {
+const Background = "https://www.ecell.in/esummit/media/bg-1-YEBHC4ZZ.webp";
+
+const Layout = ({ mouseeffect = true, title = "E-Summit PEC - Catalyzing Viksit Bharat", children, background = true, header = true, footer = true }) => {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Set Page Title */}
@@ -25,6 +28,7 @@ const Layout = ({ title = "E-Summit PEC - Catalyzing Viksit Bharat", children, b
 
             {/* Page Footer */}
             {footer && <Footer />}
+            {mouseeffect ? <TricolorEffect /> : ""}
         </div>
     );
 };
