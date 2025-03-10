@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import SignupFormDemo from "./pages/Register.jsx";
@@ -43,6 +43,7 @@ function App() {
               <Route path='/gallery' element={<ImageGallery />} />
               <Route path='/contact' element={<ContactUsPage />} />
               <Route path='/passes' element={<Passes />} />
+              <Route path="*" element={<Navigate to="/" />} /> {/* Catch-all route */}
             </Routes>
           </div>
         )
