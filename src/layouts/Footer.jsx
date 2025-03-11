@@ -4,7 +4,7 @@ import { Instagram, YouTube, X, Facebook, LinkedIn, Mail, Phone } from "@mui/ico
 
 const Footer = () => {
     return (
-        <Box className="w-full mx-auto bg-gray-900 text-white p-10 shadow-xl shadow-gray-800">
+        <Box className="w-full mx-auto bg-black text-white p-10 shadow-xl shadow-gray-800">
             {/* Social Media Section */}
             <div className="flex justify-between items-center pb-6 border-b border-gray-700">
                 <p className="text-lg font-semibold">Stay Connected:</p>
@@ -26,15 +26,15 @@ const Footer = () => {
                     </a>
                 </div>
             </div>
-            
+
             {/* Footer Content */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-6">
-                {/* Logo Section */}
+                {/* Logo Section */ }
                 <div className="flex flex-col items-center">
-                    <img src="https://www.eicpec.in/assets/logos/pec.png" height="80" width="80" alt="PEC" className="mb-4" />
+                    <img onClick={() => window.location.href = "https://pec.ac.in"} src="https://www.eicpec.in/assets/logos/pec.png" height="80" width="80" alt="PEC" className="mb-4 cursor-pointer" />
                     <img src="https://www.eicpec.in/assets/logos/eic.png" height="80" width="80" alt="EIC" />
                 </div>
-                
+
                 {/* Quick Links */}
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
@@ -45,7 +45,7 @@ const Footer = () => {
                         <li><a className="hover:text-gray-300 transition" href="/contact">Contact</a></li>
                     </ul>
                 </div>
-                
+
                 {/* Contact Information */}
                 <div>
                     <h2 className="text-lg font-semibold mb-4">Contact</h2>
@@ -60,7 +60,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            
+
             {/* Footer Bottom */}
             <div className="text-center mt-8 text-gray-400">
                 <p>Made with ❤️ by Tech Team</p>

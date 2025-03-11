@@ -15,6 +15,7 @@ export const passData = [
             "Speaker Sessions",
             "Startup Expo Stall",
         ],
+        sold: true,
     },
     {
         type: "Student",

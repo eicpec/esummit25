@@ -4,7 +4,7 @@ export const events = [
     EventType: "Entrepreneurship",
     About:
       "A platform where innovators and aspiring entrepreneurs pitch their groundbreaking ideas to a panel of judges and investors. Compete for mentorship and funding opportunities.",
-    EventPhoto: "https://your-image-link.com/build-and-pitch.jpg",
+    EventPhoto: "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://media.easy-peasy.ai/77106652-5e5b-4063-ab1c-312a04246222/82d8c885-ab64-4dcb-8019-94ba100ce366.png",
     EventLink: "/events/register/build-and-pitch",
     free: true,
     team: { max: 5, min: 1 },

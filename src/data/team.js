@@ -183,4 +183,36 @@ export const coreTeam = {
             Contact: 7834975811,
         },
     ],
+    jointhead: [
+        {
+            Email: "NA",
+            Type: "Joint Head",
+            Committee: "Website Management",
+            Name: "Bhavishya Khunger",
+            Photo: "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://media.easy-peasy.ai/77106652-5e5b-4063-ab1c-312a04246222/82d8c885-ab64-4dcb-8019-94ba100ce366.png",
+            Instagram: "NA",
+            Linkedin: "NA",
+            Contact: "NA",
+        },
+        {
+            Email: "NA",
+            Type: "Joint Head",
+            Committee: "Website Management",
+            Name: "Karrtik Gupta",
+            Photo: "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://media.easy-peasy.ai/77106652-5e5b-4063-ab1c-312a04246222/82d8c885-ab64-4dcb-8019-94ba100ce366.png",
+            Instagram: "NA",
+            Linkedin: "NA",
+            Contact: "NA",
+        },
+        {
+            Email: "NA",
+            Type: "Joint Head",
+            Committee: "Website Management",
+            Name: "Manas Bhatia",
+            Photo: "https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://media.easy-peasy.ai/77106652-5e5b-4063-ab1c-312a04246222/82d8c885-ab64-4dcb-8019-94ba100ce366.png",
+            Instagram: "NA",
+            Linkedin: "NA",
+            Contact: "NA",
+        },
+    ]
 };
