@@ -14,6 +14,8 @@ import Passes from "./pages/Passes.jsx";
 import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
+import PassRegistration from "./pages/PassRegistration.jsx";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,7 @@ function App() {
           <div>Loading...</div>
         ) : (
           <div>
+            <ToastContainer />
             <Routes>
               <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
               <Route path="/team" element={<Team />} />
@@ -45,6 +48,7 @@ function App() {
               <Route path='/contact' element={<ContactUsPage />} />
               <Route path='/passes' element={<Passes />} />
               <Route path='/profile' element={<Profile />} />
+              <Route path='/pass/:passName' element={<PassRegistration />} />
             </Routes>
           </div>
         )
