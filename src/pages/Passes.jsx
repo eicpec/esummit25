@@ -1,16 +1,19 @@
 import React from "react";
 import { passData } from "../data/passData";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Layout from "../layouts/Layout";
 import "../styles/passes.css";
+import { buyPass } from "../utils/backend";
+import { getCurrentUser } from "../utils/firebaseConfig";
 
 
 const Passes = () => {
     // Separate passes into two categories
     const startupPasses = passData.slice(4, 7); // Last 3 as Startup Passes
     const studentPasses = passData.slice(0, 4); // First 4 as Student Passes
+    const user = getCurrentUser();
 
     return (
         <Layout>
@@ -19,6 +22,25 @@ const Passes = () => {
                 <p className="subtitle">
                     Grab your entry ticket to PEC's E-Summit happening on 22nd and 23rd March, 2025!
                 </p>
+
+                <div className="container">
+                    <div className="passCard">
+                        <h2 className="passTitle">FREE</h2>
+                        <ul className="list">
+                            <li>1</li>
+                            <li>2</li>
+                        </ul>
+                        <div className="cardFooter">
+                            <div className="cardCoseBox">
+                                <p className="cardCostBoxText">Total Payable</p>
+                                <p className="cardCostBoxPrice">0</p>
+                            </div>
+                            <Link onClick={buyPass(user?.uuid, "free")}>
+                                Buy
+                            </Link>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Startup Passes */}
                 <h2 className="sectionTitle">Startup Passes</h2>

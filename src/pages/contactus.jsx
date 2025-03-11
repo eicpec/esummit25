@@ -77,7 +77,17 @@ const ContactUsPage = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* Embedded Google Map */}
+                <div className="mt-4 rounded-lg overflow-hidden">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3428.3451028947993!2d76.78419437579618!3d30.764892274568737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ff282845c404b%3A0xc0844bf7cbdcc6e9!2sPunjab%20Engineering%20College!5e0!3m2!1sen!2sin!4v1741604569639!5m2!1sen!2sin"
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade">
+                  </iframe>
+                </div>
               </div>
+
 
               {/* Email Section */}
               <div className="bg-black/40 backdrop-blur-lg p-6 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-300">

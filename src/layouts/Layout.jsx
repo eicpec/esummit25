@@ -3,9 +3,10 @@ import { Helmet } from "react-helmet-async";
 import Header from "./Header";
 import Footer from "./Footer";
 import { TricolorEffect } from "../components/general/tricoloreffect";
-// import Background from "../assets/General/bgesummit.png";
+import { Link } from "react-router-dom";
+import Background from "../assets/General/bg_esummit_final.png";
 
-const Background = "https://www.ecell.in/esummit/media/bg-1-YEBHC4ZZ.webp";
+// const Background = "https://i.pinimg.com/originals/f9/a8/ed/f9a8ed161524ca06e0d5250fe2d33e51.gif";
 
 const Layout = ({ mouseeffect = true, title = "E-Summit PEC - Catalyzing Viksit Bharat", children, background = true, header = true, footer = true }) => {
     return (

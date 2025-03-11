@@ -23,7 +23,7 @@ const Speakers = () => {
 
   return (
     <Layout header={true} children={
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-10">
+      <div className="mt-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-10">
         {speakers.map((speaker, idx) => (
           <div
             key={idx}

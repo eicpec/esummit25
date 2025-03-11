@@ -1,9 +1,9 @@
 import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
-import SignupFormDemo from "./pages/Register.jsx";
+import Register from "./pages/Register.jsx";
 import TimelineDemo from "./pages/TimeLine.jsx";
 import LogoAnimationPage from "./pages/home/LogoAnimationPage.jsx";
 import Home from "./pages/home/Home.jsx";
@@ -13,6 +13,7 @@ import { TricolorEffect } from "./components/general/tricoloreffect.jsx";
 import Passes from "./pages/Passes.jsx";
 import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
+import Profile from "./pages/Profile.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -36,13 +37,14 @@ function App() {
             <Routes>
               <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
               <Route path="/team" element={<Team />} />
-              <Route path="/speakers" element={<Speakers />} />
+              <Route path="/dignitaries" element={<Speakers />} />
               <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
               <Route path="/timeline" element={<TimelineDemo />} />
-              <Route path="/register" element={<SignupFormDemo />} />
+              <Route path="/register" element={<Register />} />
               <Route path='/gallery' element={<ImageGallery />} />
               <Route path='/contact' element={<ContactUsPage />} />
               <Route path='/passes' element={<Passes />} />
+              <Route path='/profile' element={<Profile />} />
             </Routes>
           </div>
         )
