@@ -4,6 +4,7 @@ import Logo from "../../assets/General/esummit25logofull.png";
 import { Link } from "react-router-dom";
 import { IoTicketOutline } from "react-icons/io5";
 import Footer from "../../layouts/Footer";
+import Register from "../../pages/Register";
 
 const PageLoader = () => {
     return (

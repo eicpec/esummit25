@@ -19,6 +19,8 @@
     "@tailwindcss/oxide": "^4.0.12",
     "@tailwindcss/vite": "^4.0.9",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "firebase": "^11.4.0",
     "framer-motion": "^12.4.10",
     "gsap": "^3.12.7",
     "html2canvas": "^1.4.1",

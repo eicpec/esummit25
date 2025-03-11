@@ -71,19 +71,20 @@ export const passData = [
         exclusions: [],
     },
     {
-        type: "Silver Startup",
-        cost: "₹2999",
+        type: "Silver Pass",
+        cost: "₹5000",
         link: "silver-startup",
         color: "silver",
         inclusions: [
-            "Access to Speaker Sessions",
-            "Startup Expo",
-            "Intern Fair (If shortlisted)",
-            "Access to Funding Conclave",
+            "Stall at the Startup Expo",
+            "Social Media Feature",
+            "Logo on the Startup Expo banner",
         ],
         exclusions: [
-            "Accommodation",
-            "Premium Networking Lounge",
+            "Gala Networking Dinner",
+            "Newspaper Branding",
+            "Pitch at the Funding Conclave",
+            "Main Flex Branding + LED Screen Display",
         ],
     },
     {
