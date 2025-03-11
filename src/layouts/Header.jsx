@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/General/Logo_Text.png"; // text
 import MiniLogo from "../assets/General/Logo_Vector_Image.png"; // vector
 import FullLogo from "../assets/General/esummit25logo.png"; // full
@@ -6,10 +6,27 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Header() {
     const [isActive, setIsActive] = useState(false);
+    const [username, setUserName] = useState("");
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        setUserName(user?.displayName);
+    }, []);
 
     const handleClick = () => {
         setIsActive((prev) => !prev);
     };
+
+    const headerItems = [
+        { href: "/events", name: "EVENTS" },
+        { href: "/passes", name: "PASSES" },
+        { href: "/timeline", name: "TIMELINE" },
+        { href: "/dignitaries", name: "DIGNITARIES" },
+        { href: "/team", name: "TEAM" },
+        { href: "/gallery", name: "GALLERY" },
+        { href: "/contact", name: "CONTACT" },
+        { href: username ? "/profile" : "/register", name: username?.split(" ")[0]?.toLocaleUpperCase() || "REGISTER" },
+    ];
 
     return (
         <div className={`fixed top-0 w-full bg-gradient-to-b from-[#1C3546]/70 to-[#1C3546]/0 backdrop-blur-sm text-white font-sans z-50 h-20 flex items-center transition-all duration-300 ${isActive ? "bg-opacity-100" : ""}`}>
@@ -68,16 +85,5 @@ function Header() {
         </div>
     );
 }
-
-export const headerItems = [
-    { href: "/events", name: "EVENTS" },
-    { href: "/passes", name: "PASSES" },
-    { href: "/timeline", name: "TIMELINE" },
-    { href: "/dignitaries", name: "DIGNITARIES" },
-    { href: "/team", name: "TEAM" },
-    { href: "/gallery", name: "GALLERY" },
-    { href: "/contact", name: "CONTACT" },
-    { href: "/register", name: "REGISTER" },
-];
 
 export default Header;
