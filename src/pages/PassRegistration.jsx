@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { db } from "../utils/firebaseConfig";
+import { useNavigate, useParams } from "react-router-dom";
+import { db, getUserPassInfo } from "../utils/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { passData } from "../data/passData";
 import Layout from "../layouts/Layout";
+import { toast } from "react-toastify";
 
 const PassForm = () => {
     const { passName } = useParams();
@@ -13,9 +14,24 @@ const PassForm = () => {
     const [loading, setLoading] = useState(false);
     const auth = getAuth();
     const user = auth.currentUser;
+    const [passInfo, setPassInfo] = useState("");
+    const navigate = useNavigate();
+
+    const fetchPassInfo = async () => {
+        try {
+            const passin = await getUserPassInfo();
+            console.log(passin);
+            setPassInfo(passin);
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
     useEffect(() => {
-        if (!user) return;
+        if (!user) {
+            return;
+        };
+        fetchPassInfo();
         setFormData((prev) => ({
             ...prev,
             name: user.displayName || "",
@@ -30,19 +46,25 @@ const PassForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-    
+
         if (!user) {
-            alert("You must be logged in to submit the form!");
+            toast.error("You must be logged in to submit the form!");
             setLoading(false);
             return;
         }
-    
+
         if (!formData.txnId.trim()) {
-            alert("Please enter your Transaction ID!");
+            toast.error("Please enter your Transaction ID!");
             setLoading(false);
             return;
         }
-    
+
+        if (passInfo) {
+            toast.error("You have already bought a " + passInfo?.passName + " Pass.");
+            setLoading(false);
+            return;
+        }
+
         try {
             await addDoc(collection(db, "passRegistrations"), {
                 name: formData.name,
@@ -53,16 +75,18 @@ const PassForm = () => {
                 createdAt: new Date(),
                 userId: user.uid,  // Ensuring the user is authenticated
             });
-    
-            alert("Form submitted! Await admin approval.");
+
+            toast.success("Form submitted! Await admin approval.");
             setFormData({ txnId: "" });
+            navigate("/profile");
         } catch (error) {
             console.error("Error submitting form: ", error);
-            alert("Submission failed! Try again.");
+            toast.error("Submission failed! Try again.");
+            navigate("/passes");
         }
         setLoading(false);
     };
-    
+
 
     return (
         <Layout children={<div className="flex py-24 min-h-screen bg-gray-900 text-white p-8">
@@ -92,6 +116,9 @@ const PassForm = () => {
                         {loading ? "Submitting..." : "Submit"}
                     </button>
                 </form>
+                    <p className="mt-4">Note:</p>
+                    <p>1. Name and E-mail are filled automatically and CANNOT be editable.</p>
+                    <p>2. This action is irreversible. Once submitted, verification request will be sent to the admin and the pass will be alloted within 12-24 hours.</p>
             </div>
         </div>}
         />

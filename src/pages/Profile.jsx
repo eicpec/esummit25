@@ -8,133 +8,7 @@ import { FaPhoneAlt, FaRegIdCard } from "react-icons/fa";
 import Layout from "../layouts/Layout";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebaseConfig"; // Ensure Firestore is imported
-
-const passData = {
-  "Free": {
-    type: "Free",
-    student: true,
-    cost: "₹0",
-    link: "free",
-    color: "silver",
-    inclusions: [
-      "Access to Networking Arena",
-      "Visit Startup Expo",
-      "Certain Panel Discussions",
-    ],
-    exclusions: [
-      "Participation in Competitions",
-      "Intern Fair",
-      "Speaker Sessions",
-      "Startup Expo Stall",
-    ]
-  },
-  "Student": {
-    type: "Student",
-    student: true,
-    cost: "₹199",
-    link: "student",
-    color: "blue",
-    inclusions: [
-      "Access to Networking Arena",
-      "Visit Startup Expo",
-      "All Panel Discussions",
-      "Intern Fair",
-      "All Speaker Sessions",
-      "Participation in Competitions",
-    ],
-    exclusions: [
-      "Startup Expo Stall",
-      "Funding Conclave",
-    ],
-  },
-  "Premium": {
-    type: "Premium",
-    student: true,
-    cost: "₹999",
-    link: "premium",
-    color: "gold",
-    inclusions: [
-      "Access to Networking Arena",
-      "Visit Startup Expo",
-      "All Panel Discussions",
-      "Intern Fair",
-      "All Speaker Sessions",
-      "Participation in Competitions",
-      "Set up Stall in Startup Expo",
-    ],
-    exclusions: [
-      "Funding Conclave",
-    ],
-  },
-  "Business": {
-    type: "Business",
-    student: false,
-    cost: "₹1999",
-    link: "business",
-    color: "platinum",
-    inclusions: [
-      "Access to Networking Arena",
-      "Visit Startup Expo",
-      "All Panel Discussions",
-      "Intern Fair",
-      "All Speaker Sessions",
-      "Participation in Competitions",
-      "Set up Stall in Startup Expo",
-      "Participation in Funding Conclave (If shortlisted)",
-    ],
-    exclusions: [],
-  },
-  "Silver Pass": {
-    type: "Silver Pass",
-    cost: "₹5000",
-    link: "silver-startup",
-    color: "silver",
-    inclusions: [
-      "Stall at the Startup Expo",
-      "Social Media Feature",
-      "Logo on the Startup Expo banner",
-    ],
-    exclusions: [
-      "Gala Networking Dinner",
-      "Newspaper Branding",
-      "Pitch at the Funding Conclave",
-      "Main Flex Branding + LED Screen Display",
-    ],
-  },
-  "Gold Pass": {
-    type: "Gold Pass",
-    cost: "7000",
-    link: "gold-startup",
-    color: "gold",
-    inclusions: [
-      "Stall at the Startup Expo",
-      "Social Media Feature",
-      "Logo on the Startup Expo banner",
-      "Gala Networking Dinner with investors & startups",
-      "Newspaper Branding (Expo Collab - Gold)",
-    ],
-    exclusions: [
-      "Pitch at the Funding Conclave",
-      "Main Flex Branding + LED Screen Display",
-    ],
-  },
-  "Platinum Pass": {
-    type: "Platinum Pass",
-    cost: "₹10000",
-    link: "platinum-startup",
-    color: "platinum",
-    inclusions: [
-      "Stall at the Startup Expo",
-      "Social Media Feature",
-      "Logo on the Startup Expo banner",
-      "Gala Networking Dinner with investors & startups",
-      "Newspaper Branding (Expo Collab - Gold)",
-      "Pitch at the Funding Conclave",
-      "Main Flex Branding + LED Screen Display",
-    ],
-    exclusions: [],
-  }
-};
+import { passData } from "../data/passData2";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -261,9 +135,9 @@ const Profile = () => {
                 </div>
               ) : (
                 <div className="mt-4">
-                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "Your college"}</p>
-                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "Your phone number"}</p>
-                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "Your roll number"}</p>
+                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "N/A"}</p>
+                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "N/A"}</p>
+                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "N/A"}</p>
                   <button onClick={handleEditToggle} className="mt-4 w-full cursor-pointer text-green-400 bg-[#37493c] py-2 rounded-lg active:scale-95">Edit</button>
                 </div>
               )}
@@ -302,7 +176,7 @@ const Profile = () => {
                     ))}
                   </ul>
                   <Link to={"/contact"} className="mt-2 text-sm text-blue-400 hover:underline">
-                    Click here to contact in case of any discrepancies!
+                    Click here to contact in case of any discrepancies or to upgrade your pass!
                   </Link>
                 </>
               ) : (

@@ -85,8 +85,6 @@ export const signInWithGoogle = async () => {
     saveUserToLocalStorage(user);
     await saveUserToFirestore(user);
 
-    toast.info("Please complete your profile to proceed with event registration");
-
     return user;
   } catch (error) {
     console.error("Google Login Error:", error.message);

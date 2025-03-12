@@ -38,6 +38,8 @@ export const events = [
     EventPhoto: SpeakerSessions,
     EventLink: "/events/register/speaker-sessions",
     free: true,
+    Date: "March 22",
+    Time: "12:45 p.m."
   },
   {
     EventName: "Bargain Battles",
