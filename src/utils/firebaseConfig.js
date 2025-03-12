@@ -8,8 +8,9 @@ import {
   signOut,
   onAuthStateChanged
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, query, getDocs, collection, where, serverTimestamp, addDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 
 // Firebase Configuration
@@ -28,6 +29,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 // Session duration in milliseconds (e.g., 1 hour)
 const SESSION_DURATION = 3600000;
@@ -127,11 +129,11 @@ export const registerWithEmail = async (email, name, password, collegeName, sid,
   } catch (error) {
     console.error("Registration Error:", error);
     if (error.code === 'auth/email-already-in-use') {
-        throw new Error("Email already in use.");
+      throw new Error("Email already in use.");
     } else if (error.code === 'auth/weak-password') {
-        throw new Error("Password too weak.");
+      throw new Error("Password too weak.");
     } else {
-        throw new Error("An unexpected error occurred.");
+      throw new Error("An unexpected error occurred.");
     }
   }
 };
@@ -180,11 +182,12 @@ export const getCurrentUser = async () => {
 
 // Check if user is logged in
 export const isLoggedIn = () => {
-  return new Promise((resolve) => {
-    onAuthStateChanged(auth, (user) => {
-      resolve(!!user);
-    });
-  });
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (!user) {
+    return false;
+  }
+  return true;
 };
 
 export const updateUserDetails = async (userId, userData) => {
@@ -210,3 +213,72 @@ export const createUserProfile = async (user) => {
   });
 };
 
+export const getUserPassInfo = async () => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("No user is logged in.");
+    }
+
+    // Query the passRegistrations collection for the logged-in user's email
+    const passQuery = query(
+      collection(db, "passRegistrations"),
+      where("email", "==", user.email)
+    );
+
+    const passSnapshot = await getDocs(passQuery);
+
+    if (!passSnapshot.empty) {
+      // Assuming a user has only one pass entry
+      return passSnapshot.docs[0].data();
+    } else {
+      return null; // No pass found
+    }
+  } catch (error) {
+    console.error("Error fetching pass info:", error);
+    throw error;
+  }
+};
+
+// Register User for an Event
+export const registerForEvent = async (eventName) => {
+  try {
+    const auth = getAuth();
+    const db = getFirestore();
+
+    if (!auth.currentUser) {
+      throw new Error("User is not authenticated");
+    }
+
+    const userId = auth.currentUser.uid;
+    const email = auth.currentUser.email;
+
+    console.log("Checking if user is already registered...");
+
+    // Query Firestore to check if the user has already registered for the event
+    const eventRef = collection(db, "eventRegistrations");
+    const q = query(eventRef, where("userId", "==", userId), where("eventName", "==", eventName));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      console.warn("User is already registered for this event.");
+      alert("You have already registered for this event!");
+      return; // Exit function if already registered
+    }
+
+    // If the user is not already registered, proceed with registration
+    await addDoc(eventRef, {
+      userId: userId,
+      eventName: eventName,
+      timestamp: new Date(),
+      email: email
+    });
+
+    console.log("Successfully registered for event:", eventName);
+    alert("Registration successful!");
+
+  } catch (error) {
+    console.error("Error registering for event:", error.message);
+    alert(error.message); // Show error message to the user
+  }
+};
