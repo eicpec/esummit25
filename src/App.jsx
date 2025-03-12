@@ -16,6 +16,7 @@ import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
 import PassRegistration from "./pages/PassRegistration.jsx";
+import RegistrationForm from "./components/RegistrationForm.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
