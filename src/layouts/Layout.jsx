@@ -19,7 +19,7 @@ const Layout = ({ visible = true, mouseeffect = true, title = "E-Summit PEC - Ca
 
             {/* Page Header */}
             {header && <Header />}
-            <Link to={"/passes"} className="flex z-50 items-center gap-2 fixed -left-28 hover:-left-24 transition-all text-xl pb-36 rounded-t-lg text-white top-16 hover:bg-amber-500 hover:font-semibold bg-[#a1740c] px-3 py-2 rotate-90">
+            <Link to={"/passes"} className="flex z-50 items-center gap-2 fixed -left-36 hover:-left-24 transition-all text-xl pb-36 rounded-t-lg text-white top-16 hover:bg-amber-500 hover:font-semibold bg-[#a1740c] px-3 py-2 rotate-90">
                 <IoDocument />
                 Brochure
             </Link>

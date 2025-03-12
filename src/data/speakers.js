@@ -1,6 +1,7 @@
 import Guess from "../assets/Dignitaries/guess.png"
 
 export const speakers = [
+    // influencers
     {
         image: Guess,
         name: "Revealing Soon!",
@@ -31,6 +32,7 @@ export const speakers = [
         name: "Revealing Soon!",
         designation: "E-Summit 2025"
     },
+    // investors
     {
         image: Guess,
         name: "Ankit Thareja",
@@ -61,34 +63,44 @@ export const speakers = [
         name: "Mohd Tanveer",
         designation: "Wealth Manager"
     },
-    // {
-    //     image: Guess,
-    //     name: "",
-    //     designation: ""
-    // },
-    // {
-    //     image: Guess,
-    //     name: "",
-    //     designation: ""
-    // },
-    // {
-    //     image: Guess,
-    //     name: "",
-    //     designation: ""
-    // },
-    // {
-    //     image: Guess,
-    //     name: "",
-    //     designation: ""
-    // },
-    // {
-    //     image: Guess,
-    //     name: "",
-    //     designation: ""
-    // },
-    // {
-    //     image: Guess,
-    //     name: "",
-    //     designation: ""
-    // },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon",
+        designation: "E-Summit'25"
+    },
 ]

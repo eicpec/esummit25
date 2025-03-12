@@ -1,0 +1,33 @@
+.slider-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    background: black; /* Adjust if needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+  }
+  
+  .slider {
+    display: flex;
+    gap: 30px;
+    animation: scroll 10s linear infinite;
+  }
+  
+  .slide img {
+    height: 80px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Helps remove background */
+    mix-blend-mode: multiply; /* Try to remove white backgrounds */
+  }
+  
+  @keyframes scroll {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  
