@@ -23,6 +23,16 @@ export const speakers = [
     },
     {
         image: Guess,
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
+    },
+    {
+        image: Guess,
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
+    },
+    {
+        image: Guess,
         name: "Ankit Thareja",
         designation: "CFA, Vice President, Morgan Stanley"
     },
