@@ -84,9 +84,8 @@ const passData = {
     ],
     exclusions: [],
   },
-  "Silver Startup": {
+  "Silver Pass": {
     type: "Silver Pass",
-    student: false,
     cost: "₹5000",
     link: "silver-startup",
     color: "silver",
@@ -102,35 +101,36 @@ const passData = {
       "Main Flex Branding + LED Screen Display",
     ],
   },
-  "Gold Startup": {
-    type: "Gold Startup",
-    student: false,
-    cost: "₹4999",
+  "Gold Pass": {
+    type: "Gold Pass",
+    cost: "7000",
     link: "gold-startup",
     color: "gold",
     inclusions: [
-      "Access to Speaker Sessions",
-      "Startup Expo",
-      "Intern Fair (If shortlisted)",
-      "Funding Conclave",
-      "Premium Networking Lounge",
+      "Stall at the Startup Expo",
+      "Social Media Feature",
+      "Logo on the Startup Expo banner",
+      "Gala Networking Dinner with investors & startups",
+      "Newspaper Branding (Expo Collab - Gold)",
     ],
     exclusions: [
-      "Accommodation",
+      "Pitch at the Funding Conclave",
+      "Main Flex Branding + LED Screen Display",
     ],
   },
-  "Platinum Startup": {
-    type: "Platinum Startup",
-    student: false,
-    cost: "₹7999",
+  "Platinum Pass": {
+    type: "Platinum Pass",
+    cost: "₹10000",
     link: "platinum-startup",
     color: "platinum",
     inclusions: [
-      "All Access Pass",
-      "Accommodation for 3 Days",
-      "Premium Networking Lounge",
-      "Startup Expo Stall",
-      "Intern Fair & Funding Conclave",
+      "Stall at the Startup Expo",
+      "Social Media Feature",
+      "Logo on the Startup Expo banner",
+      "Gala Networking Dinner with investors & startups",
+      "Newspaper Branding (Expo Collab - Gold)",
+      "Pitch at the Funding Conclave",
+      "Main Flex Branding + LED Screen Display",
     ],
     exclusions: [],
   }
@@ -235,19 +235,19 @@ const Profile = () => {
   };
 
   return (
-    <Layout visible={user ? true : false} footer={false}>
+    <Layout visible={user ? true : false}>
       <div className="min-h-screen pt-24 bg-black text-white flex justify-center p-6">
         <div className="max-w-5xl h-fit w-full grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             {/* User Info */}
             <div className="bg-[#282828] w-full p-6 rounded-lg shadow-lg">
-              <div className="flex items-center space-x-4">
-                <div className="w-20 h-20 flex items-center justify-center rounded-xl bg-[#C2175B] text-3xl font-semibold">
+              <div className="flex flex-wrap items-center space-x-4">
+                <div className="min-w-20 h-20 flex items-center justify-center rounded-xl bg-[#C2175B] text-3xl font-semibold">
                   {user?.displayName ? user.displayName.charAt(0).toUpperCase() : "U"}
                 </div>
                 <div>
                   <h2 className="text-xl font-bold">{user?.displayName || "User Name"}</h2>
-                  <p className="text-gray-400 text-sm">{user?.email}</p>
+                  <p className="text-gray-400 text-wrap text-sm">{user?.email}</p>
                   <p className="mt-1 rounded-lg text-xs bg-gray-700 w-fit px-3 py-1">Participant</p>
                 </div>
               </div>
@@ -291,10 +291,10 @@ const Profile = () => {
                     ))}
                   </ul>
 
-                  {passData[passInfo.passName]?.exclusions?.length !== 0 && 
-                  <p className="mt-2 text-sm text-gray-400">
-                    Please note, the following perks are NOT included in {passInfo.passName} Pass:
-                  </p>}
+                  {passData[passInfo.passName]?.exclusions?.length !== 0 &&
+                    <p className="mt-2 text-sm text-gray-400">
+                      Please note, the following perks are NOT included in {passInfo.passName} Pass:
+                    </p>}
 
                   <ul className="mt-3 text-gray-300 text-sm list-disc list-inside">
                     {passData[passInfo.passName]?.exclusions?.map((perk, index) => (

@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { TricolorEffect } from "../components/general/tricoloreffect";
 import { Link } from "react-router-dom";
-import Background from "../assets/General/bg_esummit_final.png";
+import Background from "../assets/General/bgesumm.png";
 
 // const Background = "https://i.pinimg.com/originals/f9/a8/ed/f9a8ed161524ca06e0d5250fe2d33e51.gif";
 
