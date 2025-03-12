@@ -95,7 +95,7 @@ export const coreTeam = {
         {
             Email: "NA",
             Type: "Head",
-            Committee: "Digital and creative",
+            Committee: "Digital and Creative",
             Name: "Akshit Singhal",
             Photo: "/team/Akshit_crea.png",
             Instagram: "NA",
