@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -83,11 +85,12 @@ export const signInWithGoogle = async () => {
     saveUserToLocalStorage(user);
     await saveUserToFirestore(user);
 
-    alert("Please complete your profile in order to proceed with event registration");
+    toast.info("Please complete your profile to proceed with event registration");
 
     return user;
   } catch (error) {
     console.error("Google Login Error:", error.message);
+    toast.error("Google sign-in failed!");
     throw error;
   }
 };
@@ -126,10 +129,12 @@ export const registerWithEmail = async (email, name, password, collegeName, sid,
     console.log("User data successfully written to Firestore.");
 
     saveUserToLocalStorage(userData); // Save to local storage
+    toast.success("Registration successful! Please log in.");
 
     return user;
   } catch (error) {
     console.error("Registration Error:", error);
+    toast.error(error.message);
     if (error.code === 'auth/email-already-in-use') {
       throw new Error("Email already in use.");
     } else if (error.code === 'auth/weak-password') {
@@ -151,10 +156,12 @@ export const loginWithEmail = async (email, password) => {
 
     saveUserToLocalStorage(user);
     await saveUserToFirestore(user);
+    toast.success("Login successful!");
 
     return user;
   } catch (error) {
     console.error("Login Error:", error.message);
+    toast.error("Invalid credentials!");
     throw error;
   }
 };
@@ -164,8 +171,10 @@ export const logout = async () => {
   try {
     await signOut(auth);
     localStorage.removeItem("user");
+    toast.success("Logged out successfully!");
   } catch (error) {
     console.error("Logout Error:", error.message);
+    toast.error("Logout failed!");
     throw error;
   }
 };
@@ -268,7 +277,7 @@ export const registerForEvent = async (eventName) => {
 
     // Check if required details are missing
     if (!userData.college || !userData.sid || !userData.phone) {
-      alert("Please complete your profile with College Name, SID, and Phone Number before registering for events.");
+      toast.warn("Please complete your profile before registering for events.");
       return;
     }
 
@@ -281,7 +290,7 @@ export const registerForEvent = async (eventName) => {
 
     if (!querySnapshot.empty) {
       console.warn("User is already registered for this event.");
-      alert("You have already registered for this event!");
+      toast.warn("You have already registered for this event!");
       return;
     }
 
@@ -294,10 +303,10 @@ export const registerForEvent = async (eventName) => {
     });
 
     console.log("Successfully registered for event:", eventName);
-    alert("Registration successful!");
+    toast.success(`Successfully registered for ${eventName}!`);
 
   } catch (error) {
     console.error("Error registering for event:", error.message);
-    alert(error.message);
+    toast.error(error.message);
   }
 };

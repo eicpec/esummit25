@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { FaInstagram, FaLinkedin } from "react-icons/fa"; // Import icons from react-icons
 
 const PastSpeakers = ({ title, data, direction }) => {
   const containerRef = useRef(null);
@@ -50,13 +49,13 @@ const PastSpeakers = ({ title, data, direction }) => {
   const createCardElement = (speaker) => {
     const card = document.createElement("div");
     card.className =
-      "relative flex-shrink-0 w-64 p-6 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 rounded-lg shadow-md transition-transform duration-300 cursor-pointer"
+      "relative flex-shrink-0 w-64 p-6 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 rounded-lg shadow-md transition-transform duration-300 cursor-pointer";
 
     // Set content
     card.innerHTML = `
-      <img src="${speaker.image}" alt="${speaker.name}" class="w-full h-48 object-cover rounded-md mb-4" />
+      <img src="${speaker.img}" alt="${speaker.name}" class="w-full h-48 object-cover rounded-md mb-4" />
       <h3 class="text-xl font-semibold text-white">${speaker.name}</h3>
-      <h4 class="text-lg text-gray-400">${speaker.designation}</h4>
+      <h4 class="text-sm break-words whitespace-normal text-gray-400">${speaker.desc}</h4>
       <div class="gradient-overlay absolute bottom-0 left-0 w-full h-[calc(100%-12rem)] opacity-0 z-0 rounded-lg overflow-hidden"
         style="background: linear-gradient(to bottom, rgba(255, 165, 0, 0.3), rgba(255, 255, 255, 0.3), rgba(0, 128, 0, 0.3)); clip-path: inset(12rem 0px 0px 0px);">
       </div>
@@ -72,10 +71,6 @@ const PastSpeakers = ({ title, data, direction }) => {
 
     return card;
   };
-
-
-
-
 
   // Function to handle hover on a speaker card
   const handleHover = (event, isHovered) => {
@@ -93,15 +88,14 @@ const PastSpeakers = ({ title, data, direction }) => {
       card.addEventListener("mousemove", handleTilt);
       card.addEventListener("mouseleave", resetTilt);
     } else {
-      tl.current.play(); // Resume the animation on mouse leave
-      gsap.to(card, { scale: 1, duration: 0.01, ease: "power2.out" });
-      gsap.to(gradientOverlay, { opacity: 0, duration: 0.01 }); // Hide gradient
-      gsap.to(icons, { opacity: 0, duration: 0.01 }); // Hide icons
+      tl.current.play(); // Resume scrolling
 
-      // Remove 3D tilt effect
-      card.removeEventListener("mousemove", handleTilt);
-      card.removeEventListener("mouseleave", resetTilt);
-      resetTilt({ currentTarget: card }); // Reset the card to its original state
+      gsap.to(card, { scale: 1, duration: 0.1, ease: "power2.out" });
+      gsap.to(gradientOverlay, { opacity: 0, duration: 0.15 }); // Delay a bit
+      gsap.to(icons, { opacity: 0, duration: 0.15 }); // Delay a bit
+
+      // Ensure 3D effect resets even if cursor leaves fast
+      setTimeout(() => resetTilt({ currentTarget: card }), 50);
     }
   };
 
@@ -170,12 +164,6 @@ const PastSpeakers = ({ title, data, direction }) => {
                 clipPath: "inset(12rem 0px 0px 0px)", // This ensures the gradient starts below the image
               }}
             ></div>
-
-            {/* Icons (Bottom Right) */}
-            <div className="icons absolute bottom-4 right-4 flex space-x-4 opacity-0">
-              <FaInstagram className="text-white text-2xl cursor-pointer hover:text-orange-500 transition-colors" />
-              <FaLinkedin className="text-white text-2xl cursor-pointer hover:text-blue-500 transition-colors" />
-            </div>
           </div>
         ))}
       </div>

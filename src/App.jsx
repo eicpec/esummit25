@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { auth, getCurrentUser } from "./utils/firebaseConfig";
 import "./App.css";
 import React, { useState, useEffect } from "react";
@@ -21,7 +23,6 @@ import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
 import PassRegistration from "./pages/PassRegistration.jsx";
-import { ToastContainer } from "react-toastify";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -50,31 +51,23 @@ function App() {
 
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div>
-          <ToastContainer />
-          <Routes>
-            <Route
-              path="/"
-              element={animationloading ? <LogoAnimationPage /> : <Home />}
-            />
-            <Route path="/team" element={<Team />} />
-            <Route path="/dignitaries" element={<Speakers />} />
-            <Route
-              path="/events"
-              element={<Layout children={<ExpandableCardDemo />} />}
-            />
-            <Route path="/timeline" element={<TimelineDemo />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/gallery" element={<ImageGallery />} />
-            <Route path="/contact" element={<ContactUsPage />} />
-            <Route path="/passes" element={<Passes />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/pass/:passName" element={<PassRegistration />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/dignitaries" element={<Speakers />} />
+          <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />
+          <Route path="/timeline" element={<TimelineDemo />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/gallery" element={<ImageGallery />} />
+          <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/passes" element={<Passes />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/pass/:passName" element={<PassRegistration />} />
+        </Routes>
       )}
     </>
   );
