@@ -14,7 +14,7 @@ const useOutsideClick = (ref, callback) => {
   }, [ref, callback]);
 };
 
-const ExpandableCardDemo = () => {
+const ExpandableCardDemo = ({ onRegisterClick }) => {
   const [active, setActive] = useState(null);
   const id = useId();
   const ref = useRef(null);
@@ -92,6 +92,9 @@ const ExpandableCardDemo = () => {
                 >
                   Register
                 </a>
+                <button onClick={onRegisterClick} className="mt-4 block text-center bg-blue-500 text-white py-2 rounded-full font-medium hover:bg-blue-600 transition-all">
+                  Register
+                </button>
               </motion.div>
             </div>
           )}

@@ -14,10 +14,12 @@ import Passes from "./pages/Passes.jsx";
 import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
+import RegistrationForm from "./components/RegistrationForm";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [animationloading, setAnimationLoading] = useState(false);
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
 
   React.useEffect(() => {
     setAnimationLoading(true);
@@ -26,6 +28,10 @@ function App() {
     }, 4000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleRegisterClick = () => {
+    setShowRegistrationForm(true);
+  };
 
   return (
     <>
@@ -38,7 +44,7 @@ function App() {
               <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
               <Route path="/team" element={<Team />} />
               <Route path="/dignitaries" element={<Speakers />} />
-              <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
+              <Route path="/events" element={<Layout children={<ExpandableCardDemo onRegisterClick={handleRegisterClick} />} />} />
               <Route path="/timeline" element={<TimelineDemo />} />
               <Route path="/register" element={<Register />} />
               <Route path='/gallery' element={<ImageGallery />} />
@@ -46,6 +52,7 @@ function App() {
               <Route path='/passes' element={<Passes />} />
               <Route path='/profile' element={<Profile />} />
             </Routes>
+            {showRegistrationForm && <RegistrationForm />}
           </div>
         )
       }
