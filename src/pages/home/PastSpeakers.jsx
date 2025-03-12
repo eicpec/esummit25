@@ -147,7 +147,7 @@ const PastSpeakers = ({ title, data, direction }) => {
         {data.map((speaker) => (
           <div
             key={speaker.id}
-            className="relative flex-shrink-0 w-64 p-6 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-10 cursor-pointer"
+            className="relative flex-shrink-0 w-64 p-6 bg-gray-800 rounded-lg text-wrap shadow-lg hover:shadow-xl transition-transform duration-10 cursor-pointer"
             onMouseEnter={(e) => handleHover(e, true)}
             onMouseLeave={(e) => handleHover(e, false)}
           >
@@ -158,7 +158,7 @@ const PastSpeakers = ({ title, data, direction }) => {
               className="w-full h-48 object-cover rounded-md mb-4"
             />
             <h3 className="text-xl font-semibold text-white">{speaker.name}</h3>
-            <h4 className="text-lg text-gray-400">{speaker.designation}</h4>
+            <h4 className="text-lg over text-gray-400 text-wrap">{speaker.designation}</h4>
 
             {/* Gradient Overlay (Horizontal and Below Image) */}
             {/* Gradient Overlay (Covers Card, Not Image) */}

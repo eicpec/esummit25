@@ -58,10 +58,10 @@ const Register = () => {
 
   return (
     <Layout header={true} footer={false} children={
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg opacity-90 bg-black md:max-w-lg lg:max-w-xl">
+      <div className="min-h-screen pt-20 flex items-center justify-center p-4">
+        <div className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg border border-white opacity-90 bg-black md:max-w-lg lg:max-w-xl">
           <h2 className="font-bold text-center text-xl text-neutral-200">
-            {isLogin ? "Login" : "Register"}
+            {isLogin ? "Login" : "Register"} @ E-Summit'25
           </h2>
 
           {error &&
