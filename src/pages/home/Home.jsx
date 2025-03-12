@@ -31,8 +31,8 @@ function Home() {
                     <PastSpeakers data={pvsspeakers} direction={1} />
                     <h1 className="mx-4 md:text-7xl text-5xl text-center text-white font-semibold">Previous Investors</h1>
                     <PastSpeakers data={sponsors} direction={0} />
-                    <PastSpeakers data={sponsors} direction={0} />
-                    <PastSponsors />
+                    <h1 className="mx-4 md:text-7xl text-5xl text-center text-white font-semibold">Previous Investors</h1>
+                    <PastSponsors data={sponsors} direction={1} />
                 </>
             } />
         </>

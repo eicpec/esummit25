@@ -50,13 +50,11 @@ const PastSponsors = ({ title, data, direction }) => {
   const createCardElement = (speaker) => {
     const card = document.createElement("div");
     card.className =
-      "relative flex-shrink-0 w-64 p-6 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 rounded-lg shadow-md transition-transform duration-300 cursor-pointer"
+      "relative flex-shrink-0 w-64 p-6 rounded-lg shadow-md transition-transform duration-300 cursor-pointer"
 
     // Set content
     card.innerHTML = `
       <img src="${speaker.image}" alt="${speaker.name}" class="w-full h-48 object-cover rounded-md mb-4" />
-      <h3 class="text-xl font-semibold text-white">${speaker.name}</h3>
-      <h4 class="text-lg text-gray-400">${speaker.designation}</h4>
       <div class="gradient-overlay absolute bottom-0 left-0 w-full h-[calc(100%-12rem)] opacity-0 z-0 rounded-lg overflow-hidden"
         style="background: linear-gradient(to bottom, rgba(255, 165, 0, 0.3), rgba(255, 255, 255, 0.3), rgba(0, 128, 0, 0.3)); clip-path: inset(12rem 0px 0px 0px);">
       </div>
