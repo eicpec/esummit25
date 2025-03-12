@@ -1,14 +1,8 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { auth, getCurrentUser } from "./utils/firebaseConfig";
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import Register from "./pages/Register.jsx";
@@ -23,6 +17,7 @@ import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
 import PassRegistration from "./pages/PassRegistration.jsx";
+import RegistrationForm from "./components/RegistrationForm.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -34,19 +29,6 @@ function App() {
       setAnimationLoading(false);
     }, 4000);
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-      if (currentUser) {
-        const userData = await getCurrentUser();
-        setUser(userData);
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe(); // Cleanup on unmount
   }, []);
 
   return (
@@ -62,6 +44,7 @@ function App() {
           <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />
           <Route path="/timeline" element={<TimelineDemo />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/eventregister" element={<RegistrationForm />} />
           <Route path="/gallery" element={<ImageGallery />} />
           <Route path="/contact" element={<ContactUsPage />} />
           <Route path="/passes" element={<Passes />} />

@@ -5,6 +5,8 @@ import { registerForEvent } from "../../utils/firebaseConfig.js";
 import { getAuth } from "firebase/auth";
 import "../../styles/passes.css";
 import { RxCrossCircled } from "react-icons/rx";
+import RegistrationForm from "../../components/RegistrationForm.jsx";
+import { Link } from "react-router-dom";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -18,7 +20,7 @@ const useOutsideClick = (ref, callback) => {
   }, [ref, callback]);
 };
 
-const ExpandableCardDemo = () => {
+const ExpandableCardDemo = ({ onRegisterClick }) => {
   const [active, setActive] = useState(null);
   const id = useId();
   const ref = useRef(null);
@@ -119,15 +121,15 @@ const ExpandableCardDemo = () => {
                 {/* Register Button */}
                 <a
                   href={active.ctaLink}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleRegister(active.EventName);
-                  }}
+                  // onClick={(e) => {
+                  //   e.preventDefault();
+                  //   handleRegister(active.EventName);
+                  // }}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 block text-center bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl font-medium hover:scale-105 transition-transform shadow-lg hover:shadow-green-500/50"
                 >
-                  Register Now
+                 <Link to='/eventregister'> Register Now</Link>
                 </a>
               </motion.div>
             </div>
@@ -154,6 +156,15 @@ const ExpandableCardDemo = () => {
                 className="w-full h-64 object-cover rounded-xl"
               />
               <h3 className="text-xl font-semibold mt-3 text-white">{card.EventName}</h3>
+              {/* <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRegisterClick(card.EventName);
+                }}
+                className="mt-4 block text-center bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition-all"
+              >
+                Register
+              </button> */}
             </motion.div>
           ))}
         </div>
