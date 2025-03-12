@@ -1,60 +1,89 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-import img1 from "../assets/pastSpeakers/1.jpg";
-import img2 from "../assets/pastSpeakers/2.jpg";
-import img3 from "../assets/pastSpeakers/3.jpg";
-import img4 from "../assets/pastSpeakers/4.jpg";
 import Layout from "../layouts/Layout";
-
-const speakers = [
-  { image: img1, name: "Speaker One", designation: "CEO, Company A" },
-  { image: img2, name: "Speaker Two", designation: "CTO, Company B" },
-  { image: img3, name: "Speaker Three", designation: "Founder, Startup C" },
-  { image: img4, name: "Speaker Four", designation: "Designer, Studio D" },
-  { image: img4, name: "Speaker Four", designation: "Designer, Studio D" },
-  { image: img4, name: "Speaker Four", designation: "Designer, Studio D" },
-  { image: img4, name: "Speaker Four", designation: "Designer, Studio D" },
-  { image: img4, name: "Speaker Four", designation: "Designer, Studio D" },
-];
+import { speakers } from "../data/speakers";
 
 const Speakers = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  return (
-    <Layout header={true} children={
-      <div className="mt-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-10">
-        {speakers.map((speaker, idx) => (
-          <div
-            key={idx}
-            className="relative group block p-4 h-full w-full cursor-pointer"
-            onMouseEnter={() => setHoveredIndex(idx)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <AnimatePresence>
-              {hoveredIndex === idx && (
-                <motion.span
-                  className="absolute inset-0 h-full w-full rounded-3xl"
-                  style={{
-                    background: "linear-gradient(90deg, rgba(255,165,0,0.4) 0%, rgba(255,255,255,0.4) 50%, rgba(0,128,0,0.4) 100%)",
-                  }}
-                  layoutId="hoverBackground"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { duration: 0.3 } }}
-                  exit={{ opacity: 0, transition: { duration: 0.3, delay: 0.2 } }}
-                />
-              )}
-            </AnimatePresence>
+  // Separating speakers into Influencers (1-4) and Investors (5-15)
+  const influencers = speakers.slice(0, 4);
+  const investors = speakers.slice(4);
 
-            <Card>
-              <img src={speaker.image} alt={speaker.name} className="w-32 h-32 object-cover rounded-full mx-auto" />
-              <CardTitle>{speaker.name}</CardTitle>
-              <CardDescription>{speaker.designation}</CardDescription>
-            </Card>
+  return (
+    <Layout header={true}>
+      <div className="mt-28 space-y-10 py-10">
+        
+        {/* Influencers Section */}
+        <div>
+          <h2 className="text-3xl font-bold text-center text-white mb-6">Speakers</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {influencers.map((speaker, idx) => (
+              <SpeakerCard
+                key={idx}
+                speaker={speaker}
+                idx={idx}
+                hoveredIndex={hoveredIndex}
+                setHoveredIndex={setHoveredIndex}
+              />
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Investors Section */}
+        <div>
+          <h2 className="text-3xl font-bold text-center text-white mb-6">Investors</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {investors.map((speaker, idx) => (
+              <SpeakerCard
+                key={idx + 4} // Offset index for unique keys
+                speaker={speaker}
+                idx={idx + 4}
+                hoveredIndex={hoveredIndex}
+                setHoveredIndex={setHoveredIndex}
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
-    } />
+    </Layout>
+  );
+};
+
+const SpeakerCard = ({ speaker, idx, hoveredIndex, setHoveredIndex }) => {
+  return (
+    <div
+      className="relative group block p-4 h-full w-full cursor-pointer"
+      onMouseEnter={() => setHoveredIndex(idx)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <AnimatePresence>
+        {hoveredIndex === idx && (
+          <motion.span
+            className="absolute inset-0 h-full w-full rounded-3xl"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,165,0,0.4) 0%, rgba(255,255,255,0.4) 50%, rgba(0,128,0,0.4) 100%)",
+            }}
+            layoutId="hoverBackground"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.3 } }}
+            exit={{ opacity: 0, transition: { duration: 0.3, delay: 0.2 } }}
+          />
+        )}
+      </AnimatePresence>
+
+      <Card>
+        <img
+          src={speaker.image}
+          alt={speaker.name}
+          className="w-32 h-32 object-cover rounded-full mx-auto"
+        />
+        <CardTitle>{speaker.name}</CardTitle>
+        <CardDescription>{speaker.designation}</CardDescription>
+      </Card>
+    </div>
   );
 };
 

@@ -1,127 +1,187 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Input } from "../components/ui/input.jsx";
-import { Label } from "../components/ui/label.jsx";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
-import Layout from "../layouts/Layout.jsx";
+import React, { useState } from "react";
+import { signInWithGoogle, registerWithEmail, loginWithEmail, logout } from "../utils/firebaseConfig";
+import { useNavigate } from "react-router-dom";
+import Layout from "../layouts/Layout";
 
-export default function Register() {
-  const handleSubmit = (e) => {
+const Register = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [collegeName, setCollegeName] = useState("");
+  const [sid, setSid] = useState("");
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleAuth = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setError("");
+    setLoading(true);
+
+    console.log("Registering:", { email, name, password, collegeName, sid, phone });
+
+    try {
+      let loggedInUser;
+      if (isLogin) {
+        console.log("Logging in:", { email, password });
+        loggedInUser = await loginWithEmail(email, password);
+      } else {
+        loggedInUser = await registerWithEmail(email, name, password, collegeName, sid, phone);
+      }
+      setUser(loggedInUser);
+      navigate('/profile');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const handleGoogleLogin = async () => {
+    try {
+      const loggedInUser = await signInWithGoogle();
+      setUser(loggedInUser);
+      navigate('/profile');
+    } catch (error) {
+      console.error("Google Login Error:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setUser(null);
   };
 
   return (
-    <Layout children={
-      <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black"
-    >
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
-      </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow yet
-      </p>
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
-          </LabelInputContainer>
+    <Layout header={true} footer={false} children={
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="max-w-md w-full mx-auto rounded-2xl p-8 shadow-lg opacity-90 bg-black md:max-w-lg lg:max-w-xl">
+          <h2 className="font-bold text-center text-xl text-neutral-200">
+            {isLogin ? "Login" : "Register"}
+          </h2>
+
+          {error &&
+            <p className="text-red-500 bg-red-100 px-3 py-2 mt-3 rounded-lg text-center text-sm">{error}</p>
+          }
+
+          <form className="my-8" onSubmit={handleAuth}>
+            {!isLogin && (
+              <div className="mb-4">
+                <label htmlFor="name" className="text-sm font-medium text-white">Name</label>
+                <input
+                  id="name"
+                  type="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g. Jane Doe"
+                  className="w-full mt-1 border-none bg-gray-50 dark:bg-gray-800 text-black dark:text-white shadow-md rounded-md px-3 py-2 text-sm"
+                />
+              </div>
+            )}
+            <div className="mb-4">
+              <label htmlFor="email" className="text-sm font-medium text-black dark:text-white">Email Address</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="e.g. janedoe@gmail.com"
+                className="w-full border-none bg-gray-50 dark:bg-gray-800 text-black dark:text-white shadow-md rounded-md px-3 py-2 mt-1 text-sm"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="password" className="text-sm font-medium text-black dark:text-white">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full mt-1 border-none bg-gray-50 dark:bg-gray-800 text-black dark:text-white shadow-md rounded-md px-3 py-2 text-sm"
+              />
+            </div>
+
+            {!isLogin && (
+              <>
+                <div className="mb-4">
+                  <label htmlFor="collegeName" className="text-sm font-medium text-black dark:text-white">College Name</label>
+                  <input
+                    id="collegeName"
+                    type="text"
+                    value={collegeName}
+                    onChange={(e) => setCollegeName(e.target.value)}
+                    placeholder="e.g. Punjab Engineering College"
+                    className="w-full mt-1 border-none bg-gray-50 dark:bg-gray-800 text-black dark:text-white shadow-md rounded-md px-3 py-2 text-sm"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label htmlFor="sid" className="text-sm font-medium text-black dark:text-white">SID</label>
+                  <input
+                    id="sid"
+                    type="text"
+                    value={sid}
+                    onChange={(e) => setSid(e.target.value)}
+                    placeholder="e.g. 23104071"
+                    className="w-full mt-1 border-none bg-gray-50 dark:bg-gray-800 text-black dark:text-white shadow-md rounded-md px-3 py-2 text-sm"
+                  />
+                </div>
+
+                <div className="mb-8">
+                  <label htmlFor="phone" className="text-sm font-medium text-black dark:text-white">Phone</label>
+                  <input
+                    id="phone"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="e.g. 9999999999"
+                    className="w-full mt-1 border-none bg-gray-50 dark:bg-gray-800 text-black dark:text-white shadow-md rounded-md px-3 py-2 text-sm"
+                  />
+                </div>
+              </>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md shadow-md disabled:opacity-50"
+            >
+              {loading ? "Processing..." : isLogin ? "Login" : "Register"}
+            </button>
+          </form>
+
+          <div className="flex flex-col gap-4">
+            <button
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-md shadow-md"
+            >
+              <img className="h-4 w-4" src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="" />
+              <span className="text-neutral-700 dark:text-neutral-300 text-sm">Sign in with Google</span>
+            </button>
+          </div>
+
+          {user && (
+            <div className="text-center mt-4">
+              <p className="text-neutral-700 dark:text-neutral-300">Logged in as: {user.email}</p>
+              <button onClick={handleLogout} className="text-red-500 hover:underline">Logout</button>
+            </div>
+          )}
+
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            className="text-neutral-600 dark:text-neutral-400 text-sm text-center w-full mt-4 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+          >
+            {isLogin ? "Don't have an account? Register here!" : "Already have an account? Login here!"}
+          </button>
         </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Your twitter password</Label>
-          <Input id="twitterpassword" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Sign up &rarr;
-          <BottomGradient />
-        </motion.button>
-
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-
-        <div className="flex flex-col space-y-4">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
-            </span>
-            <BottomGradient />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
-            </span>
-            <BottomGradient />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              OnlyFans
-            </span>
-            <BottomGradient />
-          </motion.button>
-        </div>
-      </form>
-    </motion.div>
-    }/>
-  );
-}
-
-const BottomGradient = () => {
-  return (
-    <>
-      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-orange-500 via-white to-green-500" />
-      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-orange-500 via-white to-green-500" />
-    </>
+      </div>
+    } />
   );
 };
 
-const LabelInputContainer = ({ children, className }) => {
-  return (
-    <div className={`flex flex-col space-y-2 w-full ${className || ""}`}>
-      {children}
-    </div>
-  );
-};
+export default Register;

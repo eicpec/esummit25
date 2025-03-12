@@ -1,16 +1,18 @@
 import React from "react";
 import { passData } from "../data/passData";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Layout from "../layouts/Layout";
 import "../styles/passes.css";
-
+// import { buyPass } from "../utils/backend";
+import { getCurrentUser } from "../utils/firebaseConfig";
 
 const Passes = () => {
     // Separate passes into two categories
     const startupPasses = passData.slice(4, 7); // Last 3 as Startup Passes
     const studentPasses = passData.slice(0, 4); // First 4 as Student Passes
+    const user = getCurrentUser();
 
     return (
         <Layout>
@@ -40,7 +42,7 @@ const Passes = () => {
                                     <p className="cardCostBoxText">Total Payable</p>
                                     <p className="cardCostBoxPrice">{pass.cost}</p>
                                 </div>
-                                <Link href={`/pass/${pass.link}`}>
+                                <Link to={`/pass/${pass.link}`}>
                                     {!pass.sold && <button className="available">Buy Now</button>}
                                     {pass.sold && <button className="unavailable">Unavailable</button>}
                                 </Link>
@@ -69,7 +71,7 @@ const Passes = () => {
                                     <p className="cardCostBoxText">Total Payable</p>
                                     <p className="cardCostBoxPrice">{pass.cost}</p>
                                 </div>
-                                <Link href={`/pass/${pass.link}`}>
+                                <Link to={`/pass/${pass.link}`}>
                                     {!pass.sold && <button className="available">Buy Now</button>}
                                     {pass.sold && <button className="unavailable">Unavailable</button>}
                                 </Link>
