@@ -75,6 +75,7 @@ function App() {
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/passes" element={<Passes />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/eventregister" element={<RegistrationForm />} />
             <Route path="/pass/:passName" element={<PassRegistration />} />
           </Routes>
         </div>

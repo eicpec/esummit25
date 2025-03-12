@@ -121,15 +121,11 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 {/* Register Button */}
                 <a
                   href={active.ctaLink}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleRegister(active.EventName);
-                  }}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 block text-center bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl font-medium hover:scale-105 transition-transform shadow-lg hover:shadow-green-500/50"
                 >
-                 <Link to ='/eventregister'> Register Now</Link>
+                 <Link to={'/eventregister'}> Register Now</Link>
                 </a>
               </motion.div>
             </div>
