@@ -29,7 +29,7 @@ const Team = () => {
                     </div>
 
                     <div>
-                        <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Joint Heads</h2>
+                        <h2 className="text-3xl font-bold text-white text-center shadow-lg mb-6">Website Developers</h2>
                         <div className="flex flex-wrap justify-center items-center gap-6">
                             {coreTeam.jointhead.map((item, i) => (
                                 <Organiser key={i} organiser={item} />
