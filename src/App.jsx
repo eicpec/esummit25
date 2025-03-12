@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
+  useNavigate,
 } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
