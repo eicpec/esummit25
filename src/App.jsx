@@ -1,12 +1,8 @@
-import { auth, getCurrentUser } from "./utils/firebaseConfig";
-import "./App.css";
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { auth, getCurrentUser } from "./utils/firebaseConfig";
+
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import Register from "./pages/Register.jsx";
@@ -20,18 +16,27 @@ import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
 import PassRegistration from "./pages/PassRegistration.jsx";
-import { ToastContainer } from "react-toastify";
+import RegistrationForm from "./components/RegistrationForm.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [animationloading, setAnimationLoading] = useState(false);
+  const [animationLoading, setAnimationLoading] = useState(false);
 
-  React.useEffect(() => {
-    setAnimationLoading(true);
-    const timer = setTimeout(() => {
+  useEffect(() => {
+    const lastSeenAnimation = localStorage.getItem("lastSeenAnimation");
+    const currentTime = new Date().getTime(); // Current timestamp
+
+    if (!lastSeenAnimation || currentTime - parseInt(lastSeenAnimation) > 30 * 60 * 1000) {
+      // Show animation if it's the first time OR 30 minutes have passed
+      setAnimationLoading(true);
+      const timer = setTimeout(() => {
+        setAnimationLoading(false);
+        localStorage.setItem("lastSeenAnimation", currentTime.toString()); // Store new timestamp
+      }, 4000);
+      return () => clearTimeout(timer);
+    } else {
       setAnimationLoading(false);
-    }, 4000);
-    return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
@@ -44,7 +49,7 @@ function App() {
       }
     });
 
-    return () => unsubscribe(); // Cleanup on unmount
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -57,14 +62,11 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={animationloading ? <LogoAnimationPage /> : <Home />}
+              element={animationLoading ? <LogoAnimationPage /> : <Home />}
             />
             <Route path="/team" element={<Team />} />
             <Route path="/dignitaries" element={<Speakers />} />
-            <Route
-              path="/events"
-              element={<Layout children={<ExpandableCardDemo />} />}
-            />
+            <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />
             <Route path="/timeline" element={<TimelineDemo />} />
             <Route path="/register" element={<Register />} />
             <Route path="/gallery" element={<ImageGallery />} />
