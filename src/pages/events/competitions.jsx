@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef, useId } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { events } from "../../data/events.js";
+import { registerForEvent } from "../../utils/firebaseConfig.js";
+import { getAuth } from "firebase/auth";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -18,6 +20,24 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
   const [active, setActive] = useState(null);
   const id = useId();
   const ref = useRef(null);
+
+  const handleRegister = async (eventName) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("Please sign in to register for the event.");
+      return;
+    }
+
+    try {
+      await registerForEvent(eventName);
+      // alert("You have successfully registered for the event!");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -86,15 +106,16 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 <p className="text-gray-300">{active.About}</p>
                 <a
                   href={active.ctaLink}
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevents navigation before registering
+                    handleRegister(active.EventName);
+                  }}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 block text-center bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition-all"
                 >
                   Register
                 </a>
-                <button onClick={onRegisterClick} className="mt-4 block text-center bg-blue-500 text-white py-2 rounded-full font-medium hover:bg-blue-600 transition-all">
-                  Register
-                </button>
               </motion.div>
             </div>
           )}
@@ -119,6 +140,15 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 className="w-full h-64 object-cover rounded-xl"
               />
               <h3 className="text-xl font-semibold mt-3 text-white">{card.EventName}</h3>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRegisterClick(card.EventName);
+                }}
+                className="mt-4 block text-center bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition-all"
+              >
+                Register
+              </button>
             </motion.div>
           ))}
         </div>

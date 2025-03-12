@@ -5,9 +5,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Layout from "../layouts/Layout";
 import "../styles/passes.css";
-import { buyPass } from "../utils/backend";
+// import { buyPass } from "../utils/backend";
 import { getCurrentUser } from "../utils/firebaseConfig";
-
 
 const Passes = () => {
     // Separate passes into two categories
@@ -22,25 +21,6 @@ const Passes = () => {
                 <p className="subtitle">
                     Grab your entry ticket to PEC's E-Summit happening on 22nd and 23rd March, 2025!
                 </p>
-
-                <div className="container">
-                    <div className="passCard">
-                        <h2 className="passTitle">FREE</h2>
-                        <ul className="list">
-                            <li>1</li>
-                            <li>2</li>
-                        </ul>
-                        <div className="cardFooter">
-                            <div className="cardCoseBox">
-                                <p className="cardCostBoxText">Total Payable</p>
-                                <p className="cardCostBoxPrice">0</p>
-                            </div>
-                            <Link onClick={buyPass(user?.uuid, "free")}>
-                                Buy
-                            </Link>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Startup Passes */}
                 <h2 className="sectionTitle">Startup Passes</h2>
@@ -62,7 +42,7 @@ const Passes = () => {
                                     <p className="cardCostBoxText">Total Payable</p>
                                     <p className="cardCostBoxPrice">{pass.cost}</p>
                                 </div>
-                                <Link href={`/pass/${pass.link}`}>
+                                <Link to={`/pass/${pass.link}`}>
                                     {!pass.sold && <button className="available">Buy Now</button>}
                                     {pass.sold && <button className="unavailable">Unavailable</button>}
                                 </Link>
@@ -91,7 +71,7 @@ const Passes = () => {
                                     <p className="cardCostBoxText">Total Payable</p>
                                     <p className="cardCostBoxPrice">{pass.cost}</p>
                                 </div>
-                                <Link href={`/pass/${pass.link}`}>
+                                <Link to={`/pass/${pass.link}`}>
                                     {!pass.sold && <button className="available">Buy Now</button>}
                                     {pass.sold && <button className="unavailable">Unavailable</button>}
                                 </Link>
