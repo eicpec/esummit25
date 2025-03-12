@@ -256,14 +256,14 @@ const Profile = () => {
                 <div className="mt-4">
                   <input type="text" name="college" value={formData.college} onChange={handleChange} className="w-full bg-[#3A3A3A] p-2 rounded mt-2" placeholder="College" />
                   <input type="text" name="phone" value={formData.phone} onChange={handleChange} className="w-full bg-[#3A3A3A] p-2 rounded mt-2" placeholder="Phone" />
-                  <input type="text" name="sid" value={formData.sid} onChange={handleChange} className="w-full bg-[#3A3A3A] p-2 rounded mt-2" placeholder="SID" />
+                  <input type="text" name="sid" value={formData.sid} onChange={handleChange} className="w-full bg-[#3A3A3A] p-2 rounded mt-2" placeholder="Roll number" />
                   <button onClick={handleSave} className="mt-4 w-full cursor-pointer active:scale-95 bg-green-600 py-2 rounded hover:bg-green-700">Save</button>
                 </div>
               ) : (
                 <div className="mt-4">
-                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "N/A"}</p>
-                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "N/A"}</p>
-                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "N/A"}</p>
+                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "Your college"}</p>
+                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "Your phone number"}</p>
+                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "Your roll number"}</p>
                   <button onClick={handleEditToggle} className="mt-4 w-full cursor-pointer text-green-400 bg-[#37493c] py-2 rounded-lg active:scale-95">Edit</button>
                 </div>
               )}

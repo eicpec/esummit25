@@ -1,6 +1,12 @@
+import { auth, getCurrentUser } from "./utils/firebaseConfig";
 import "./App.css";
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import Register from "./pages/Register.jsx";
@@ -29,30 +35,47 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      if (currentUser) {
+        const userData = await getCurrentUser();
+        setUser(userData);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup on unmount
+  }, []);
+
   return (
     <>
-      {
-        loading ? (
-          <div>Loading...</div>
-        ) : (
-          <div>
-            <ToastContainer />
-            <Routes>
-              <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/dignitaries" element={<Speakers />} />
-              <Route path="/events" element={<Layout children={<ExpandableCardDemo />} />} />
-              <Route path="/timeline" element={<TimelineDemo />} />
-              <Route path="/register" element={<Register />} />
-              <Route path='/gallery' element={<ImageGallery />} />
-              <Route path='/contact' element={<ContactUsPage />} />
-              <Route path='/passes' element={<Passes />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/pass/:passName' element={<PassRegistration />} />
-            </Routes>
-          </div>
-        )
-      }
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <ToastContainer />
+          <Routes>
+            <Route
+              path="/"
+              element={animationloading ? <LogoAnimationPage /> : <Home />}
+            />
+            <Route path="/team" element={<Team />} />
+            <Route path="/dignitaries" element={<Speakers />} />
+            <Route
+              path="/events"
+              element={<Layout children={<ExpandableCardDemo />} />}
+            />
+            <Route path="/timeline" element={<TimelineDemo />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/gallery" element={<ImageGallery />} />
+            <Route path="/contact" element={<ContactUsPage />} />
+            <Route path="/passes" element={<Passes />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/pass/:passName" element={<PassRegistration />} />
+          </Routes>
+        </div>
+      )}
     </>
   );
 }

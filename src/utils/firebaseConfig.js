@@ -83,6 +83,8 @@ export const signInWithGoogle = async () => {
     saveUserToLocalStorage(user);
     await saveUserToFirestore(user);
 
+    alert("Please complete your profile in order to proceed with event registration");
+
     return user;
   } catch (error) {
     console.error("Google Login Error:", error.message);
@@ -199,7 +201,7 @@ export const updateUserDetails = async (userId, userData) => {
   } catch (error) {
     console.error("Error updating user details:", error);
     throw error;
-  }
+  } 
 };
 
 export const createUserProfile = async (user) => {
@@ -207,11 +209,12 @@ export const createUserProfile = async (user) => {
   await setDoc(userRef, {
     email: user.email,
     displayName: user.displayName || "User",
-    college: "",
+    college: "",  // Empty fields to indicate missing info
     phone: "",
     sid: "",
-  });
+  }, { merge: true });
 };
+
 
 export const getUserPassInfo = async () => {
   try {
@@ -253,6 +256,22 @@ export const registerForEvent = async (eventName) => {
     const userId = auth.currentUser.uid;
     const email = auth.currentUser.email;
 
+    // Fetch user details from Firestore
+    const userRef = doc(db, "users", userId);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      throw new Error("User data not found.");
+    }
+
+    const userData = userSnap.data();
+
+    // Check if required details are missing
+    if (!userData.college || !userData.sid || !userData.phone) {
+      alert("Please complete your profile with College Name, SID, and Phone Number before registering for events.");
+      return;
+    }
+
     console.log("Checking if user is already registered...");
 
     // Query Firestore to check if the user has already registered for the event
@@ -263,7 +282,7 @@ export const registerForEvent = async (eventName) => {
     if (!querySnapshot.empty) {
       console.warn("User is already registered for this event.");
       alert("You have already registered for this event!");
-      return; // Exit function if already registered
+      return;
     }
 
     // If the user is not already registered, proceed with registration
@@ -279,6 +298,6 @@ export const registerForEvent = async (eventName) => {
 
   } catch (error) {
     console.error("Error registering for event:", error.message);
-    alert(error.message); // Show error message to the user
+    alert(error.message);
   }
 };
