@@ -1,6 +1,6 @@
 import Guess from "../assets/Dignitaries/guess.png"
 
-export const speakers = [
+export const pvsspeakers = [
     {
         image: Guess,
         name: "Revealing Soon!",

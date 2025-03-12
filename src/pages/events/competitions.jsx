@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { events } from "../../data/events.js";
 import { registerForEvent } from "../../utils/firebaseConfig.js";
 import { getAuth } from "firebase/auth";
+import "../../styles/passes.css";
+import { RxCrossCircled } from "react-icons/rx";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -57,11 +59,8 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
       <div className="bg-transparent min-h-screen w-full">
 
         {/* Heading and Tagline */}
-        <div className="text-center text-white py-10 mt-20">
-          <h1 className="text-4xl rammetto-one-regular font-bold">EVENTS</h1>
-          <p className="text-lg text-gray-300 mt-2">
-            Explore thrilling events, secure your spot, and make every moment count.
-          </p>
+        <div className="text-center text-white py-5 mt-20">
+          <h1 className="title">Events</h1>
         </div>
 
         {/* Overlay */}
@@ -79,47 +78,62 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
         {/* Expanded Card */}
         <AnimatePresence>
           {active && (
-            <div className="fixed inset-0 flex items-center justify-center z-20">
+            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60 backdrop-blur-lg">
               <motion.div
                 layoutId={`card-${active.EventName}-${id}`}
                 ref={ref}
-                className="bg-black p-6 rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden text-white"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="bg-white/10 backdrop-blur-2xl p-6 rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden text-white border border-white/20"
                 style={{
-                  outline: "4px solid transparent",
-                  outlineOffset: "-4px",
-                  boxShadow: "0 0 0 4px rgba(255, 153, 51, 1), 0 0 0 8px rgba(255, 255, 255, 1), 0 0 0 12px rgba(19, 136, 8, 1)",
+                  boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
                 }}
               >
-
+                {/* Close Button */}
                 <button
-                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
+                  className="absolute bg-black/80 rounded-full p-1.5 top-4 right-4 text-gray-300 hover:text-white transition-all hover:scale-110"
                   onClick={() => setActive(null)}
                 >
-                  ✖
+                  <RxCrossCircled className="h-7 w-7 text-white" />
                 </button>
-                <img
+
+                {/* Event Image */}
+                <motion.img
                   src={active.EventPhoto}
                   alt={active.EventName}
-                  className="w-full h-56 object-cover rounded-xl"
+                  className="w-full h-60 object-cover rounded-2xl shadow-lg"
                 />
-                <h3 className="text-2xl font-semibold mt-4">{active.EventName}</h3>
-                <p className="text-gray-300">{active.About}</p>
+
+                {/* Event Title */}
+                <h3 className="text-3xl font-bold mt-4 text-center text-white drop-shadow-md">
+                  {active.EventName}
+                </h3>
+
+                {/* Event Description */}
+                <p className="text-gray-200 text-base text-center mt-2 leading-relaxed">
+                  {active.About}
+                </p>
+
+                {/* Register Button */}
                 <a
                   href={active.ctaLink}
                   onClick={(e) => {
-                    e.preventDefault(); // Prevents navigation before registering
+                    e.preventDefault();
                     handleRegister(active.EventName);
                   }}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 block text-center bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition-all"
+                  className="mt-6 block text-center bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl font-medium hover:scale-105 transition-transform shadow-lg hover:shadow-green-500/50"
                 >
-                  Register
+                  Register Now
                 </a>
               </motion.div>
             </div>
           )}
         </AnimatePresence>
+
 
         {/* Card Row */}
         <div className="flex flex-wrap gap-6 px-6 py-8 justify-center mt-1">

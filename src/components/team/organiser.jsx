@@ -19,23 +19,16 @@ const Organiser = ({ organiser }) => {
             ></div>
 
             {/* Image Wrapper */}
-            <div
-                className={`relative w-full h-full rounded-full overflow-hidden transform transition-all duration-700 
-                ${isActive ? "-translate-y-16" : "group-hover:-translate-y-16"}`}
-            >
+            <div className="relative w-full h-full rounded-full overflow-hidden transform transition-all duration-700 group-hover:-translate-y-16 group-active:-translate-y-16">
                 <img
                     src={organiser.Photo}
                     alt={organiser.Name}
-                    className='w-full h-full object-cover rounded-full transition-all duration-700 
-                    ${isActive ? "rounded-lg" : "group-hover:rounded-lg"}'
+                    className="w-full h-full object-cover rounded-full transition-all duration-700 group-hover:rounded-lg group-active:rounded-lg"
                 />
             </div>
 
             {/* Text Overlay */}
-            <div
-                className={`text-center opacity-0 transform -translate-y-16 transition-all duration-700 
-                ${isActive ? "opacity-100" : "group-hover:opacity-100"}`}
-            >
+            <div className="text-center opacity-0 transform -translate-y-16 transition-all duration-700 group-active:opacity-100 group-hover:opacity-100">
                 <h3 className="text-lg font-bold text-black mt-3">{organiser.Name}</h3>
                 <p className="text-sm text-black">{organiser.Committee}</p>
             </div>
