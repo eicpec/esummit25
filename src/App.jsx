@@ -1,8 +1,9 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { auth, getCurrentUser } from "./utils/firebaseConfig";
+import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { auth, getCurrentUser } from "./utils/firebaseConfig";
-
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import Register from "./pages/Register.jsx";
@@ -54,6 +55,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       {loading ? (
         <div>Loading...</div>
       ) : (
