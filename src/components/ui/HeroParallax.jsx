@@ -37,7 +37,7 @@ const HeroParallax = ({ products }) => {
   return (
     <div
       ref={ref}
-      className="min-h-screen py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-black opacity-80"
+      className="min-h-screen py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black to-black/60"
     >
       <motion.div className="sticky top-0 z-10">
         <Header />
