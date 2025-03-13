@@ -1,8 +1,9 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {auth} from "./utils/firebaseConfig.js"
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
 import Team from "./pages/team.jsx";
 import Register from "./pages/Register.jsx";
@@ -11,7 +12,6 @@ import LogoAnimationPage from "./pages/home/LogoAnimationPage.jsx";
 import Home from "./pages/home/Home.jsx";
 import { ImageGallery } from "./pages/ImageGallery.jsx";
 import ContactUsPage from "./pages/contactus.jsx";
-import { TricolorEffect } from "./components/general/tricoloreffect.jsx";
 import Passes from "./pages/Passes.jsx";
 import Speakers from "./pages/Speakers.jsx";
 import Layout from "./layouts/Layout.jsx";
@@ -21,14 +21,36 @@ import RegistrationForm from "./components/RegistrationForm.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [animationloading, setAnimationLoading] = useState(false);
+  const [animationLoading, setAnimationLoading] = useState(false);
 
-  React.useEffect(() => {
-    setAnimationLoading(true);
-    const timer = setTimeout(() => {
+  useEffect(() => {
+    const lastSeenAnimation = localStorage.getItem("lastSeenAnimation");
+    const currentTime = new Date().getTime(); // Current timestamp
+
+    if (!lastSeenAnimation || currentTime - parseInt(lastSeenAnimation) > 30 * 60 * 1000) {
+      // Show animation if it's the first time OR 30 minutes have passed
+      setAnimationLoading(true);
+      const timer = setTimeout(() => {
+        setAnimationLoading(false);
+        localStorage.setItem("lastSeenAnimation", currentTime.toString()); // Store new timestamp
+      }, 4000);
+      return () => clearTimeout(timer);
+    } else {
       setAnimationLoading(false);
-    }, 4000);
-    return () => clearTimeout(timer);
+    }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      if (currentUser) {
+        const userData = await getCurrentUser();
+        setUser(userData);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -38,7 +60,7 @@ function App() {
         <div>Loading...</div>
       ) : (
         <Routes>
-          <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
+          <Route path="/" element={animationLoading ? <LogoAnimationPage /> : <Home />} />
           <Route path="/team" element={<Team />} />
           <Route path="/dignitaries" element={<Speakers />} />
           <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />

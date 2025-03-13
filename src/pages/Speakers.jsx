@@ -7,8 +7,8 @@ const Speakers = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   // Separating speakers into Influencers (1-4) and Investors (5-15)
-  const influencers = speakers.slice(0, 4);
-  const investors = speakers.slice(4);
+  const influencers = speakers.slice(0, 6);
+  const investors = speakers.slice(6);
 
   return (
     <Layout header={true}>
@@ -36,9 +36,9 @@ const Speakers = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {investors.map((speaker, idx) => (
               <SpeakerCard
-                key={idx + 4} // Offset index for unique keys
+                key={idx + 6} // Offset index for unique keys
                 speaker={speaker}
-                idx={idx + 4}
+                idx={idx + 6}
                 hoveredIndex={hoveredIndex}
                 setHoveredIndex={setHoveredIndex}
               />
