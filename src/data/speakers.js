@@ -27,7 +27,7 @@ export const speakers = [
         designation: "CFA, Vice President, Morgan Stanley"
     },
     {
-        image: "https://media.licdn.com/dms/image/v2/D4D03AQFDFxin1_9-Wg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689330134458?e=2147483647&v=beta&t=I6iNfyst5YW5wXVOH4H4BEdaNi5a1D2jQSCmLbVLXhg",
+        image: "",
         name: "Manish Verma",
         designation: "Founder and CEO, Angel Blue"
     },
