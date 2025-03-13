@@ -1,4 +1,4 @@
-import { useScroll, useTransform } from "framer-motion";
+import { useScroll } from "framer-motion";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import React from "react";
@@ -11,34 +11,13 @@ const ParallaxScrollSecond = ({ images, className }) => {
     offset: ["start start", "end start"],
   });
 
-  // Desktop motion effects
-  const firstMotion = {
-    y: useTransform(scrollYProgress, [0, 1], [0, -200]),
-    x: useTransform(scrollYProgress, [0, 1], [0, -200]),
-    rotateZ: useTransform(scrollYProgress, [0, 1], [0, -20]),
-  };
-
-  const thirdMotion = {
-    y: useTransform(scrollYProgress, [0, 1], [0, -200]),
-    x: useTransform(scrollYProgress, [0, 1], [0, 200]),
-    rotateZ: useTransform(scrollYProgress, [0, 1], [0, 20]),
-  };
-
-  // Mobile motion: Only vertical movement and slight scaling
-  const mobileMotion = {
-    y: useTransform(scrollYProgress, [0, 1], [0, -100]),
-    x: 0,
-    rotateZ: 0,
-    scale: useTransform(scrollYProgress, [0, 1], [1, 1.05]), // Slight zoom
-  };
-
   const third = Math.ceil(images.length / 3);
   const firstPart = images.slice(0, third);
   const secondPart = images.slice(third, 2 * third);
   const thirdPart = images.slice(2 * third);
 
   return (
-    <Layout children={
+    <Layout>
       <div className={`bg-transparent overflow-y-auto w-full ${className}`} ref={gridRef}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto gap-6 lg:gap-10 py-20 px-5 sm:px-10">
           {[firstPart, secondPart, thirdPart].map((part, index) => (
@@ -46,10 +25,6 @@ const ParallaxScrollSecond = ({ images, className }) => {
               {part.map((el, idx) => (
                 <motion.div
                   key={`grid-${index + 1}-${idx}`}
-                  style={{
-                    ...(index === 0 ? firstMotion : index === 2 ? thirdMotion : {}),
-                    ...(window.innerWidth < 640 ? mobileMotion : {}), // Apply mobile motion
-                  }}
                   className="relative p-[4px] rounded-lg overflow-hidden border-[3px] border-transparent shadow-lg transition-transform hover:scale-105 sm:hover:scale-110"
                 >
                   {/* Moving Gradient Border */}
@@ -88,9 +63,8 @@ const ParallaxScrollSecond = ({ images, className }) => {
         `}
         </style>
       </div>
-    } />
+    </Layout>
   );
 };
 
 export default ParallaxScrollSecond;
-

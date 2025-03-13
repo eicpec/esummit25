@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { db, storage } from "../firebase.js"; // Import Firestore and Storage
-import { collection, addDoc } from "firebase/firestore"; // Firestore functions
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Storage functions
-import { getAuth, onAuthStateChanged } from "firebase/auth"; // Firebase Auth
+import { db, storage } from "../firebase.js";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../layouts/Layout";
 
@@ -11,68 +11,62 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
-    sid: "",
+    phone: "",
     college: "",
     screenshot: null,
   });
-  const [currentUser, setCurrentUser] = useState(null); // Track logged-in user
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // Fetch the currently logged-in user
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setCurrentUser(user); // Set the logged-in user
+        setCurrentUser(user);
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setFormData((prev) => ({
+            ...prev,
+            name: userData.displayName || "",
+            phone: userData.phone || "",
+            college: userData.college || "",
+          }));
+        }
       } else {
-        setCurrentUser(null); // No user is logged in
+        alert("You must be logged in to register for an event and Update your profile to continue.");
+        setCurrentUser(null);
       }
     });
-
-    return () => unsubscribe(); // Cleanup listener on unmount
+    return () => unsubscribe();
   }, []);
 
   const handleChange = (e) => {
     if (e.target.name === "screenshot") {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.files[0],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
+      setFormData({ ...formData, screenshot: e.target.files[0] });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!currentUser) {
       alert("You must be logged in to register for an event.");
       return;
     }
-
     try {
       let screenshotUrl = null;
-
-      // Upload the screenshot file to Firebase Storage
       if (formData.screenshot) {
         const storageRef = ref(storage, `screenshots/${formData.screenshot.name}`);
         await uploadBytes(storageRef, formData.screenshot);
         screenshotUrl = await getDownloadURL(storageRef);
       }
-
-      // Add the registration data to Firestore
       await addDoc(collection(db, "registrations"), {
         ...formData,
-        screenshot: screenshotUrl, // Save the download URL
+        screenshot: screenshotUrl,
         eventType,
         timestamp: new Date(),
-        userId: currentUser.uid, // Add the user's UID
-        userEmail: currentUser.email, // Add the user's email
+        userId: currentUser.uid,
+        userEmail: currentUser.email,
       });
-
       alert("Registration successful!");
       navigate("/events");
     } catch (error) {
@@ -92,50 +86,17 @@ const RegistrationForm = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-gray-300 text-sm font-semibold mb-2">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  placeholder="Enter your full name"
-                />
+                <label className="block text-gray-300 text-sm font-semibold mb-2">Full Name</label>
+                <input type="text" name="name" value={formData.name} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
-
               <div>
-                <label className="block text-gray-300 text-sm font-semibold mb-2">
-                  Student ID (SID)
-                </label>
-                <input
-                  type="text"
-                  name="sid"
-                  value={formData.sid}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  placeholder="Enter your student ID"
-                />
+                <label className="block text-gray-300 text-sm font-semibold mb-2">Phone Number</label>
+                <input type="text" name="phone" value={formData.phone} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
-
               <div>
-                <label className="block text-gray-300 text-sm font-semibold mb-2">
-                  College Name
-                </label>
-                <input
-                  type="text"
-                  name="college"
-                  value={formData.college}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  placeholder="Enter your college name"
-                />
+                <label className="block text-gray-300 text-sm font-semibold mb-2">College Name</label>
+                <input type="text" name="college" value={formData.college} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
-
               <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">
                   Unstop Registration Screenshot
@@ -173,11 +134,7 @@ const RegistrationForm = () => {
                   </label>
                 </div>
               </div>
-
-              <button
-                type="submit"
-                className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold rounded-lg transition-all transform hover:scale-105"
-              >
+              <button type="submit" className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg">
                 Register Now
               </button>
             </form>
