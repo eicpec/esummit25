@@ -7,6 +7,7 @@ import "../../styles/passes.css";
 import { RxCrossCircled } from "react-icons/rx";
 import RegistrationForm from "../../components/RegistrationForm.jsx";
 import { Link } from "react-router-dom";
+import { FaCalendarAlt, FaClock, FaUsers } from "react-icons/fa";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -82,16 +83,13 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
           {active && (
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60 backdrop-blur-lg">
               <motion.div
-                layoutId={`card-${active.EventName}-${id}`}
-                ref={ref}
+                layoutId={`card-${active.EventName}-${active.id || "unknown"}`}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="bg-white/10 backdrop-blur-2xl p-6 rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden text-white border border-white/20"
-                style={{
-                  boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
-                }}
+                style={{ boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)" }}
               >
                 {/* Close Button */}
                 <button
@@ -103,29 +101,57 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
 
                 {/* Event Image */}
                 <motion.img
-                  src={active.EventPhoto}
-                  alt={active.EventName}
+                  src={active.EventPhoto || "https://via.placeholder.com/500"}
+                  alt={active.EventName || "Event"}
                   className="w-full h-60 object-cover rounded-2xl shadow-lg"
                 />
 
                 {/* Event Title */}
                 <h3 className="text-3xl font-bold mt-4 text-center text-white drop-shadow-md">
-                  {active.EventName}
+                  {active.EventName || "Sample Event"}
                 </h3>
+
+                {/* Event Details: Date, Time, Team Size */}
+                <div className="flex justify-center items-center gap-4 mt-3 text-gray-300">
+                  <span className="flex items-center gap-2">
+                    <FaCalendarAlt className="text-white" />
+                    {active.Date || "DD/MM/YYYY"}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <FaClock className="text-white" />
+                    {active.Time || "HH:MM AM/PM"}
+                  </span>
+                </div>
+
+                {/* Team Size */}
+                {active?.team &&
+                  <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
+                    <FaUsers className="text-white" />
+                    <span>Team Size: {active?.team ? active?.team?.min + " - " + active?.team?.max : "1"}</span>
+                  </div>
+                }
 
                 {/* Event Description */}
                 <p className="text-gray-200 text-base text-center mt-2 leading-relaxed">
-                  {active.About}
+                  {active.About || "No description available."}
                 </p>
 
                 {/* Register Button */}
                 <a
+<<<<<<< HEAD
                   href={active.ctaLink}
+=======
+                  href={active.ctaLink || "#"}
+>>>>>>> 406e1f02ae724bd283f7682e46bca69f09cc4ba9
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 block text-center bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl font-medium hover:scale-105 transition-transform shadow-lg hover:shadow-green-500/50"
                 >
+<<<<<<< HEAD
                  <Link to={'/eventregister'}> Register Now</Link>
+=======
+                  <Link to="/eventregister">Register Now</Link>
+>>>>>>> 406e1f02ae724bd283f7682e46bca69f09cc4ba9
                 </a>
               </motion.div>
             </div>

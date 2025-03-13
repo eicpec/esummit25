@@ -1,7 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { auth, getCurrentUser } from "./utils/firebaseConfig";
-import "./App.css";
+// import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
@@ -59,26 +58,20 @@ function App() {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div>
-          <ToastContainer />
-          <Routes>
-            <Route
-              path="/"
-              element={animationLoading ? <LogoAnimationPage /> : <Home />}
-            />
-            <Route path="/team" element={<Team />} />
-            <Route path="/dignitaries" element={<Speakers />} />
-            <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />
-            <Route path="/timeline" element={<TimelineDemo />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/gallery" element={<ImageGallery />} />
-            <Route path="/contact" element={<ContactUsPage />} />
-            <Route path="/passes" element={<Passes />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/eventregister" element={<RegistrationForm />} />
-            <Route path="/pass/:passName" element={<PassRegistration />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/dignitaries" element={<Speakers />} />
+          <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />
+          <Route path="/timeline" element={<TimelineDemo />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/eventregister" element={<RegistrationForm />} />
+          <Route path="/gallery" element={<ImageGallery />} />
+          <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/passes" element={<Passes />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/pass/:passName" element={<PassRegistration />} />
+        </Routes>
       )}
     </>
   );

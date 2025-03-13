@@ -1,7 +1,7 @@
 [
   {
-    "origin": ["http://localhost:5173", "https://esummit25-ashy.vercel.app", "https://eicpec.in"],
-    "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "origin": ["http://localhost:5173", "https://eicpec.in"],
+    "method": ["GET", "POST", "PUT", "DELETE"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Authorization", "Access-Control-Allow-Origin"]
   }
