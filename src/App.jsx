@@ -1,6 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import {auth} from "./utils/firebaseConfig.js"
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
@@ -59,7 +60,7 @@ function App() {
         <div>Loading...</div>
       ) : (
         <Routes>
-          <Route path="/" element={animationloading ? <LogoAnimationPage /> : <Home />} />
+          <Route path="/" element={animationLoading ? <LogoAnimationPage /> : <Home />} />
           <Route path="/team" element={<Team />} />
           <Route path="/dignitaries" element={<Speakers />} />
           <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />

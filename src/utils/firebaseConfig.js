@@ -13,17 +13,16 @@ import {
 import { getFirestore, doc, setDoc, getDoc, updateDoc, query, getDocs, collection, where, serverTimestamp, addDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-
+// import 
 
 // Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCu9_za8XZZRizcFVS7fvTSMV7dgzDV0K4",
-  authDomain: "sample-esummit.firebaseapp.com",
-  projectId: "sample-esummit",
-  storageBucket: "sample-esummit.firebasestorage.app",
-  messagingSenderId: "385925468077",
-  appId: "1:385925468077:web:2f06ffdc1a3e40b0f29b24",
-  measurementId: "G-RR8J1C87YN"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
