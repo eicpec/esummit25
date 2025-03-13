@@ -19,6 +19,8 @@ export const events = [
     EventPhoto: BuildAndPitch,
     EventLink: "/events/register/build-and-pitch",
     free: true,
+    Date: "14th Feb",
+    Time: "12:45 p.m.",
     team: { max: 5, min: 1 },
   },
   {
@@ -29,6 +31,8 @@ export const events = [
     EventPhoto: BizQuiz,
     EventLink: "/events/register/bizquiz",
     free: true,
+    Date: "Round 1 from 16th March",
+    Time: "10:10 Am",
     team: { max: 3, min: 1 },
   },
   {
@@ -50,6 +54,8 @@ export const events = [
     EventPhoto: BargainBattles,
     EventLink: "/events/register/bargain-battles",
     free: false,
+    Date: "Round 1 from 16th March",
+    Time: "10:10 Am",
     team: { max: 2, min: 1 },
   },
   {
@@ -60,6 +66,8 @@ export const events = [
     EventPhoto: Bazaar,
     EventLink: "/events/register/bazaar",
     free: false,
+    Date: "Round 1 from 16th March",
+    Time: "10:10 Am",
     team: { max: 4, min: 1 },
   },
   {
@@ -70,6 +78,8 @@ export const events = [
     EventPhoto: IPLAuction,
     EventLink: "/events/register/ipl-auction",
     free: false,
+    Date: "Round 1 from 16th March",
+    Time: "10:10 Am",
     team: { max: 4, min: 1 },
   },
   {
@@ -80,6 +90,8 @@ export const events = [
     EventPhoto: FundingConclave,
     EventLink: "/events/register/funding-conclave",
     free: false,
+    Date: "22nd March",
+    Time: "10:10 Am",
   },
   {
     EventName: "Networking Arena",
@@ -89,6 +101,8 @@ export const events = [
     EventPhoto: NetworkingArena,
     EventLink: "/events/register/networking-arena",
     free: true,
+    Date: "22nd March",
+    Time: "10:10 Am",
   },
   {
     EventName: "Hackathon",
@@ -98,6 +112,8 @@ export const events = [
     EventPhoto: Hackathon,
     EventLink: "/events/register/hackathon",
     free: true,
+    Date: "Round 1 from 16th March",
+    Time: "10:10 Am",
     team: { max: 5, min: 2 },
   },
   {
@@ -108,6 +124,8 @@ export const events = [
     EventPhoto: CaseStudy,
     EventLink: "/events/register/case-study",
     free: true,
+    Date: "Round 1 from 16th March",
+    Time: "10:10 Am",
     team: { max: 4, min: 1 },
   },
   {
@@ -118,6 +136,8 @@ export const events = [
       EventPhoto: TreasureHunt,
       EventLink: "/events/register/treasurehunt",
       free: false,
+      Date: "Round 1 from 16th March",
+      Time: "10:10 Am",
       team: { max: 4, min: 1 }
     },
     
