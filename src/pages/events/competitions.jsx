@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef, useId } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { events } from "../../data/events.js";
-import { registerForEvent, checkRegistrationStatus } from "../../utils/firebaseConfig.js";
+import { checkRegistrationStatus } from "../../utils/firebaseConfig.js";
 import { getAuth } from "firebase/auth";
 import "../../styles/passes.css";
 import { RxCrossCircled } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaClock, FaUsers } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -25,7 +26,7 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const id = useId();
   const ref = useRef(null);
-
+  const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -41,17 +42,13 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
     }
   };
 
-  const handleRegister = async (eventName) => {
+  const handleRegister = async (link) => {
     if (!user) {
-      alert("Please sign in to register for the event.");
+      toast.error("Please sign in to register for the event.");
+      navigate("/register");
       return;
-    }
-
-    try {
-      await registerForEvent(eventName);
-      setIsRegistered(true);
-    } catch (error) {
-      alert(error.message);
+    } else {
+      navigate(`/register/${link}`);
     }
   };
 
@@ -122,8 +119,9 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                       : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
                   }`}
                   disabled={isRegistered}
+                  // onClick={handleRegister}
                 >
-                  {isRegistered ? "Already Registered" : <Link to="/eventregister">Register Now</Link>}
+                  {isRegistered ? "Already Registered" : <div onClick={() => handleRegister(active?.EventLink)}>Register Now</div>}
                 </button>
               </motion.div>
             </div>

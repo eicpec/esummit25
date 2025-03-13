@@ -73,7 +73,7 @@ const Footer = () => {
                     <p>Entrepreneurship and Incubation Cell, Punjab Engineering College, Chandigarh 160012</p>
                     <div className="mt-4 flex items-center">
                         <Mail size={20} />
-                        <a href="mailto:eicpec@pec.edu.in" className="ml-2 text-green-400 underline hover:text-green-300 transition duration-300">eicpec@pec.edu.in</a>
+                        <a href="mailto:eicesummit@gmail.com" className="ml-2 text-green-400 underline hover:text-green-300 transition duration-300">eicesummit@gmail.com</a>
                     </div>
                     <div className="mt-4 flex items-center">
                         <Phone size={20} />

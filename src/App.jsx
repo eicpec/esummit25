@@ -66,7 +66,7 @@ function App() {
           <Route path="/events" element={<Layout><ExpandableCardDemo /></Layout>} />
           <Route path="/timeline" element={<TimelineDemo />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/eventregister" element={<RegistrationForm />} />
+          <Route path="/register/:eventType" element={<RegistrationForm />} />
           <Route path="/gallery" element={<ImageGallery />} />
           <Route path="/contact" element={<ContactUsPage />} />
           <Route path="/passes" element={<Passes />} />

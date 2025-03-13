@@ -5,6 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../layouts/Layout";
+import { toast } from "react-toastify";
 
 const RegistrationForm = () => {
   const { eventType } = useParams();
@@ -13,7 +14,8 @@ const RegistrationForm = () => {
     name: "",
     phone: "",
     college: "",
-    screenshot: null,
+    // screenshot: null,
+    unstopid: ""
   });
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -33,45 +35,52 @@ const RegistrationForm = () => {
           }));
         }
       } else {
-        alert("You must be logged in to register for an event and Update your profile to continue.");
+        toast.error("You must be logged in to register for an event and Update your profile to continue.");
         setCurrentUser(null);
       }
     });
     return () => unsubscribe();
   }, []);
 
-  const handleChange = (e) => {
-    if (e.target.name === "screenshot") {
-      setFormData({ ...formData, screenshot: e.target.files[0] });
-    }
-  };
+  // const handleChange = (e) => {
+  //   if (e.target.name === "screenshot") {
+  //     setFormData({ ...formData, screenshot: e.target.files[0] });
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!currentUser) {
-      alert("You must be logged in to register for an event.");
+      toast.error("You must be logged in to register for an event.");
+      navigate("/register");
+      return;
+    }
+    if (!formData.name || !formData.phone || !formData.college || !formData.unstopid) {
+      toast.error("Please ensure your profile is complete with a valid name, phone number, and college.");
+      navigate("/profile");
       return;
     }
     try {
-      let screenshotUrl = null;
-      if (formData.screenshot) {
-        const storageRef = ref(storage, `screenshots/${formData.screenshot.name}`);
-        await uploadBytes(storageRef, formData.screenshot);
-        screenshotUrl = await getDownloadURL(storageRef);
-      }
-      await addDoc(collection(db, "registrations"), {
+      // let screenshotUrl = null;
+      // if (formData.screenshot) {
+      //   const storageRef = ref(storage, `screenshots/${formData.screenshot.name}`);
+      //   await uploadBytes(storageRef, formData.screenshot);
+      //   screenshotUrl = await getDownloadURL(storageRef);
+      // }
+      await addDoc(collection(db, "eventRegistrations"), {
         ...formData,
-        screenshot: screenshotUrl,
+        // screenshot: screenshotUrl,
         eventType,
+        unstopid: formData.unstopid,
         timestamp: new Date(),
         userId: currentUser.uid,
         userEmail: currentUser.email,
       });
-      alert("Registration successful!");
+      toast.success("Registration successful!");
       navigate("/events");
     } catch (error) {
       console.error("Error adding document: ", error);
-      alert("Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.");
     }
   };
 
@@ -98,6 +107,10 @@ const RegistrationForm = () => {
                 <input type="text" name="college" value={formData.college} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
               <div>
+                <label className="block text-gray-300 text-sm font-semibold mb-2">Unstop ID</label>
+                <input type="text" name="unstopid" onChange={(e) => setFormData({ ...formData, unstopid: e.target.value })} value={formData.unstopid} className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
+              </div>
+              {/* <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">
                   Unstop Registration Screenshot
                 </label>
@@ -133,7 +146,7 @@ const RegistrationForm = () => {
                     />
                   </label>
                 </div>
-              </div>
+              </div> */}
               <button type="submit" className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg">
                 Register Now
               </button>

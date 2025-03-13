@@ -17,7 +17,7 @@ export const events = [
     About:
       "A platform where innovators and aspiring entrepreneurs pitch their groundbreaking ideas to a panel of judges and investors. Compete for mentorship and funding opportunities.",
     EventPhoto: BuildAndPitch,
-    EventLink: "/events/register/build-and-pitch",
+    EventLink: "build-and-pitch",
     free: true,
     Date: "14th Feb",
     Time: "12:45 p.m.",
@@ -29,7 +29,7 @@ export const events = [
     About:
       "Test your business acumen and strategic thinking in this thrilling quiz competition. Covering topics from startups to global markets, it's a must for business enthusiasts.",
     EventPhoto: BizQuiz,
-    EventLink: "/events/register/bizquiz",
+    EventLink: "bizquiz",
     free: true,
     Date: "Round 1 from 16th March",
     Time: "10:10 Am",
@@ -41,7 +41,7 @@ export const events = [
     About:
       "Gain insights from industry leaders, successful entrepreneurs, and influential personalities. A chance to interact with and learn from the best in the business world.",
     EventPhoto: SpeakerSessions,
-    EventLink: "/events/register/speaker-sessions",
+    EventLink: "speaker-sessions",
     free: true,
     Date: "March 22",
     Time: "12:45 p.m."
@@ -52,7 +52,7 @@ export const events = [
     About:
       "A fun and intense competition where participants negotiate their way to victory. Hone your persuasion skills and crack the best deals.",
     EventPhoto: BargainBattles,
-    EventLink: "/events/register/bargain-battles",
+    EventLink: "bargain-battles",
     free: false,
     Date: "Round 1 from 16th March",
     Time: "10:10 Am",
@@ -64,7 +64,7 @@ export const events = [
     About:
       "An interactive marketplace where participants sell products using unique marketing strategies. A real-world experience in business and sales.",
     EventPhoto: Bazaar,
-    EventLink: "/events/register/bazaar",
+    EventLink: "bazaar",
     free: false,
     Date: "Round 1 from 16th March",
     Time: "10:10 Am",
@@ -76,7 +76,7 @@ export const events = [
     About:
       "Put your managerial skills to the test in this simulation of an IPL auction. Bid wisely and create the ultimate cricket team.",
     EventPhoto: IPLAuction,
-    EventLink: "/events/register/ipl-auction",
+    EventLink: "ipl-auction",
     free: false,
     Date: "Round 1 from 16th March",
     Time: "10:10 Am",
@@ -88,7 +88,7 @@ export const events = [
     About:
       "Startups pitch their ideas to a panel of investors, VCs, and industry experts. A chance to secure funding and valuable mentorship.",
     EventPhoto: FundingConclave,
-    EventLink: "/events/register/funding-conclave",
+    EventLink: "funding-conclave",
     free: false,
     Date: "22nd March",
     Time: "10:10 Am",
@@ -99,7 +99,7 @@ export const events = [
     About:
       "An exclusive space for entrepreneurs, investors, and professionals to connect, share ideas, and explore collaborations.",
     EventPhoto: NetworkingArena,
-    EventLink: "/events/register/networking-arena",
+    EventLink: "networking-arena",
     free: true,
     Date: "22nd March",
     Time: "10:10 Am",
@@ -110,7 +110,7 @@ export const events = [
     About:
       "A 24-hour coding marathon where developers, designers, and entrepreneurs collaborate to build innovative solutions.",
     EventPhoto: Hackathon,
-    EventLink: "/events/register/hackathon",
+    EventLink: "hackathon",
     free: true,
     Date: "Round 1 from 16th March",
     Time: "10:10 Am",
@@ -122,7 +122,7 @@ export const events = [
     About:
       "Participants analyze real-world business cases, propose strategic solutions, and compete to be the best problem-solvers.",
     EventPhoto: CaseStudy,
-    EventLink: "/events/register/case-study",
+    EventLink: "case-study",
     free: true,
     Date: "Round 1 from 16th March",
     Time: "10:10 Am",
@@ -134,7 +134,7 @@ export const events = [
       About: 
         "An exhilarating challenge where participants solve riddles and follow clues to uncover hidden treasures. Test your problem-solving skills, teamwork, and strategic thinking in this thrilling quest.",
       EventPhoto: TreasureHunt,
-      EventLink: "/events/register/treasurehunt",
+      EventLink: "treasurehunt",
       free: false,
       Date: "Round 1 from 16th March",
       Time: "10:10 Am",
