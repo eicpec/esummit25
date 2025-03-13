@@ -69,42 +69,42 @@ export const speakers = [
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
     {
         image: Guess,
-        name: "",
-        designation: ""
+        name: "Revealing Soon!",
+        designation: "E-Summit 2025"
     },
 ]

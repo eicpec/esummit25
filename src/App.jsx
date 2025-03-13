@@ -40,18 +40,18 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-      if (currentUser) {
-        const userData = await getCurrentUser();
-        setUser(userData);
-      } else {
-        setUser(null);
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+  //     if (currentUser) {
+  //       const userData = await getCurrentUser();
+  //       setUser(userData);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
 
   return (
     <>
