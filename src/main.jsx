@@ -1,3 +1,4 @@
+import "./index.css"
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from "react-helmet-async";
