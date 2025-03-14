@@ -10,6 +10,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebaseConfig"; // Ensure Firestore is imported
 import { passData } from "../data/passData2";
 import { toast } from "react-toastify";
+import { eventData } from "../data/eventsData"
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -202,8 +203,8 @@ const Profile = () => {
               {events.length > 0 ? (
                 events.map((event) => (
                   <div key={event.id} className="bg-[#3A3A3A] p-4 rounded mb-2">
-                    <h4 className="text-lg font-semibold">{event.eventType}</h4>
-                    <p className="text-gray-400 text-sm">{event.Date}</p>
+                    <h4 className="text-lg font-semibold">{eventData[event.eventType]?.EventName}</h4>
+                    <p className="text-gray-400 text-sm">{eventData[event.eventType]?.Date}</p>
                   </div>
                 ))
               ) : (

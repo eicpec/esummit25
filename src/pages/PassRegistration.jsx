@@ -117,7 +117,7 @@ const PassForm = () => {
                     </button>
                 </form>
                     <p className="mt-4">Note:</p>
-                    <p>1. Name and E-mail are filled automatically and CANNOT be editable.</p>
+                    <p>1. Name and E-mail are filled automatically and CANNOT be editted.</p>
                     <p>2. This action is irreversible. Once submitted, verification request will be sent to the admin and the pass will be alloted within 12-24 hours.</p>
             </div>
         </div>}

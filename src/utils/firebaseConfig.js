@@ -207,7 +207,7 @@ export const updateUserDetails = async (userId, userData) => {
   } catch (error) {
     console.error("Error updating user details:", error);
     throw error;
-  } 
+  }
 };
 
 export const createUserProfile = async (user) => {
@@ -313,24 +313,12 @@ export const checkRegistrationStatus = async (userId, eventName) => {
   if (!userId) return false;
 
   try {
-    // Reference the "eventRegistrations" collection
     const eventRef = collection(db, "eventRegistrations");
+    const q = query(eventRef, where("userId", "==", userId), where("eventType", "==", eventName));
 
-    // Create a query to check if the user is already registered for the event
-    const q = query(eventRef, where("userId", "==", userId), where("eventName", "==", eventName));
-
-    // Execute the query
     const querySnapshot = await getDocs(q);
 
-    // If the query returns any documents, the user is already registered
-    if (!querySnapshot.empty) {
-      console.warn("User is already registered for this event.");
-      toast.warn("You have already registered for this event!");
-      return true;
-    }
-
-    // If no documents are found, the user is not registered
-    return false;
+    return !querySnapshot.empty; // Return true if already registered
   } catch (error) {
     console.error("Error checking registration status:", error);
     return false;

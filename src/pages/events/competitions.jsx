@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import "../../styles/passes.css";
 import { RxCrossCircled } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
-import { FaCalendarAlt, FaClock, FaUsers } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaLink, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const useOutsideClick = (ref, callback) => {
@@ -34,7 +34,9 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
   const handleEventClick = (card) => {
     setActive(card);
     if (user) {
-      checkRegistrationStatus(user.uid, card.EventName) 
+      console.log(card);
+      console.log(card.EventName, " - ", isRegistered);
+      checkRegistrationStatus(user.uid, card.EventLink)
         .then((registered) => setIsRegistered(registered))
         .catch(() => setIsRegistered(false));
     } else {
@@ -108,18 +110,23 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                   </div>
                 )}
 
+                {active?.unstopLink &&
+                  <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
+                    <FaLink className="text-white" />
+                    <span><Link to={`${active?.unstopLink}`}>Register on Unstop</Link></span>
+                  </div>
+                }
+
                 <p className="text-gray-200 text-base text-center mt-2 leading-relaxed">
                   {active.About || "No description available."}
                 </p>
 
                 <button
-                  className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${
-                    isRegistered
+                  className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${isRegistered
                       ? "bg-gray-500 text-white cursor-not-allowed"
                       : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
-                  }`}
+                    }`}
                   disabled={isRegistered}
-                  // onClick={handleRegister}
                 >
                   {isRegistered ? "Already Registered" : <div onClick={() => handleRegister(active?.EventLink)}>Register Now</div>}
                 </button>

@@ -27,13 +27,13 @@ const Register = () => {
       return;
     }
 
-    if (!/^\d{10}$/.test(phone)) {
+    if (phone && !/^\d{10}$/.test(phone)) {
       setError("Phone number must be 10 digits.");
       setLoading(false);
       return;
     }
 
-    if (name.length < 3) {
+    if (name && name.length < 3) {
       setError("Name must be at least 3 characters long.");
       setLoading(false);
       return;
