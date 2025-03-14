@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { db, storage } from "../firebase.js";
-import { collection, addDoc, doc, getDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "../firebase.js";
+import { collection, addDoc, doc, getDoc, query, where, getDocs } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../layouts/Layout";
 import { toast } from "react-toastify";
+import { eventData } from "../data/eventsData.js";
 
 const RegistrationForm = () => {
   const { eventType } = useParams();
@@ -59,11 +59,13 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!currentUser) {
       toast.error("You must be logged in to register.");
       navigate("/register");
       return;
     }
+
     if (!formData.name || !formData.phone || !formData.college || !formData.unstopid) {
       toast.error("Please ensure all fields are filled.");
       navigate("/profile");
@@ -88,8 +90,9 @@ const RegistrationForm = () => {
 
       toast.success("Registration successful!");
       navigate("/events");
+
     } catch (error) {
-      console.error("Error during registration: ", error);
+      console.error("Error registering: ", error);
       toast.error("Registration failed. Please try again.");
     }
   };
@@ -99,22 +102,23 @@ const RegistrationForm = () => {
       <div className="min-h-screen bg-transparent py-8 mt-20">
         <div className="max-w-2xl mx-auto px-4">
           <div className="bg-gradient-to-r from-purple-900 via-blue-900 to-purple-900 rounded-2xl shadow-2xl p-8">
-            <h2 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-300">
-              {eventType} Event Registration
+            <h2 className="text-4xl font-bold text-center mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-300">
+              {eventData[eventType]?.EventName} Registration
             </h2>
+            <p className="text-center mb-8 text-white">It is compulsory to register on Unstop before filling out this form.</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">Full Name</label>
-                <input type="text" name="name" value={formData.name} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
+                <input type="text" value={formData.name} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">Phone Number</label>
-                <input type="text" name="phone" value={formData.phone} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
+                <input type="text" value={formData.phone} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">College Name</label>
-                <input type="text" name="college" value={formData.college} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
+                <input type="text" value={formData.college} disabled className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">Unstop ID</label>

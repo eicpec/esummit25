@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 const Passes = () => {
     // Separate passes into two categories
-    const startupPasses = passData.slice(4, 7); // Last 3 as Startup Passes
+    const startupPasses = passData.slice(0, 3); // Last 3 as Startup Passes
     // const studentPasses = passData.slice(0, 4); // First 4 as Student Passes
     const [currentUser, setCurrentUser] = useState(null); // Track logged-in user
     const [passInfo, setPassInfo] = useState("");

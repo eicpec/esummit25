@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import {auth} from "./utils/firebaseConfig.js"
+import { auth, getCurrentUser } from "./utils/firebaseConfig.js"
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ExpandableCardDemo from "./pages/events/competitions.jsx";
@@ -40,18 +40,18 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-      if (currentUser) {
-        const userData = await getCurrentUser();
-        setUser(userData);
-      } else {
-        setUser(null);
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+  //     if (currentUser) {
+  //       const userData = await getCurrentUser();
+  //       setUser(userData);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  // return () => unsubscribe();
+  // }, []);
 
   return (
     <>
