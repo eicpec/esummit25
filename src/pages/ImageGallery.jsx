@@ -9,7 +9,7 @@ export function ImageGallery() {
       const importedImages = await Promise.all(
         Array.from({ length: 30 }, (_, i) =>
           
-          import(/* @vite-ignore */ `../assets/ImageGallery/${i + 1}.jpg`).then((img) => img.default)
+          import(/* @vite-ignore */ `/ImageGallery/${i + 1}.jpg`).then((img) => img.default)
         )
       );
       setImages(importedImages);
