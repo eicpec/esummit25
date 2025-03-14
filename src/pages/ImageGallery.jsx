@@ -5,20 +5,16 @@ export function ImageGallery() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const loadImages = async () => {
-      const importedImages = await Promise.all(
-        Array.from({ length: 30 }, (_, i) =>
-          
-          import(/* @vite-ignore */ `../assets/ImageGallery/${i + 1}.jpg`).then((img) => img.default)
-        )
-      );
-      setImages(importedImages);
-    };
-
-    loadImages();
+    // Directly reference images from public directory
+    const importedImages = Array.from({ length: 30 }, (_, i) =>
+      `/ImageGallery/${i + 1}.jpg`
+    );
+    setImages(importedImages);
   }, []);
 
   return <ParallaxScrollSecond images={images} />;
 }
 
-// Method 2 is static import ie 30 import statements, 30 elements in array
+export default ImageGallery;
+
+

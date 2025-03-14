@@ -18,22 +18,20 @@ const Layout = ({ visible = true, mouseeffect = true, title = "E-Summit PEC - Ca
                 <title>{title}</title>
             </Helmet>
 
-            {/* /* Page Header */}
+            {/* Page Header */}
             {header && <Header />}
 
-            <a href={Brochure} download className="flex z-50 items-center gap-2 fixed -left-36 hover:-left-24 transition-all text-xl pb-36 rounded-t-lg text-white top-16 hover:bg-amber-500 hover:font-semibold bg-[#a1740c] px-3 py-2 rotate-90">
+            <a href={Brochure} download className="z-50 items-center gap-2 fixed -left-36 hover:-left-24 transition-all text-xl pb-36 rounded-t-lg text-white top-16 hover:bg-amber-500 hover:font-semibold hidden bg-[#a1740c] px-3 py-2 rotate-90 md:flex">
                 <IoDocument />
                 Brochure
             </a>
 
             {/* Main Content */}
             <main
-                className="flex-grow min-h-screen bg-fixed bg-cover bg-center"
-                style={background ? { backgroundImage: `url(${Background})` } : { backgroundColor: "black" }}
-            >
+                className="flex-grow min-h-screen bg-fixed bg-repeat bg-cover bg-center"
+                style={background ? { backgroundImage: `url(${Background})` } : { backgroundColor: "black" }}>
                 {visible ? children : (
-                    <div className="text-white text-2xl flex h-screen items-center justify-center w-full">Kindly <Link className="text-blue-500" to={"/register"}>{" Register/Login "}</Link> to access the page!</div>
-                )}
+                    <div className="text-white text-2xl flex h-screen items-center justify-center w-full">Kindly <Link className="text-blue-500" to={"/register"}>{" Register/Login "}</Link> to access the page!</div>)}
             </main>
 
             {/* Page Footer */}

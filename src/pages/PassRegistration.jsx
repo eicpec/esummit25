@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { db, getUserPassInfo } from "../utils/firebaseConfig";
+import { db, storage, getUserPassInfo } from "../utils/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { passData } from "../data/passData";
 import Layout from "../layouts/Layout";
@@ -10,7 +11,7 @@ import { toast } from "react-toastify";
 const PassForm = () => {
     const { passName } = useParams();
     const passDetails = passData.find(pass => pass.link === passName);
-    const [formData, setFormData] = useState({ txnId: "" });
+    const [formData, setFormData] = useState({ txnId: "", screenshot: "" });
     const [loading, setLoading] = useState(false);
     const auth = getAuth();
     const user = auth.currentUser;
@@ -28,9 +29,7 @@ const PassForm = () => {
     };
 
     useEffect(() => {
-        if (!user) {
-            return;
-        };
+        if (!user) return;
         fetchPassInfo();
         setFormData((prev) => ({
             ...prev,
@@ -41,6 +40,25 @@ const PassForm = () => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, txnId: e.target.value });
+    };
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setLoading(true);
+        const storageRef = ref(storage, `unstopScreenshots/${user.uid}_${file.name}`);
+
+        try {
+            await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(storageRef);
+            setFormData((prev) => ({ ...prev, screenshot: downloadURL }));
+            toast.success("Screenshot uploaded successfully!");
+        } catch (error) {
+            console.error("Error uploading screenshot:", error);
+            toast.error("Upload failed. Please try again.");
+        }
+        setLoading(false);
     };
 
     const handleSubmit = async (e) => {
@@ -59,6 +77,12 @@ const PassForm = () => {
             return;
         }
 
+        if (!formData.screenshot) {
+            toast.error("Please upload a payment screenshot!");
+            setLoading(false);
+            return;
+        }
+
         if (passInfo) {
             toast.error("You have already bought a " + passInfo?.passName + " Pass.");
             setLoading(false);
@@ -70,14 +94,15 @@ const PassForm = () => {
                 name: formData.name,
                 email: formData.email,
                 txnId: formData.txnId,
+                screenshot: formData.screenshot,
                 passName: passDetails.type,
                 status: "pending",
                 createdAt: new Date(),
-                userId: user.uid,  // Ensuring the user is authenticated
+                userId: user.uid,
             });
 
             toast.success("Form submitted! Await admin approval.");
-            setFormData({ txnId: "" });
+            setFormData({ txnId: "", screenshot: "" });
             navigate("/profile");
         } catch (error) {
             console.error("Error submitting form: ", error);
@@ -86,7 +111,6 @@ const PassForm = () => {
         }
         setLoading(false);
     };
-
 
     return (
         <Layout children={<div className="flex py-24 min-h-screen bg-gray-900 text-white p-8">
@@ -112,13 +136,14 @@ const PassForm = () => {
                     <input type="text" value={formData?.name || ""} className="w-full p-2 border rounded-lg bg-gray-100" readOnly />
                     <input type="email" value={formData?.email || ""} className="w-full p-2 border rounded-lg bg-gray-100" readOnly />
                     <input type="text" placeholder="Enter Transaction ID" value={formData.txnId} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
+                    <input type="file" accept="image/*" onChange={handleFileUpload} className="w-full p-2 border rounded-lg" required />
                     <button type="submit" className="w-full bg-green-600 text-white p-2 rounded-lg" disabled={loading}>
                         {loading ? "Submitting..." : "Submit"}
                     </button>
                 </form>
-                    <p className="mt-4">Note:</p>
-                    <p>1. Name and E-mail are filled automatically and CANNOT be editable.</p>
-                    <p>2. This action is irreversible. Once submitted, verification request will be sent to the admin and the pass will be alloted within 12-24 hours.</p>
+                <p className="mt-4">Note:</p>
+                <p>1. Name and E-mail are filled automatically and CANNOT be editable.</p>
+                <p>2. This action is irreversible. Once submitted, verification request will be sent to the admin and the pass will be alloted within 12-24 hours.</p>
             </div>
         </div>}
         />
