@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 const Passes = () => {
     // Separate passes into two categories
     const startupPasses = passData.slice(4, 7); // Last 3 as Startup Passes
-    const studentPasses = passData.slice(0, 4); // First 4 as Student Passes
+    // const studentPasses = passData.slice(0, 4); // First 4 as Student Passes
     const [currentUser, setCurrentUser] = useState(null); // Track logged-in user
     const [passInfo, setPassInfo] = useState("");
 
@@ -93,7 +93,7 @@ const Passes = () => {
                 </div>
 
                 {/* Student Passes */}
-                <h2 className="sectionTitle">Student Passes</h2>
+                {/* <h2 className="sectionTitle">Student Passes</h2>
                 <div className="container">
                     {studentPasses.map((pass, i) => (
                         <div className="passCard" key={i}>
@@ -117,7 +117,7 @@ const Passes = () => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> */}
             </div>
         </Layout>
     );
