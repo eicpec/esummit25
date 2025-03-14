@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef, useId } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { events } from "../../data/events.js";
-import { checkRegistrationStatus } from "../../utils/firebaseConfig.js";
-import { getAuth } from "firebase/auth";
+import { auth, checkRegistrationStatus, getCurrentUser } from "../../utils/firebaseConfig.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "../../styles/passes.css";
 import { RxCrossCircled } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,8 +27,25 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
   const id = useId();
   const ref = useRef(null);
   const navigate = useNavigate();
-  const auth = getAuth();
-  const user = auth.currentUser;
+  const [user, setUser] = useState({});
+  const [userDetails, setUserDetails] = useState({});
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        try {
+          const ud = await getCurrentUser();
+          setUserDetails(ud);
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Function to handle registration check when clicking an event
   const handleEventClick = (card) => {
@@ -49,7 +66,9 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
       toast.error("Please sign in to register for the event.");
       navigate("/register");
       return;
-    } else if (!user.college || !user.sid || !user.phone) {
+    } else if (!userDetails.college || !userDetails.sid || !userDetails.phone) {
+      console.log("user - ", userDetails);
+      console.log({ college: userDetails.college, phone: userDetails.phone, sid: userDetails.sid });
       toast.error(
         "Please complete your profile before registering in an event."
       );
@@ -133,11 +152,10 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 </p>
 
                 <button
-                  className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${
-                    isRegistered
-                      ? "bg-gray-500 text-white cursor-not-allowed"
-                      : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
-                  }`}
+                  className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${isRegistered
+                    ? "bg-gray-500 text-white cursor-not-allowed"
+                    : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
+                    }`}
                   disabled={isRegistered}
                 >
                   {isRegistered ? (
