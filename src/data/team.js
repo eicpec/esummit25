@@ -185,7 +185,7 @@ export const coreTeam = {
         {
             Email: "NA",
             Type: "Head",
-            Committee: "Tech Team",
+            Committee: "Website Head",
             Name: "Ayush Kansal",
             Photo: "/team/Ayush_web.jpg",
             Instagram: "NA",

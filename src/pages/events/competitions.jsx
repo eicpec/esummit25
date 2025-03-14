@@ -42,15 +42,15 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
     }
   };
 
-  const handleRegister = async (link) => {
+  const handleRegister = (link) => {
     if (!user) {
       toast.error("Please sign in to register for the event.");
       navigate("/register");
       return;
-    } else {
-      navigate(`/register/${link}`);
     }
+    navigate(`/register/${link}`);
   };
+  
 
   useOutsideClick(ref, () => setActive(null));
 
