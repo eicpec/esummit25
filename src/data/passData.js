@@ -120,3 +120,9 @@ export const passData = [
         exclusions: [],
     }
 ];
+
+export const passPriorityOrder = [
+    "silver-startup",
+    "gold-startup",
+    "platinum-startup"
+];

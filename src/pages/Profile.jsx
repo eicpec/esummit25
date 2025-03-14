@@ -185,14 +185,20 @@ const Profile = () => {
                     Click here to contact in case of any discrepancies or to upgrade your pass!
                   </Link>
                 </>
-              ) : (
-                <>
-                  <p>No Pass Available!</p>
-                  <Link to="/passes" className="text-blue-400 hover:underline">
-                    Click here to buy a pass
-                  </Link>
-                </>
-              )}
+              ) : passInfo?.status === "rejected" ? (
+                <p className="text-red-400 font-semibold">
+                  Your request for the ({passInfo?.passName}) pass has been delisted by our team.
+                  If you believe this is an error or need assistance, please <Link className="underline" to={"/contact"}>reach out to us.</Link>
+                </p>
+              ) :
+                (
+                  <>
+                    <p>No Pass Available!</p>
+                    <Link to="/passes" className="text-blue-400 hover:underline">
+                      Click here to buy a pass
+                    </Link>
+                  </>
+                )}
             </div>
           </div>
 
