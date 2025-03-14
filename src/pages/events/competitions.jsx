@@ -49,10 +49,15 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
       toast.error("Please sign in to register for the event.");
       navigate("/register");
       return;
+    } else if (!user.college || !user.sid || !user.phone) {
+      toast.error(
+        "Please complete your profile before registering in an event."
+      );
+      navigate("/profile");
+      return;
     }
     navigate(`/register/${link}`);
   };
-  
 
   useOutsideClick(ref, () => setActive(null));
 
@@ -106,29 +111,42 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 {active?.team && (
                   <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
                     <FaUsers className="text-white" />
-                    <span>Team Size: {active?.team?.min + " - " + active?.team?.max}</span>
+                    <span>
+                      Team Size: {active?.team?.min + " - " + active?.team?.max}
+                    </span>
                   </div>
                 )}
 
-                {active?.unstopLink &&
+                {active?.unstopLink && (
                   <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
                     <FaLink className="text-white" />
-                    <span><Link to={`${active?.unstopLink}`}>Register on Unstop</Link></span>
+                    <span>
+                      <Link to={`${active?.unstopLink}`}>
+                        Register on Unstop
+                      </Link>
+                    </span>
                   </div>
-                }
+                )}
 
                 <p className="text-gray-200 text-base text-center mt-2 leading-relaxed">
                   {active.About || "No description available."}
                 </p>
 
                 <button
-                  className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${isRegistered
+                  className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${
+                    isRegistered
                       ? "bg-gray-500 text-white cursor-not-allowed"
                       : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
-                    }`}
+                  }`}
                   disabled={isRegistered}
                 >
-                  {isRegistered ? "Already Registered" : <div onClick={() => handleRegister(active?.EventLink)}>Register Now</div>}
+                  {isRegistered ? (
+                    "Already Registered"
+                  ) : (
+                    <div onClick={() => handleRegister(active?.EventLink)}>
+                      Register Now
+                    </div>
+                  )}
                 </button>
               </motion.div>
             </div>
@@ -142,7 +160,8 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
               layoutId={`card-${card.EventName}-${id}`}
               className="cursor-pointer p-4 bg-black rounded-3xl border-2 border-transparent w-[260px] transition-all duration-300 hover:scale-105 shadow-lg"
               style={{
-                borderImage: "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
+                borderImage:
+                  "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
                 clipPath: "inset(0 round 15px)",
               }}
               onClick={() => handleEventClick(card)} // Updated function call
@@ -152,7 +171,9 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 alt={card.EventName}
                 className="w-full h-64 object-cover rounded-xl"
               />
-              <h3 className="text-xl font-semibold mt-3 text-white">{card.EventName}</h3>
+              <h3 className="text-xl font-semibold mt-3 text-white">
+                {card.EventName}
+              </h3>
             </motion.div>
           ))}
         </div>
