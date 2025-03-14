@@ -1,14 +1,14 @@
-import BuildAndPitch from "../assets/Contests/BuildAndPitch.png";
-import BizQuiz from "../assets/Contests/BizQuiz.png";
-import SpeakerSessions from "../assets/Contests/SpeakerSession.png";
-import BargainBattles from "../assets/Contests/BargainBattles.png";
-import Bazaar from "../assets/Contests/Bazaar.png";
-import IPLAuction from "../assets/Contests/IPLAuction.png";
-import FundingConclave from "../assets/Contests/FundingConclave.png";
-import NetworkingArena from "../assets/Contests/NetworkArena.png";
-import Hackathon from "../assets/Contests/Hackathon.png";
-import CaseStudy from "../assets/Contests/CaseStudy.png";
-import TreasureHunt from "../assets/Contests/treasurehunt.png";
+import BuildAndPitch from "/Contests/BuildAndPitch.png";
+import BizQuiz from "/Contests/BizQuiz.png";
+import SpeakerSessions from "/Contests/SpeakerSession.png";
+import BargainBattles from "/Contests/BargainBattles.png";
+import Bazaar from "/Contests/Bazaar.png";
+import IPLAuction from "/Contests/IPLAuction.png";
+import FundingConclave from "/Contests/FundingConclave.png";
+import NetworkingArena from "/Contests/NetworkArena.png";
+import Hackathon from "/Contests/Hackathon.png";
+import CaseStudy from "/Contests/CaseStudy.png";
+import TreasureHunt from "/Contests/treasurehunt.png";
 
 export const events = [
   {
