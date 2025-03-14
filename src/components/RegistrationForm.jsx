@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase.js";
-import { collection, addDoc, doc, getDoc, query, where, getDocs } from "firebase/firestore";
+import { 
+  collection, 
+  addDoc, 
+  doc, 
+  getDoc 
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; // ✅ Fixed import
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../layouts/Layout";
 import { toast } from "react-toastify";
@@ -10,6 +16,8 @@ import { eventData } from "../data/eventsData.js";
 const RegistrationForm = () => {
   const { eventType } = useParams();
   const navigate = useNavigate();
+  const storage = getStorage(); // ✅ Initialize Firebase Storage
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -17,6 +25,7 @@ const RegistrationForm = () => {
     unstopid: "",
     screenshot: null,
   });
+
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -52,7 +61,7 @@ const RegistrationForm = () => {
 
   const uploadFile = async (file, folder) => {
     if (!file) return null;
-    const storageRef = ref(storage, `${folder}/${file.name}`);
+    const storageRef = ref(storage, `${folder}/${file.name}`); // ✅ Corrected ref usage
     await uploadBytes(storageRef, file);
     return await getDownloadURL(storageRef);
   };
@@ -122,7 +131,7 @@ const RegistrationForm = () => {
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-semibold mb-2">Unstop ID</label>
-                <input type="text" name="unstopid" onChange={handleChange} value={formData.unstopid} className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" />
+                <input type="text" name="unstopid" onChange={handleChange} value={formData.unstopid} className="w-full px-4 py-3 rounded-lg bg-gray-800 text-amber-500 focus:outline-none" required/>
               </div>
 
               {/* Unstop Screenshot Upload */}

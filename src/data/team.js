@@ -3,7 +3,7 @@ export const coreTeam = {
         {
             Email: "NA",
             Type: "Convener",
-            Committee: "Co-Convener",
+            Committee: "Convenor",
             Name: "Chirag Gupta",
             Photo: "/team/Chirag_convenor.png",
             Instagram: "NA",
@@ -13,7 +13,7 @@ export const coreTeam = {
         {
             Email: "NA",
             Type: "Convener",
-            Committee: "Convener",
+            Committee: "Convenor",
             Name: "Sukhmanpreet Singh",
             Photo: "/team/Sukhman_convenor.jpg",
             Instagram: "NA",
