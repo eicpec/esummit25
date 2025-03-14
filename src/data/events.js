@@ -8,7 +8,7 @@ import FundingConclave from "../assets/Contests/FundingConclave.png";
 import NetworkingArena from "../assets/Contests/NetworkArena.png";
 import Hackathon from "../assets/Contests/Hackathon.png";
 import CaseStudy from "../assets/Contests/CaseStudy.png";
-import TreasureHunt from "../assets/Contests/TreasureHunt.png";
+import TreasureHunt from "../assets/Contests/treasurehunt.png";
 
 export const events = [
   {
