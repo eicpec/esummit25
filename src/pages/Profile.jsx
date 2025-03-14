@@ -141,9 +141,9 @@ const Profile = () => {
                 </div>
               ) : (
                 <div className="mt-4">
-                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "N/A"}</p>
-                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "N/A"}</p>
-                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "N/A"}</p>
+                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "Your college"}</p>
+                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "Your phone number"}</p>
+                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "Your roll number"}</p>
                   <button onClick={handleEditToggle} className="mt-4 w-full cursor-pointer text-green-400 bg-[#37493c] py-2 rounded-lg active:scale-95">Edit</button>
                 </div>
               )}
