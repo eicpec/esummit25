@@ -54,7 +54,7 @@ const PassForm = () => {
 
         setLoading(true);
         setLoadingText("Uploading Proof...")
-        const storageRef = ref(storage, `unstopScreenshots/${user.uid}_${file.name}`);
+        const storageRef = ref(storage, `unstopScreenshots/${user.uid}_${user.displayName}_${file.name}`);
 
         try {
             await uploadBytes(storageRef, file);

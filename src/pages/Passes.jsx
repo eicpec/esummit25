@@ -115,11 +115,11 @@ const Passes = () => {
                                         onClick={() => handleClick(pass.link)}
                                         className={passPriorityOrder.indexOf(pass.link) > passPriorityOrder.indexOf(passInfo?.passLink) && passInfo?.status !== "rejected" ? "upgrade" : "available"}
                                     >
-                                        {passPriorityOrder.indexOf(pass.link) > passPriorityOrder.indexOf(passInfo?.passLink) && passInfo?.status !== "rejected" ? "Upgrade" : passInfo?.status === "rejected" ? "Buy Now" : "Unavailable"}
+                                        {passPriorityOrder.indexOf(pass.link) > passPriorityOrder.indexOf(passInfo?.passLink) && passInfo?.status !== "rejected" ? "Upgrade" : passInfo?.status === "rejected" ? "Buy Now" : "Not Valid"}
                                     </button>
                                 )}
 
-                                {pass.sold && <button className="unavailable">Unavailable</button>}
+                                {pass.sold && <button className="unavailable">Not Valid</button>}
                             </div>
                         </div>
                     ))}

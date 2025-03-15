@@ -81,8 +81,8 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
       navigate("/register");
       return;
     } else if (!userDetails.college || !userDetails.sid || !userDetails.phone) {
-      console.log("user - ", userDetails);
-      console.log({ college: userDetails.college, phone: userDetails.phone, sid: userDetails.sid });
+      // console.log("user - ", userDetails);
+      // console.log({ college: userDetails.college, phone: userDetails.phone, sid: userDetails.sid });
       toast.error(
         "Please complete your profile before registering in an event."
       );

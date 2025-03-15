@@ -73,8 +73,20 @@ const RegistrationForm = () => {
   };
 
   const uploadFile = async (file, folder) => {
-    if (!file) return null;
-    const storageRef = ref(storage, `${folder}/${file.name}`);
+    if (!file || !currentUser) return null;
+
+    // Extract user info
+    const username = currentUser.displayName
+      ? currentUser.displayName.replace(/\s+/g, "_")
+      : "user";
+    const randomNum = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
+    // const fileExtension = file.name.split(".").pop(); // Get file extension
+
+    // Construct file name: username_eventname_randomnumber.extension
+    const customFileName = `${username}_${eventType}_${randomNum}_${file.name}`;
+
+    // Upload to Firebase Storage
+    const storageRef = ref(storage, `${folder}/${customFileName}`);
     await uploadBytes(storageRef, file);
     return await getDownloadURL(storageRef);
   };
@@ -226,17 +238,14 @@ const RegistrationForm = () => {
                 )}
               </div>
 
-              {/* Register Button with Animations */}
               <button
                 type="submit"
-                className={`w-full py-3 font-bold rounded-lg transition-all duration-300 transform ${
-                  isSubmitting
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-105"
+                className={`w-full py-3 font-bold rounded-lg ${
+                  isSubmitting ? "bg-gray-600 cursor-not-allowed" : "bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-105"
                 } text-white`}
-                disabled={isSubmitting}
+                disabled={isSubmitting || uploading}
               >
-                {isSubmitting ? "Registering..." : "Register Now"}
+                {isSubmitting  ? "Registering..." : (uploading ? "Uploading":"Register Now")}
               </button>
             </form>
           </div>
