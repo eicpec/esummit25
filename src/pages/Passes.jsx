@@ -49,7 +49,7 @@ const Passes = () => {
         if (!currentUser) {
             toast.error("Login Required!");
             navigate("/register");
-        } 
+        }
         // check if the passInfo is coming and the status is NOT rejected - it is either verified or pending
         else if (passInfo && passInfo?.status !== "rejected") {
             console.log("else if case");
@@ -63,12 +63,12 @@ const Passes = () => {
                     toast.info(`Please contact us so that we can assist you further!`);
                     navigate("/contact");
                 }, 1000); // Delay of 1000 milliseconds (1 second)
-            } 
+            }
             // user tried to degrade
             else {
                 toast.error(`You already have a ${passInfo?.passName} Pass.`);
             }
-        } 
+        }
         else {
             console.log("else case");
             navigate(`/pass/${passLink}`);
@@ -112,14 +112,25 @@ const Passes = () => {
                                     }</button>
                                 ) : (
                                     <button
-                                        onClick={() => handleClick(pass.link)}
-                                        className={passPriorityOrder.indexOf(pass.link) > passPriorityOrder.indexOf(passInfo?.passLink) && passInfo?.status !== "rejected" ? "upgrade" : "available"}
+                                        onClick={() => handleClick(pass?.link)}
+                                        className={passInfo?.status === undefined || passInfo?.status === null || passInfo?.status === "rejected"
+                                            ? "available"
+                                            : passPriorityOrder.indexOf(pass?.link) > passPriorityOrder.indexOf(passInfo?.passLink)
+                                                ? "upgrade"
+                                                : "available"
+                                        }
                                     >
-                                        {passPriorityOrder.indexOf(pass.link) > passPriorityOrder.indexOf(passInfo?.passLink) && passInfo?.status !== "rejected" ? "Upgrade" : passInfo?.status === "rejected" ? "Buy Now" : "Not Valid"}
+                                        {passInfo?.status === undefined || passInfo?.status === null || passInfo?.status === "rejected"
+                                            ? "Buy Now"
+                                            : passPriorityOrder.indexOf(pass?.link) > passPriorityOrder.indexOf(passInfo?.passLink)
+                                                ? "Upgrade"
+                                                : "Not Valid"
+                                        }
                                     </button>
                                 )}
 
-                                {pass.sold && <button className="unavailable">Not Valid</button>}
+
+                                {pass.sold && <button className="unavailable">Unavailable</button>}
                             </div>
                         </div>
                     ))}

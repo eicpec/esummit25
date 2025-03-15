@@ -18,10 +18,32 @@ import Layout from "./layouts/Layout.jsx";
 import Profile from "./pages/Profile.jsx";
 import PassRegistration from "./pages/PassRegistration.jsx";
 import RegistrationForm from "./components/RegistrationForm.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [animationLoading, setAnimationLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const isAdminLoggedIn = localStorage.getItem('isAdminAuthenticated');
+    const authExpiryTime = localStorage.getItem('authExpiryTime');
+
+    if (isAdminLoggedIn && authExpiryTime) {
+      const currentTime = Date.now();
+
+      if (currentTime > Number(authExpiryTime)) {
+        localStorage.removeItem('isAdminAuthenticated');
+        localStorage.removeItem('authExpiryTime');
+        setIsAuthenticated(false);
+      } else {
+        setIsAuthenticated(true);
+      }
+    }
+  }, []);
+
 
   useEffect(() => {
     const lastSeenAnimation = localStorage.getItem("lastSeenAnimation");
@@ -71,6 +93,8 @@ function App() {
           <Route path="/contact" element={<ContactUsPage />} />
           <Route path="/passes" element={<Passes />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin-login" element={<AdminLogin setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/eicadmin" element={<ProtectedRoute element={<AdminPage />} isAuthenticated={isAuthenticated} />} />
           <Route path="/pass/:passName" element={<PassRegistration />} />
         </Routes>
       )}
