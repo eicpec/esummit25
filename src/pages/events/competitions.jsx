@@ -8,6 +8,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaClock, FaLink, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { Troubleshoot } from "@mui/icons-material";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -29,6 +30,8 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [userDetails, setUserDetails] = useState({});
+  const [isopen, setOpen] = useState(true);
+  const [forreg, setForReg] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -59,6 +62,17 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
     } else {
       setIsRegistered(false);
     }
+    var today = new Date();
+    // console.log(today.getDate());
+    // console.log(card.reg);
+    if (card.reg >= today.getDate() && card.regmon >= today.getMonth() + 1) {
+      setOpen(true);
+    }
+    else{
+      setOpen(false);
+    }
+    console.log(card.forreg);
+    setForReg(card.forreg);
   };
 
   const handleRegister = (link) => {
@@ -158,13 +172,18 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                     }`}
                   disabled={isRegistered}
                 >
-                  {isRegistered ? (
+                  { forreg ?
+                   (isopen ? 
+                  ((isRegistered ? (
                     "Already Registered"
-                  ) : (
+                  ) :
+                   (
                     <div onClick={() => handleRegister(active?.EventLink)}>
                       Register Now
                     </div>
-                  )}
+                  ))):
+                  ("Registeration Closed")):
+                  ("No Registration Required") }
                 </button>
               </motion.div>
             </div>
