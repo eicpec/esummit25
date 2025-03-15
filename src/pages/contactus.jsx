@@ -22,13 +22,13 @@ const ContactUsPage = () => {
               <ContactCard
                 title="Faculty Coordinator"
                 name="Dr. Simranjit Singh"
-                phone="+91 98725 52898"
+                // phone="+91 98725 52898"
                 accent="cyan"
               />
               <ContactCard
                 title="Faculty Co-coordinator"
                 name="Dr. Sudesh Rani"
-                phone="+91 98768 60085"
+                // phone="+91 98768 60085"
                 accent="emerald"
               />
               <ContactCard

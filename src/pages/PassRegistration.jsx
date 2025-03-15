@@ -3,40 +3,46 @@ import { useNavigate, useParams } from "react-router-dom";
 import { db, storage, getUserPassInfo } from "../utils/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { passData } from "../data/passData";
 import Layout from "../layouts/Layout";
 import { toast } from "react-toastify";
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { bankDetails } from "../data/bankDetails"
 
 const PassForm = () => {
     const { passName } = useParams();
     const passDetails = passData.find(pass => pass.link === passName);
+
     const [formData, setFormData] = useState({ txnId: "", screenshot: "" });
     const [loading, setLoading] = useState(false);
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const [passInfo, setPassInfo] = useState("");
+    const [user, setUser] = useState(null);
+    const [passInfo, setPassInfo] = useState(null);
+    const [popup, setPopUp] = useState(false);
+    const [loadingtext, setLoadingText] = useState("Loading...");
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            if (currentUser) {
+                fetchPassInfo();
+            }
+        });
+        return () => unsubscribe();
+    }, []);
 
     const fetchPassInfo = async () => {
         try {
-            const passin = await getUserPassInfo();
-            console.log(passin);
-            setPassInfo(passin);
+            const passData = await getUserPassInfo();
+            setPassInfo(passData);
         } catch (error) {
-            console.error(error.message);
+            console.error("Error fetching pass info:", error);
         }
     };
-
-    useEffect(() => {
-        if (!user) return;
-        fetchPassInfo();
-        setFormData((prev) => ({
-            ...prev,
-            name: user.displayName || "",
-            email: user.email || ""
-        }));
-    }, [user]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, txnId: e.target.value });
@@ -44,15 +50,16 @@ const PassForm = () => {
 
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
-        if (!file) return;
+        if (!file || !user) return;
 
         setLoading(true);
-        const storageRef = ref(storage, `unstopScreenshots/${user.uid}_${file.name}`);
+        setLoadingText("Uploading Proof...")
+        const storageRef = ref(storage, `unstopScreenshots/${user.uid}_${user.displayName}_${file.name}`);
 
         try {
             await uploadBytes(storageRef, file);
             const downloadURL = await getDownloadURL(storageRef);
-            setFormData((prev) => ({ ...prev, screenshot: downloadURL }));
+            setFormData(prev => ({ ...prev, screenshot: downloadURL }));
             toast.success("Screenshot uploaded successfully!");
         } catch (error) {
             console.error("Error uploading screenshot:", error);
@@ -64,6 +71,7 @@ const PassForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setLoadingText("Submitting...");
 
         if (!user) {
             toast.error("You must be logged in to submit the form!");
@@ -84,16 +92,17 @@ const PassForm = () => {
         }
 
         if (passInfo) {
-            toast.error("You have already bought a " + passInfo?.passName + " Pass.");
+            toast.error(`You have already bought a ${passInfo?.passName} Pass.`);
             setLoading(false);
             return;
         }
 
         try {
             await addDoc(collection(db, "passRegistrations"), {
-                name: formData.name,
-                email: formData.email,
+                name: user.displayName,
+                email: user.email,
                 txnId: formData.txnId,
+                passLink: passDetails.link,
                 screenshot: formData.screenshot,
                 passName: passDetails.type,
                 status: "pending",
@@ -113,40 +122,55 @@ const PassForm = () => {
     };
 
     return (
-        <Layout children={<div className="flex py-24 min-h-screen bg-gray-900 text-white p-8">
-            <div className="w-1/2 bg-gray-800 p-6 rounded-lg">
-                <h2 className="text-2xl font-bold text-gray-200">{passDetails.type}</h2>
-                <p className="text-lg font-semibold text-green-400">{passDetails.cost}</p>
-                <h3 className="mt-4 text-lg font-semibold text-green-300">✅ Inclusions:</h3>
-                <ul className="mt-2 space-y-1">
-                    {passDetails.inclusions.map((item, index) => (
-                        <li key={index} className="text-sm">✔ {item}</li>
-                    ))}
-                </ul>
-                <h3 className="mt-4 text-lg font-semibold text-red-400">❌ Exclusions:</h3>
-                <ul className="mt-2 space-y-1">
-                    {passDetails.exclusions.map((item, index) => (
-                        <li key={index} className="text-sm">✖ {item}</li>
-                    ))}
-                </ul>
-            </div>
+        <Layout>
+            <div className="flex flex-col md:flex-row py-24 min-h-screen bg-gray-900 text-white p-8 gap-8">
+                <div className="md:w-1/2 bg-gray-800 p-6 rounded-lg">
+                    <h2 className="text-2xl font-bold text-gray-200">{passDetails.type}</h2>
+                    <p className="text-lg font-semibold text-green-400">{passDetails.cost}</p>
+                    <h3 className="mt-4 text-lg font-semibold text-green-300">✅ Inclusions:</h3>
+                    <ul className="mt-2 space-y-1">
+                        {passDetails.inclusions.map((item, index) => (
+                            <li key={index} className="text-sm">✔ {item}</li>
+                        ))}
+                    </ul>
+                    <h3 className="mt-4 text-lg font-semibold text-red-400">❌ Exclusions:</h3>
+                    <ul className="mt-2 space-y-1">
+                        {passDetails.exclusions.map((item, index) => (
+                            <li key={index} className="text-sm">✖ {item}</li>
+                        ))}
+                    </ul>
+                </div>
 
-            <div className="w-1/2 bg-gray-200 text-black p-6 rounded-lg">
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input type="text" value={formData?.name || ""} className="w-full p-2 border rounded-lg bg-gray-100" readOnly />
-                    <input type="email" value={formData?.email || ""} className="w-full p-2 border rounded-lg bg-gray-100" readOnly />
-                    <input type="text" placeholder="Enter Transaction ID" value={formData.txnId} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
-                    <input type="file" accept="image/*" onChange={handleFileUpload} className="w-full p-2 border rounded-lg" required />
-                    <button type="submit" className="w-full bg-green-600 text-white p-2 rounded-lg" disabled={loading}>
-                        {loading ? "Submitting..." : "Submit"}
-                    </button>
-                </form>
-                <p className="mt-4">Note:</p>
-                <p>1. Name and E-mail are filled automatically and CANNOT be editable.</p>
-                <p>2. This action is irreversible. Once submitted, verification request will be sent to the admin and the pass will be alloted within 12-24 hours.</p>
+                <div className="md:w-1/2 bg-gray-200 text-black p-6 rounded-lg">
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input type="text" value={user?.displayName || ""} className="w-full p-2 border rounded-lg bg-gray-100" readOnly />
+                        <input type="email" value={user?.email || ""} className="w-full p-2 border rounded-lg bg-gray-100" readOnly />
+                        <input type="text" placeholder="Enter Transaction ID" value={formData.txnId} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
+                        <input type="file" accept="image/*" onChange={handleFileUpload} className="w-full p-2 border rounded-lg" required />
+                        <div className="flex flex-col">
+                            <div onClick={() => setPopUp(!popup)} className="flex items-center gap-2 justify-center">
+                                {!popup ? "Show" : "Hide"} Bank Details {!popup ? <IoMdArrowDropdown size={20} /> : <IoMdArrowDropup size={20} />}
+                            </div>
+                            {popup ?
+                                <div className="bg-white px-2 py-1 rounded-xl mt-3">
+                                    <p><b>Account Number :</b> {bankDetails.accountNumber}</p>
+                                    <p><b>GSTIN :</b> {bankDetails.gst}</p>
+                                    <p><b>IFSC Code :</b> {bankDetails.ifscCode}</p>
+                                    <p><b>Code of Bank :</b> {bankDetails.codeOfBank}</p>
+                                    <p><b>Branch Code :</b> {bankDetails.branchCode}</p>
+                                    <p><b>Acount Holder Name :</b> {bankDetails.accountName}</p>
+                                </div>
+                                :
+                                ""
+                            }
+                        </div>
+                        <button type="submit" className="w-full cursor-pointer active:scale-95 bg-green-600 text-white p-2 rounded-lg" disabled={loading}>
+                            {loading ? loadingtext : "Submit"}
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>}
-        />
+        </Layout>
     );
 };
 

@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useRef, useId } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { events } from "../../data/events.js";
-import { checkRegistrationStatus } from "../../utils/firebaseConfig.js";
-import { getAuth } from "firebase/auth";
+import { auth, checkRegistrationStatus, getCurrentUser } from "../../utils/firebaseConfig.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "../../styles/passes.css";
 import { RxCrossCircled } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaClock, FaLink, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { Troubleshoot } from "@mui/icons-material";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -27,8 +28,27 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
   const id = useId();
   const ref = useRef(null);
   const navigate = useNavigate();
-  const auth = getAuth();
-  const user = auth.currentUser;
+  const [user, setUser] = useState({});
+  const [userDetails, setUserDetails] = useState({});
+  const [isopen, setOpen] = useState(true);
+  const [forreg, setForReg] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        try {
+          const ud = await getCurrentUser();
+          setUserDetails(ud);
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Function to handle registration check when clicking an event
   const handleEventClick = (card) => {
@@ -42,6 +62,17 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
     } else {
       setIsRegistered(false);
     }
+    var today = new Date();
+    // console.log(today.getDate());
+    // console.log(card.reg);
+    if (card.reg >= today.getDate() && card.regmon >= today.getMonth() + 1) {
+      setOpen(true);
+    }
+    else{
+      setOpen(false);
+    }
+    console.log(card.forreg);
+    setForReg(card.forreg);
   };
 
   const handleRegister = (link) => {
@@ -49,10 +80,17 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
       toast.error("Please sign in to register for the event.");
       navigate("/register");
       return;
+    } else if (!userDetails.college || !userDetails.sid || !userDetails.phone) {
+      // console.log("user - ", userDetails);
+      // console.log({ college: userDetails.college, phone: userDetails.phone, sid: userDetails.sid });
+      toast.error(
+        "Please complete your profile before registering in an event."
+      );
+      navigate("/profile");
+      return;
     }
     navigate(`/register/${link}`);
   };
-  
 
   useOutsideClick(ref, () => setActive(null));
 
@@ -106,16 +144,22 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 {active?.team && (
                   <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
                     <FaUsers className="text-white" />
-                    <span>Team Size: {active?.team?.min + " - " + active?.team?.max}</span>
+                    <span>
+                      Team Size: {active?.team?.min + " - " + active?.team?.max}
+                    </span>
                   </div>
                 )}
 
-                {active?.unstopLink &&
+                {active?.unstopLink && (
                   <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
                     <FaLink className="text-white" />
-                    <span><Link to={`${active?.unstopLink}`}>Register on Unstop</Link></span>
+                    <span>
+                      <Link to={`${active?.unstopLink}`}>
+                        Register on Unstop
+                      </Link>
+                    </span>
                   </div>
-                }
+                )}
 
                 <p className="text-gray-200 text-base text-center mt-2 leading-relaxed">
                   {active.About || "No description available."}
@@ -123,12 +167,23 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
 
                 <button
                   className={`mt-6 block text-center py-3 w-full rounded-xl font-medium transition-transform shadow-lg ${isRegistered
-                      ? "bg-gray-500 text-white cursor-not-allowed"
-                      : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
+                    ? "bg-gray-500 text-white cursor-not-allowed"
+                    : "bg-gradient-to-r from-green-400 to-green-600 text-white hover:scale-105 hover:shadow-green-500/50"
                     }`}
                   disabled={isRegistered}
                 >
-                  {isRegistered ? "Already Registered" : <div onClick={() => handleRegister(active?.EventLink)}>Register Now</div>}
+                  { forreg ?
+                   (isopen ? 
+                  ((isRegistered ? (
+                    "Already Registered"
+                  ) :
+                   (
+                    <div onClick={() => handleRegister(active?.EventLink)}>
+                      Register Now
+                    </div>
+                  ))):
+                  ("Registeration Closed")):
+                  ("No Registration Required") }
                 </button>
               </motion.div>
             </div>
@@ -142,7 +197,8 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
               layoutId={`card-${card.EventName}-${id}`}
               className="cursor-pointer p-4 bg-black rounded-3xl border-2 border-transparent w-[260px] transition-all duration-300 hover:scale-105 shadow-lg"
               style={{
-                borderImage: "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
+                borderImage:
+                  "linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1",
                 clipPath: "inset(0 round 15px)",
               }}
               onClick={() => handleEventClick(card)} // Updated function call
@@ -152,7 +208,9 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                 alt={card.EventName}
                 className="w-full h-64 object-cover rounded-xl"
               />
-              <h3 className="text-xl font-semibold mt-3 text-white">{card.EventName}</h3>
+              <h3 className="text-xl font-semibold mt-3 text-white">
+                {card.EventName}
+              </h3>
             </motion.div>
           ))}
         </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Instagram, YouTube, X, Facebook, LinkedIn, Mail, Phone } from "@mui/icons-material";
+import PEC from '/team/pec_logo.png';
+import EIC from '/team/eic_logo.png';
 
 const Footer = () => {
     return (
@@ -31,8 +33,8 @@ const Footer = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-6">
                 {/* Logo Section */}
                 <div className="flex flex-col items-center">
-                    <img onClick={() => window.location.href = "https://pec.ac.in"} src="https://www.eicpec.in/assets/logos/pec.png" height="80" width="80" alt="PEC" className="mb-4 cursor-pointer" />
-                    <img src="https://www.eicpec.in/assets/logos/eic.png" height="80" width="80" alt="EIC" />
+                    <img onClick={() => window.location.href = "https://pec.ac.in"} src= {PEC} height="80" width="80" alt="PEC" className="mb-4 cursor-pointer" />
+                    <img src={EIC} height="80" width="80" alt="EIC" />
                 </div>
 
                 {/* Quick Links */}

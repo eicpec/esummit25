@@ -141,9 +141,9 @@ const Profile = () => {
                 </div>
               ) : (
                 <div className="mt-4">
-                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "N/A"}</p>
-                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "N/A"}</p>
-                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "N/A"}</p>
+                  <p className="text-gray-400 flex items-center"><IoSchoolSharp className="mr-2" /> {formData.college || "Your college"}</p>
+                  <p className="text-gray-400 flex items-center"><FaPhoneAlt className="mr-2" /> {formData.phone || "Your phone number"}</p>
+                  <p className="text-gray-400 flex items-center"><FaRegIdCard className="mr-2" /> {formData.sid || "Your roll number"}</p>
                   <button onClick={handleEditToggle} className="mt-4 w-full cursor-pointer text-green-400 bg-[#37493c] py-2 rounded-lg active:scale-95">Edit</button>
                 </div>
               )}
@@ -185,14 +185,20 @@ const Profile = () => {
                     Click here to contact in case of any discrepancies or to upgrade your pass!
                   </Link>
                 </>
-              ) : (
-                <>
-                  <p>No Pass Available!</p>
-                  <Link to="/passes" className="text-blue-400 hover:underline">
-                    Click here to buy a pass
-                  </Link>
-                </>
-              )}
+              ) : passInfo?.status === "rejected" ? (
+                <p className="text-red-400 font-semibold">
+                  Your request for the ({passInfo?.passName}) pass has been delisted by our team.
+                  If you believe this is an error or need assistance, please <Link className="underline" to={"/contact"}>reach out to us.</Link>
+                </p>
+              ) :
+                (
+                  <>
+                    <p>No Pass Available!</p>
+                    <Link to="/passes" className="text-blue-400 hover:underline">
+                      Click here to buy a pass
+                    </Link>
+                  </>
+                )}
             </div>
           </div>
 
