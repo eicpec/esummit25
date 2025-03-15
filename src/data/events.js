@@ -182,7 +182,7 @@ export const events = [
       reg: '20',
       regmon: '03',
       team: { max: 4, min: 1 },
-      unstopLink: "https://unstop.com/quiz/treasure-hunt-e-summit25-punjab-engineering-college-pec-chandigarh-1426976",
+      unstopLink: "",
     },
     
 ];

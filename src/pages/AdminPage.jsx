@@ -46,7 +46,7 @@ const AdminPage = () => {
         const confirmDelete = window.confirm("This action cannot be reversed. Do you want to proceed?");
         if (confirmDelete) {
             const password = prompt("Enter admin password to proceed:");
-            if (password === import.meta.env.DELETE_PASSWORD) {
+            if (password === import.meta.env.VITE_DELETE_PASSWORD) {
                 try {
                     const passRef = doc(db, "passRegistrations", passId);
                     await deleteDoc(passRef);

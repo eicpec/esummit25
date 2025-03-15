@@ -9,8 +9,7 @@ const AdminLogin = ({ setIsAuthenticated }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const correctPassword = import.meta.env.PASSWORD;
-
+        const correctPassword = import.meta.env.VITE_PASSWORD;
         if (password === correctPassword) {
             const expiryTime = Date.now() + 60 * 60 * 1000; // 1 hour validity
             localStorage.setItem('isAdminAuthenticated', true);

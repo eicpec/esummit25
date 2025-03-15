@@ -96,6 +96,7 @@ function App() {
           <Route path="/admin-login" element={<AdminLogin setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/eicadmin" element={<ProtectedRoute element={<AdminPage />} isAuthenticated={isAuthenticated} />} />
           <Route path="/pass/:passName" element={<PassRegistration />} />
+          <Route path='*' element={<Home />}/>
         </Routes>
       )}
     </>
