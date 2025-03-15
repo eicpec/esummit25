@@ -10,7 +10,6 @@ const AdminLogin = ({ setIsAuthenticated }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const correctPassword = import.meta.env.PASSWORD;
-        console.log(correctPassword);
 
         if (password === correctPassword) {
             const expiryTime = Date.now() + 60 * 60 * 1000; // 1 hour validity
