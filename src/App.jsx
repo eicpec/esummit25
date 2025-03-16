@@ -21,6 +21,7 @@ import RegistrationForm from "./components/RegistrationForm.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import Display from "./components/IPL AUCTION/display.jsx";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -97,8 +98,12 @@ function App() {
           <Route path="/eicadmin" element={<ProtectedRoute element={<AdminPage />} isAuthenticated={isAuthenticated} />} />
           <Route path="/pass/:passName" element={<PassRegistration />} />
           <Route path='*' element={<Home />}/>
+          
         </Routes>
+       
+        
       )}
+       <Display />
     </>
   );
 }
