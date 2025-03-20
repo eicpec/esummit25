@@ -96,14 +96,15 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin-login" element={<AdminLogin setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/eicadmin" element={<ProtectedRoute element={<AdminPage />} isAuthenticated={isAuthenticated} />} />
+          <Route path="/iplauction" element ={<Layout><Display /></Layout>} />
           <Route path="/pass/:passName" element={<PassRegistration />} />
           <Route path='*' element={<Home />}/>
+          
           
         </Routes>
        
         
       )}
-       <Display />
     </>
   );
 }

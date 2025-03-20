@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "../layouts/Layout";
-import DAY1 from "../assets/Schedule/1.png";
-import DAY2 from "../assets/Schedule/2.png";
-import Soon from "../../public/soon.png"
-import Guess from "../assets/Dignitaries/guess.png"
-import sch1 from "../team/sch1.png";
-import sch2 from "../team/sch2.png";
+// import DAY1 from "../assets/Schedule/1.png";
+// import DAY2 from "../assets/Schedule/2.png";
+// import Soon from "../../public/soon.png"
+// import Guess from "../assets/Dignitaries/guess.png"
+import sch1 from "/team/sch1.jpg";
+import sch2 from "/team/sch2.jpg";
 function TimelineDemo() {
     return (
         <Layout>

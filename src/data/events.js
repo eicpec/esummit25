@@ -104,6 +104,7 @@ export const events = [
     forreg : true,
     reg: '16',
     regmon: '03',
+    organizer : true,
     unstopLink: "https://unstop.com/quiz/ipl-auction-e-summit25-punjab-engineering-college-pec-chandigarh-1424081",
   },
   {

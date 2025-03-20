@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaClock, FaLink, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Troubleshoot } from "@mui/icons-material";
+import { Navigate } from "react-router-dom";
 
 const useOutsideClick = (ref, callback) => {
   useEffect(() => {
@@ -75,6 +76,15 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
     setForReg(card.forreg);
   };
 
+  const handleIPL = () => {
+    const passkey = prompt("Enter Passkey:");
+    const correctPasskey = "1234"; 
+    if (passkey === import.meta.env.VITE_IPL_PASSKEY) {
+      navigate("/iplauction");
+    } else {
+      alert("Incorrect Passkey. Access Denied.");
+    }
+  };
   const handleRegister = (link) => {
     if (!user) {
       toast.error("Please sign in to register for the event.");
@@ -159,6 +169,17 @@ const ExpandableCardDemo = ({ onRegisterClick }) => {
                       </Link>
                     </span>
                   </div>
+                )}
+
+                {active?.organizer && (
+                  <div className="flex justify-center items-center gap-2 mt-2 text-gray-300">
+                  <FaLink className="text-white" />
+                  <span>
+                    <button onClick={handleIPL}>
+                      Organizer?
+                    </button>
+                  </span>
+                </div>
                 )}
 
                 <p className="text-gray-200 text-base text-center mt-2 leading-relaxed">

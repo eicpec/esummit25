@@ -5,36 +5,24 @@ import ekant from "../assets/Dignitaries/ekant.jpg"
 import tina from "../assets/Dignitaries/tina.jpg"
 import mohit from "../assets/Dignitaries/mohit.jpg"
 import mohd from "../assets/Dignitaries/mohd.jpg"
+import Paras from "/team/Paras.png";
+import Arsh from "/team/Arsh.png";
+import Rohan from "/team/Rohan.png";
 
 export const speakers = [
     {
-        image: Guess,
-        name: "Revealing Soon!",
+        image: Paras,
+        name: "Paras Madan",
         designation: "E-Summit 2025"
     },
     {
-        image: Guess,
-        name: "Revealing Soon!",
+        image: Arsh,
+        name: "Arsh Goyal",
         designation: "E-Summit 2025"
     },
     {
-        image: Guess,
-        name: "Revealing Soon!",
-        designation: "E-Summit 2025"
-    },
-    {
-        image: Guess,
-        name: "Revealing Soon!",
-        designation: "E-Summit 2025"
-    },
-    {
-        image: Guess,
-        name: "Revealing Soon!",
-        designation: "E-Summit 2025"
-    },
-    {
-        image: Guess,
-        name: "Revealing Soon!",
+        image: Rohan,
+        name: "RJ Rohan ",
         designation: "E-Summit 2025"
     },
     {

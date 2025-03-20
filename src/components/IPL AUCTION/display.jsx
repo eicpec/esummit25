@@ -2570,7 +2570,7 @@ function Display() {
 
 
   return (
-    <div className="w-[100wv] h-[100vh]">
+    <div className="w-[100wv] h-[100vh] mt-25">
       <div className="bg-slate-300 w-full h-full pt-8">
         <h1 className="mb-12 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-center font-serif">IPL Auction Pecfest'24</h1>
 

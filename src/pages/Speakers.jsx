@@ -7,8 +7,8 @@ const Speakers = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   // Separating speakers into Influencers (1-4) and Investors (5-15)
-  const influencers = speakers.slice(0, 6);
-  const investors = speakers.slice(6);
+  const influencers = speakers.slice(0, 3);
+  const investors = speakers.slice(3);
 
   return (
     <Layout header={true}>
