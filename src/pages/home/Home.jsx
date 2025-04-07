@@ -9,6 +9,7 @@ import { pvsData } from "../../data/pvsData.js"
 import { sponsors } from "../../data/sponsors.js"
 import { products } from "../../data/parallax.js"
 import Sponsers from "../Sponsers.jsx"
+import SponsorsMarquee from "../sponsors.jsx";
 
 function HeroParallaxDemo() {
     return (
@@ -30,6 +31,8 @@ function Home() {
                     <h1 className="mx-4 md:text-7xl text-5xl text-center text-white font-semibold">Previous Investors</h1>
                     <PastSpeakers data={pvsData.investors} direction={0} />
                     {/* <Sponsers/> */}
+                    <h1 className="mx-4 md:text-7xl text-5xl text-center text-white font-semibold">Our Sponsors</h1>
+                    <SponsorsMarquee data={sponsors} direction={1} />
                 </>
             } />
         </>
